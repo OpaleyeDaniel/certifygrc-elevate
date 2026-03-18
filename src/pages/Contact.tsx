@@ -1,0 +1,164 @@
+import { useState } from "react";
+import { Mail, Phone, MapPin, Send, MessageSquare, Headphones, Handshake } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import {
+  Accordion, AccordionContent, AccordionItem, AccordionTrigger,
+} from "@/components/ui/accordion";
+import SectionHeading from "@/components/SectionHeading";
+
+const supportCategories = [
+  { icon: MessageSquare, title: "Sales", description: "Learn about our platform and services", email: "sales@certifygrc.com" },
+  { icon: Headphones, title: "Technical Support", description: "Get help with platform issues", email: "support@certifygrc.com" },
+  { icon: Handshake, title: "Partnerships", description: "Explore partnership opportunities", email: "partners@certifygrc.com" },
+];
+
+const faqs = [
+  { q: "What industries does CertifyGRC serve?", a: "We serve regulated industries including finance & banking, healthcare, government, IT & cybersecurity, manufacturing, and SMEs. Our solutions are adaptable to any organization that needs robust GRC capabilities." },
+  { q: "How long does implementation typically take?", a: "Implementation timelines vary based on scope and complexity. A typical single-framework implementation takes 4-8 weeks, while multi-framework deployments may take 3-6 months." },
+  { q: "Do you offer custom consulting engagements?", a: "Absolutely. Every consulting engagement is tailored to your organization's specific regulatory requirements, risk profile, and business objectives." },
+  { q: "What frameworks does your platform support?", a: "Our platform supports NIST CSF, ISO 27001, SOC 2, PCI DSS, COBIT, ISO 20000, ISO 22301, ISO 42001, PIPEDA, and many more. We continuously add new framework support." },
+  { q: "Is the platform available for on-premise deployment?", a: "Yes, our Enterprise plan includes an on-premise deployment option for organizations with strict data residency requirements." },
+];
+
+export default function ContactPage() {
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 3000);
+  };
+
+  return (
+    <>
+      {/* Hero */}
+      <section className="section-padding relative overflow-hidden">
+        <div className="absolute inset-0 gradient-bg" />
+        <div className="container-wide relative z-10 text-center">
+          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary border border-primary/20 mb-6">
+            Contact Us
+          </span>
+          <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-foreground tracking-tight mb-6">
+            Let's <span className="gradient-text">Connect</span>
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Whether you have questions about our platform, need consulting expertise, or want to explore partnership opportunities — we're here to help.
+          </p>
+        </div>
+      </section>
+
+      {/* Contact Info + Form */}
+      <section className="section-padding">
+        <div className="container-wide">
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Left - Info */}
+            <div>
+              <h2 className="font-display font-bold text-2xl text-foreground mb-6">Get in Touch</h2>
+              <div className="space-y-4 mb-10">
+                <div className="flex items-start gap-4 p-4 rounded-xl glass">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground text-sm">Office</h3>
+                    <p className="text-sm text-muted-foreground">325 Front St W, Suite 300, Toronto, ON M5V 2Y1</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4 p-4 rounded-xl glass">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground text-sm">Email</h3>
+                    <p className="text-sm text-muted-foreground">info@certifygrc.com</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4 p-4 rounded-xl glass">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground text-sm">Phone</h3>
+                    <p className="text-sm text-muted-foreground">+1 (942) 788-2515</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Support Categories */}
+              <h3 className="font-display font-semibold text-lg text-foreground mb-4">Support Categories</h3>
+              <div className="space-y-3">
+                {supportCategories.map((cat) => (
+                  <div key={cat.title} className="flex items-center gap-3 p-3 rounded-lg glass">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <cat.icon className="w-4 h-4 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-foreground text-sm">{cat.title}</h4>
+                      <p className="text-xs text-muted-foreground">{cat.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right - Form */}
+            <div className="glass rounded-2xl p-8 glow-border">
+              <h2 className="font-display font-bold text-2xl text-foreground mb-6">Send a Message</h2>
+              {submitted ? (
+                <div className="flex flex-col items-center justify-center py-16 gap-4 animate-scale-in">
+                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Send className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="font-display font-semibold text-xl text-foreground">Message Sent!</h3>
+                  <p className="text-muted-foreground text-center text-sm">We'll respond within 24 hours.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Full Name</Label>
+                      <Input id="name" required placeholder="John Doe" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email</Label>
+                      <Input id="email" type="email" required placeholder="john@company.com" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="subject">Subject</Label>
+                    <Input id="subject" required placeholder="How can we help?" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Message</Label>
+                    <Textarea id="message" required placeholder="Tell us about your needs..." rows={5} />
+                  </div>
+                  <Button type="submit" className="w-full glow-primary">
+                    Send Message <Send className="w-4 h-4 ml-1" />
+                  </Button>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="section-padding bg-muted/20">
+        <div className="container-narrow">
+          <SectionHeading badge="FAQ" title="Frequently Asked Questions" description="Quick answers to common questions about CertifyGRC." />
+          <Accordion type="single" collapsible className="max-w-2xl mx-auto">
+            {faqs.map((faq, i) => (
+              <AccordionItem key={i} value={`faq-${i}`}>
+                <AccordionTrigger className="text-left font-medium text-foreground">{faq.q}</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">{faq.a}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+    </>
+  );
+}
