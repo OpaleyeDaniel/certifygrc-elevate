@@ -1,28 +1,13 @@
-import { GraduationCap, Shield, Brain, BookOpen, ArrowRight, Clock } from "lucide-react";
+import { GraduationCap, Shield, Brain, BookOpen, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
+import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const categories = [
-  {
-    icon: Shield,
-    title: "ISO & Standards Training",
-    courses: ["ISO 27001 Lead Implementer", "ISO 27001 Lead Auditor", "ISO 22301 Foundation", "ISO 20000 Practitioner"],
-  },
-  {
-    icon: Brain,
-    title: "Cybersecurity Programs",
-    courses: ["NIST CSF Implementation", "SOC 2 Readiness", "PCI DSS Compliance", "Incident Response Planning"],
-  },
-  {
-    icon: BookOpen,
-    title: "Governance & Risk",
-    courses: ["COBIT 2019 Foundation", "Enterprise Risk Management", "IT Governance Essentials", "Regulatory Compliance"],
-  },
-  {
-    icon: GraduationCap,
-    title: "AI & Emerging Tech",
-    courses: ["AI Governance Fundamentals", "NIST AI RMF Workshop", "Responsible AI Practices", "Data Ethics"],
-  },
+  { icon: Shield, title: "ISO & Standards Training", courses: ["ISO 27001 Lead Implementer", "ISO 27001 Lead Auditor", "ISO 22301 Foundation", "ISO 20000 Practitioner"] },
+  { icon: Brain, title: "Cybersecurity Programs", courses: ["NIST CSF Implementation", "SOC 2 Readiness", "PCI DSS Compliance", "Incident Response Planning"] },
+  { icon: BookOpen, title: "Governance & Risk", courses: ["COBIT 2019 Foundation", "Enterprise Risk Management", "IT Governance Essentials", "Regulatory Compliance"] },
+  { icon: GraduationCap, title: "AI & Emerging Tech", courses: ["AI Governance Fundamentals", "NIST AI RMF Workshop", "Responsible AI Practices", "Data Ethics"] },
 ];
 
 export default function ELearningPage() {
@@ -51,26 +36,30 @@ export default function ELearningPage() {
       {/* Course Categories */}
       <section className="section-padding">
         <div className="container-wide">
-          <SectionHeading badge="Course Catalog" title="Learning Paths" description="Structured programs across four key domains of GRC excellence." />
+          <ScrollReveal>
+            <SectionHeading badge="Course Catalog" title="Learning Paths" description="Structured programs across four key domains of GRC excellence." />
+          </ScrollReveal>
           <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {categories.map((cat, i) => (
-              <div key={cat.title} className="glass rounded-2xl p-8 hover-lift glow-border animate-fade-in" style={{ animationDelay: `${i * 0.15}s`, opacity: 0 }}>
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                  <cat.icon className="w-6 h-6 text-primary" />
+              <ScrollReveal key={cat.title} delay={i * 0.1}>
+                <div className="glass rounded-2xl p-8 hover-lift glow-border h-full group">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <cat.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="font-display font-semibold text-xl text-foreground mb-4">{cat.title}</h3>
+                  <ul className="space-y-2 mb-6">
+                    {cat.courses.map((course) => (
+                      <li key={course} className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
+                        {course}
+                      </li>
+                    ))}
+                  </ul>
+                  <Button variant="outline" className="w-full border-primary/30" disabled>
+                    Coming Soon
+                  </Button>
                 </div>
-                <h3 className="font-display font-semibold text-xl text-foreground mb-4">{cat.title}</h3>
-                <ul className="space-y-2 mb-6">
-                  {cat.courses.map((course) => (
-                    <li key={course} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
-                      {course}
-                    </li>
-                  ))}
-                </ul>
-                <Button variant="outline" className="w-full border-primary/30" disabled>
-                  Coming Soon
-                </Button>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -78,24 +67,26 @@ export default function ELearningPage() {
 
       {/* CTA */}
       <section className="section-padding bg-muted/20">
-        <div className="container-narrow text-center">
-          <h2 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-4">
-            Get Early Access
-          </h2>
-          <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-            Be among the first to access our comprehensive GRC training programs. Sign up for notifications.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <Button className="w-full sm:w-auto glow-primary px-8 whitespace-nowrap">
-              Notify Me
-            </Button>
+        <ScrollReveal>
+          <div className="container-narrow text-center">
+            <h2 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-4">
+              Get Early Access
+            </h2>
+            <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
+              Be among the first to access our comprehensive GRC training programs. Sign up for notifications.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+              />
+              <Button className="w-full sm:w-auto glow-primary px-8 whitespace-nowrap">
+                Notify Me
+              </Button>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
     </>
   );
