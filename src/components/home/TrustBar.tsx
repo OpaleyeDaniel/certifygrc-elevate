@@ -1,30 +1,32 @@
-import SectionHeading from "@/components/SectionHeading";
+import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const logos = [
-  "FinServ Corp", "SecureHealth", "GovTech", "CyberShield",
-  "DataGuard", "ComplianceAI", "RiskMatrix", "AuditPro",
+  "FinServ Corp", "SecureHealth", "GovTech Solutions", "CyberShield Inc",
+  "DataGuard Pro", "ComplianceAI", "RiskMatrix", "AuditPro Systems",
 ];
 
 export default function TrustBar() {
   return (
-    <section className="py-16 border-y border-border/30">
-      <div className="container-wide">
-        <p className="text-center text-sm text-muted-foreground mb-8 font-medium">
-          Trusted by regulated organizations across finance, healthcare, and government
-        </p>
-        <div className="relative overflow-hidden">
-          <div className="flex gap-12 animate-scroll">
-            {[...logos, ...logos].map((logo, i) => (
-              <div
-                key={i}
-                className="flex-shrink-0 px-6 py-3 rounded-lg bg-muted/30 border border-border/30 text-muted-foreground text-sm font-medium whitespace-nowrap"
-              >
-                {logo}
-              </div>
-            ))}
+    <ScrollReveal>
+      <section className="py-16 border-y border-border/30">
+        <div className="container-wide">
+          <p className="text-center text-sm text-muted-foreground mb-8 font-medium tracking-wide uppercase">
+            Trusted by regulated organizations across finance, healthcare, and government
+          </p>
+          <div className="relative overflow-hidden mask-fade">
+            <div className="flex gap-8 animate-scroll">
+              {[...logos, ...logos, ...logos].map((logo, i) => (
+                <div
+                  key={i}
+                  className="flex-shrink-0 px-8 py-3 rounded-lg bg-muted/20 border border-border/20 text-muted-foreground/60 text-sm font-semibold whitespace-nowrap tracking-wide"
+                >
+                  {logo}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </ScrollReveal>
   );
 }

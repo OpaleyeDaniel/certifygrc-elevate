@@ -3,6 +3,8 @@ import { ArrowRight, Monitor, BarChart3, Shield, Workflow, Plug, Lock, Sparkles,
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import BookingModal from "@/components/BookingModal";
+import { ScrollReveal } from "@/hooks/useScrollReveal";
+import heroDashboard from "@/assets/hero-dashboard.png";
 
 const features = [
   { icon: Monitor, title: "Unified Dashboard", description: "Single pane of glass for all your GRC metrics, compliance status, and risk indicators." },
@@ -29,6 +31,10 @@ export default function SoftwarePage() {
       {/* Hero */}
       <section className="section-padding relative overflow-hidden">
         <div className="absolute inset-0 gradient-bg" />
+        <div className="absolute inset-0 opacity-[0.02]" style={{
+          backgroundImage: `linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
+        }} />
         <div className="container-wide relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary border border-primary/20 mb-6">
@@ -40,7 +46,7 @@ export default function SoftwarePage() {
             <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl mx-auto">
               Purpose-built software that unifies compliance tracking, risk management, and audit operations into a single, intelligent platform designed for regulated enterprises.
             </p>
-            <Button size="lg" onClick={() => setDemoOpen(true)} className="glow-primary text-base px-8">
+            <Button size="lg" onClick={() => setDemoOpen(true)} className="glow-primary text-base px-8 h-12">
               Request a Demo <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           </div>
@@ -50,42 +56,34 @@ export default function SoftwarePage() {
       {/* Dashboard Preview */}
       <section className="section-padding bg-muted/20">
         <div className="container-wide">
-          <SectionHeading badge="Platform Preview" title="Command Center for Compliance" description="Every metric, control, and risk indicator — unified in real-time." />
-          <div className="glass rounded-2xl p-8 glow-border max-w-4xl mx-auto">
-            <div className="grid grid-cols-4 gap-4 mb-6">
-              {[
-                { label: "Frameworks", value: "8", sub: "Active" },
-                { label: "Controls", value: "247", sub: "Mapped" },
-                { label: "Tasks", value: "12", sub: "Pending" },
-                { label: "Score", value: "96%", sub: "Compliance" },
-              ].map((m) => (
-                <div key={m.label} className="rounded-xl bg-muted/30 p-4 text-center">
-                  <p className="text-xs text-muted-foreground">{m.label}</p>
-                  <p className="font-display font-bold text-2xl text-primary">{m.value}</p>
-                  <p className="text-[10px] text-muted-foreground">{m.sub}</p>
-                </div>
-              ))}
+          <ScrollReveal>
+            <SectionHeading badge="Platform Preview" title="Command Center for Compliance" description="Every metric, control, and risk indicator — unified in real-time." />
+          </ScrollReveal>
+          <ScrollReveal delay={0.15}>
+            <div className="rounded-2xl overflow-hidden glow-border max-w-4xl mx-auto shadow-2xl shadow-primary/5">
+              <img src={heroDashboard} alt="CertifyGRC Platform Dashboard" className="w-full h-auto" />
             </div>
-            <div className="rounded-xl bg-muted/30 p-6 h-48 flex items-center justify-center">
-              <p className="text-muted-foreground text-sm">Interactive Dashboard Preview</p>
-            </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Features */}
       <section className="section-padding">
         <div className="container-wide">
-          <SectionHeading badge="Features" title="Everything You Need" description="A comprehensive feature set designed for enterprise-grade GRC operations." />
+          <ScrollReveal>
+            <SectionHeading badge="Features" title="Everything You Need" description="A comprehensive feature set designed for enterprise-grade GRC operations." />
+          </ScrollReveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {features.map((f, i) => (
-              <div key={f.title} className="glass rounded-xl p-6 hover-lift glow-border animate-fade-in" style={{ animationDelay: `${i * 0.08}s`, opacity: 0 }}>
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <f.icon className="w-5 h-5 text-primary" />
+              <ScrollReveal key={f.title} delay={i * 0.06}>
+                <div className="h-full glass rounded-xl p-6 hover-lift glow-border group">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <f.icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <h3 className="font-display font-semibold text-foreground mb-2">{f.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{f.description}</p>
                 </div>
-                <h3 className="font-display font-semibold text-foreground mb-2">{f.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{f.description}</p>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -94,12 +92,16 @@ export default function SoftwarePage() {
       {/* Integrations */}
       <section className="section-padding bg-muted/20">
         <div className="container-wide">
-          <SectionHeading badge="Integrations" title="Connects With Your Stack" description="Pre-built connectors for the tools your team already uses." />
+          <ScrollReveal>
+            <SectionHeading badge="Integrations" title="Connects With Your Stack" description="Pre-built connectors for the tools your team already uses." />
+          </ScrollReveal>
           <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
-            {integrations.map((name) => (
-              <div key={name} className="px-5 py-3 rounded-xl glass hover-lift text-sm font-medium text-foreground">
-                {name}
-              </div>
+            {integrations.map((name, i) => (
+              <ScrollReveal key={name} delay={i * 0.04}>
+                <div className="px-5 py-3 rounded-xl glass hover-lift text-sm font-medium text-foreground">
+                  {name}
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -107,17 +109,19 @@ export default function SoftwarePage() {
 
       {/* CTA */}
       <section className="section-padding">
-        <div className="container-narrow text-center">
-          <h2 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-4">
-            See the Platform in Action
-          </h2>
-          <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-            Schedule a personalized demo and discover how CertifyGRC can transform your compliance operations.
-          </p>
-          <Button size="lg" onClick={() => setDemoOpen(true)} className="glow-primary text-base px-8">
-            Book Your Demo <ArrowRight className="w-4 h-4 ml-1" />
-          </Button>
-        </div>
+        <ScrollReveal>
+          <div className="container-narrow text-center">
+            <h2 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-4">
+              See the Platform in Action
+            </h2>
+            <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
+              Schedule a personalized demo and discover how CertifyGRC can transform your compliance operations.
+            </p>
+            <Button size="lg" onClick={() => setDemoOpen(true)} className="glow-primary text-base px-8 h-12">
+              Book Your Demo <ArrowRight className="w-4 h-4 ml-1" />
+            </Button>
+          </div>
+        </ScrollReveal>
       </section>
 
       <BookingModal open={demoOpen} onOpenChange={setDemoOpen} type="demo" />
