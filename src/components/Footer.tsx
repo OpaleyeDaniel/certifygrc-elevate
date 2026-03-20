@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { Shield, Mail, Phone, MapPin, Linkedin, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Twitter } from "lucide-react";
+import logo from "@/assets/certifygrc-logo.png";
 
 const footerLinks = {
   Platform: [
@@ -26,13 +27,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
-                <Shield className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <span className="font-display font-bold text-lg tracking-tight text-foreground">
-                Certify<span className="text-primary">GRC</span>
-              </span>
+            <Link to="/" className="inline-block mb-4">
+              <img src={logo} alt="CertifyGRC" className="h-8 w-auto" />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6 max-w-sm">
               Practical GRC solutions — simplified, intelligent, and secure. Empowering organizations to navigate governance, risk, and compliance with confidence.

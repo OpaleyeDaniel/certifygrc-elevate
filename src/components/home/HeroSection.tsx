@@ -33,22 +33,36 @@ export default function HeroSection({ onBookDemo, onBookConsultation }: HeroSect
         backgroundSize: "60px 60px",
       }} />
 
-      {/* Animated gradient orbs */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
-        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-primary/8 rounded-full blur-[120px] animate-float" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-accent/8 rounded-full blur-[120px] animate-float" style={{ animationDelay: "3s" }} />
-        <div className="absolute top-[40%] left-[50%] w-[300px] h-[300px] bg-primary/5 rounded-full blur-[80px] animate-float" style={{ animationDelay: "1.5s" }} />
-      </div>
-
-      {/* Flowing lines */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.06]" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,200 Q400,100 800,250 T1600,200" fill="none" stroke="hsl(var(--primary))" strokeWidth="1.5">
-          <animate attributeName="d" dur="10s" repeatCount="indefinite" values="M0,200 Q400,100 800,250 T1600,200;M0,250 Q400,180 800,150 T1600,250;M0,200 Q400,100 800,250 T1600,200" />
+      {/* Animated gradient lines */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="line1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0" />
+            <stop offset="30%" stopColor="hsl(var(--primary))" stopOpacity="0.15" />
+            <stop offset="70%" stopColor="hsl(var(--accent))" stopOpacity="0.1" />
+            <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="line2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity="0" />
+            <stop offset="40%" stopColor="hsl(var(--accent))" stopOpacity="0.12" />
+            <stop offset="60%" stopColor="hsl(var(--primary))" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <path d="M0,180 Q400,80 800,220 T1600,180" fill="none" stroke="url(#line1)" strokeWidth="1">
+          <animate attributeName="d" dur="12s" repeatCount="indefinite" values="M0,180 Q400,80 800,220 T1600,180;M0,220 Q400,160 800,120 T1600,220;M0,180 Q400,80 800,220 T1600,180" />
         </path>
-        <path d="M0,400 Q400,300 800,450 T1600,400" fill="none" stroke="hsl(var(--accent))" strokeWidth="1">
-          <animate attributeName="d" dur="12s" repeatCount="indefinite" values="M0,400 Q400,300 800,450 T1600,400;M0,350 Q400,450 800,350 T1600,350;M0,400 Q400,300 800,450 T1600,400" />
+        <path d="M0,350 Q500,280 900,400 T1800,350" fill="none" stroke="url(#line2)" strokeWidth="1">
+          <animate attributeName="d" dur="15s" repeatCount="indefinite" values="M0,350 Q500,280 900,400 T1800,350;M0,310 Q500,400 900,300 T1800,310;M0,350 Q500,280 900,400 T1800,350" />
+        </path>
+        <path d="M0,520 Q300,460 700,550 T1400,500" fill="none" stroke="url(#line1)" strokeWidth="0.5">
+          <animate attributeName="d" dur="18s" repeatCount="indefinite" values="M0,520 Q300,460 700,550 T1400,500;M0,480 Q300,540 700,470 T1400,520;M0,520 Q300,460 700,550 T1400,500" />
         </path>
       </svg>
+
+      {/* Soft ambient glow */}
+      <div className="absolute top-[-15%] left-[-5%] w-[500px] h-[500px] bg-primary/5 rounded-full blur-[140px]" />
+      <div className="absolute bottom-[-15%] right-[-5%] w-[400px] h-[400px] bg-accent/5 rounded-full blur-[140px]" />
 
       <div className="container-wide relative z-10 py-20 md:py-28">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -68,7 +82,7 @@ export default function HeroSection({ onBookDemo, onBookConsultation }: HeroSect
               <span>Practical GRC Solutions —</span>
               <span
                 className={`inline-block font-semibold text-primary transition-all duration-400 ${
-                  isAnimating ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
+                  isAnimating ? "opacity-0 translate-y-2 blur-[2px]" : "opacity-100 translate-y-0 blur-0"
                 }`}
               >
                 {rotatingWords[wordIndex]}
@@ -80,11 +94,11 @@ export default function HeroSection({ onBookDemo, onBookConsultation }: HeroSect
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4 animate-fade-in" style={{ animationDelay: "0.4s", opacity: 0 }}>
-              <Button size="lg" onClick={onBookDemo} className="glow-primary text-base px-8 h-12">
+              <Button size="lg" onClick={onBookDemo} className="glow-primary text-base px-8 h-12 active:scale-[0.97] transition-transform">
                 Book a Demo
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
-              <Button size="lg" variant="outline" onClick={onBookConsultation} className="border-primary/30 hover:border-primary text-base px-8 h-12">
+              <Button size="lg" variant="outline" onClick={onBookConsultation} className="border-primary/30 hover:border-primary text-base px-8 h-12 active:scale-[0.97] transition-transform">
                 <Play className="w-4 h-4 mr-1" />
                 Book Consultation
               </Button>
@@ -109,7 +123,6 @@ export default function HeroSection({ onBookDemo, onBookConsultation }: HeroSect
                 className="w-full h-auto animate-float"
                 style={{ animationDuration: "8s" }}
               />
-              {/* Glare overlay */}
               <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-primary/5 to-transparent pointer-events-none" />
             </div>
 

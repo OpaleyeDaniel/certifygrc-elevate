@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import SectionHeading from "@/components/SectionHeading";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
+import contactHero from "@/assets/contact-hero.png";
 
 const supportCategories = [
   { icon: MessageSquare, title: "Sales", description: "Learn about our platform and services", email: "sales@certifygrc.com" },
@@ -38,16 +39,25 @@ export default function ContactPage() {
       {/* Hero */}
       <section className="section-padding relative overflow-hidden">
         <div className="absolute inset-0 gradient-bg" />
-        <div className="container-wide relative z-10 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary border border-primary/20 mb-6">
-            Contact Us
-          </span>
-          <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-foreground tracking-tight mb-6">
-            Let's <span className="gradient-text">Connect</span>
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Whether you have questions about our platform, need consulting expertise, or want to explore partnership opportunities — we're here to help.
-          </p>
+        <div className="container-wide relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="text-center lg:text-left">
+              <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary border border-primary/20 mb-6">
+                Contact Us
+              </span>
+              <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-foreground tracking-tight mb-6 leading-[1.1]">
+                Let's <span className="gradient-text">Connect</span>
+              </h1>
+              <p className="text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0">
+                Whether you have questions about our platform, need consulting expertise, or want to explore partnership opportunities — we're here to help.
+              </p>
+            </div>
+            <ScrollReveal>
+              <div className="rounded-2xl overflow-hidden glow-border shadow-2xl shadow-primary/5">
+                <img src={contactHero} alt="CertifyGRC Support Hub" className="w-full h-auto" />
+              </div>
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 
@@ -111,11 +121,11 @@ export default function ContactPage() {
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="name">Full Name</Label>
-                        <Input id="name" required placeholder="John Doe" />
+                        <Input id="name" required placeholder="Your full name" />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="email">Email</Label>
-                        <Input id="email" type="email" required placeholder="john@company.com" />
+                        <Input id="email" type="email" required placeholder="you@company.com" />
                       </div>
                     </div>
                     <div className="space-y-2">
@@ -126,7 +136,7 @@ export default function ContactPage() {
                       <Label htmlFor="message">Message</Label>
                       <Textarea id="message" required placeholder="Tell us about your needs..." rows={5} />
                     </div>
-                    <Button type="submit" className="w-full glow-primary">
+                    <Button type="submit" className="w-full glow-primary active:scale-[0.97] transition-transform">
                       Send Message <Send className="w-4 h-4 ml-1" />
                     </Button>
                   </form>

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import BookingModal from "@/components/BookingModal";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
-import heroDashboard from "@/assets/hero-dashboard.png";
+import softwareHero from "@/assets/software-hero.png";
 
 const features = [
   { icon: Monitor, title: "Unified Dashboard", description: "Single pane of glass for all your GRC metrics, compliance status, and risk indicators." },
@@ -36,32 +36,25 @@ export default function SoftwarePage() {
           backgroundSize: "60px 60px",
         }} />
         <div className="container-wide relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl mx-auto text-center mb-16">
             <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary border border-primary/20 mb-6">
               GRC Platform
             </span>
-            <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-foreground tracking-tight mb-6">
+            <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-foreground tracking-tight mb-6 leading-[1.1]">
               The Intelligent <span className="gradient-text">GRC Platform</span>
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl mx-auto">
               Purpose-built software that unifies compliance tracking, risk management, and audit operations into a single, intelligent platform designed for regulated enterprises.
             </p>
-            <Button size="lg" onClick={() => setDemoOpen(true)} className="glow-primary text-base px-8 h-12">
+            <Button size="lg" onClick={() => setDemoOpen(true)} className="glow-primary text-base px-8 h-12 active:scale-[0.97] transition-transform">
               Request a Demo <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           </div>
-        </div>
-      </section>
 
-      {/* Dashboard Preview */}
-      <section className="section-padding bg-muted/20">
-        <div className="container-wide">
+          {/* Dashboard Preview inline in hero */}
           <ScrollReveal>
-            <SectionHeading badge="Platform Preview" title="Command Center for Compliance" description="Every metric, control, and risk indicator — unified in real-time." />
-          </ScrollReveal>
-          <ScrollReveal delay={0.15}>
-            <div className="rounded-2xl overflow-hidden glow-border max-w-4xl mx-auto shadow-2xl shadow-primary/5">
-              <img src={heroDashboard} alt="CertifyGRC Platform Dashboard" className="w-full h-auto" />
+            <div className="rounded-2xl overflow-hidden glow-border max-w-5xl mx-auto shadow-2xl shadow-primary/5">
+              <img src={softwareHero} alt="CertifyGRC Platform Dashboard" className="w-full h-auto" />
             </div>
           </ScrollReveal>
         </div>
@@ -117,7 +110,7 @@ export default function SoftwarePage() {
             <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
               Schedule a personalized demo and discover how CertifyGRC can transform your compliance operations.
             </p>
-            <Button size="lg" onClick={() => setDemoOpen(true)} className="glow-primary text-base px-8 h-12">
+            <Button size="lg" onClick={() => setDemoOpen(true)} className="glow-primary text-base px-8 h-12 active:scale-[0.97] transition-transform">
               Book Your Demo <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           </div>
