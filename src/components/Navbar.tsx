@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Sun, Moon, Shield } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/ThemeProvider";
+import logo from "@/assets/certifygrc-logo.png";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -44,12 +45,7 @@ export default function Navbar({ onBookDemo, onBookConsultation }: NavbarProps) 
       <div className="container-wide flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center group-hover:glow-primary transition-all duration-300">
-            <Shield className="w-5 h-5 text-primary-foreground" />
-          </div>
-          <span className="font-display font-bold text-lg tracking-tight text-foreground">
-            Certify<span className="text-primary">GRC</span>
-          </span>
+          <img src={logo} alt="CertifyGRC" className="h-8 md:h-9 w-auto" />
         </Link>
 
         {/* Desktop Nav */}

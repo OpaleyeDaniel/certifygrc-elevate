@@ -2,6 +2,7 @@ import { GraduationCap, Shield, Brain, BookOpen, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
+import elearningHero from "@/assets/elearning-hero.png";
 
 const categories = [
   { icon: Shield, title: "ISO & Standards Training", courses: ["ISO 27001 Lead Implementer", "ISO 27001 Lead Auditor", "ISO 22301 Foundation", "ISO 20000 Practitioner"] },
@@ -16,19 +17,28 @@ export default function ELearningPage() {
       {/* Hero */}
       <section className="section-padding relative overflow-hidden">
         <div className="absolute inset-0 gradient-bg" />
-        <div className="container-wide relative z-10 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary border border-primary/20 mb-6">
-            E-Learning
-          </span>
-          <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-foreground tracking-tight mb-6">
-            Elevate Your <span className="gradient-text">GRC Expertise</span>
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            Professional development programs designed to build GRC competency across your entire organization — from foundational to advanced.
-          </p>
-          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent/10 text-accent border border-accent/20">
-            <Clock className="w-4 h-4" />
-            <span className="text-sm font-medium">Full Course Catalog Coming Soon</span>
+        <div className="container-wide relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="text-center lg:text-left">
+              <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary border border-primary/20 mb-6">
+                E-Learning
+              </span>
+              <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-foreground tracking-tight mb-6 leading-[1.1]">
+                Build Your <span className="gradient-text">GRC Expertise</span>
+              </h1>
+              <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0">
+                Professional development programs designed to build GRC competency across your entire organization — from foundational to advanced.
+              </p>
+              <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent/10 text-accent border border-accent/20">
+                <Clock className="w-4 h-4" />
+                <span className="text-sm font-medium">Full Course Catalog Coming Soon</span>
+              </div>
+            </div>
+            <ScrollReveal>
+              <div className="rounded-2xl overflow-hidden glow-border shadow-2xl shadow-primary/5">
+                <img src={elearningHero} alt="CertifyGRC E-Learning Platform" className="w-full h-auto" />
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -81,7 +91,7 @@ export default function ELearningPage() {
                 placeholder="Enter your email"
                 className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
               />
-              <Button className="w-full sm:w-auto glow-primary px-8 whitespace-nowrap">
+              <Button className="w-full sm:w-auto glow-primary px-8 whitespace-nowrap active:scale-[0.97] transition-transform">
                 Notify Me
               </Button>
             </div>
