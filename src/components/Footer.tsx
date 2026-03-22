@@ -4,19 +4,21 @@ import logo from "@/assets/certifygrc-logo.png";
 
 const footerLinks = {
   Platform: [
-    { label: "Software", path: "/software" },
-    { label: "Consulting", path: "/consulting" },
+    { label: "Application", path: "/software" },
+    { label: "Consulting Services", path: "/consulting" },
     { label: "E-Learning", path: "/e-learning" },
   ],
   Company: [
-    { label: "Contact", path: "/contact" },
-    { label: "Partners", path: "/partner" },
+    { label: "Contact Us", path: "/contact" },
+    { label: "Alliance", path: "/partner" },
   ],
   Frameworks: [
+    { label: "NIST CSF", path: "/consulting" },
     { label: "ISO 27001", path: "/consulting" },
     { label: "SOC 2", path: "/consulting" },
-    { label: "NIST CSF", path: "/consulting" },
     { label: "PCI DSS", path: "/consulting" },
+    { label: "COBIT", path: "/consulting" },
+    { label: "ISO 22301", path: "/consulting" },
   ],
 };
 
@@ -31,7 +33,7 @@ export default function Footer() {
               <img src={logo} alt="CertifyGRC" className="h-8 w-auto" />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6 max-w-sm">
-              Practical GRC solutions — simplified, intelligent, and secure. Empowering organizations to navigate governance, risk, and compliance with confidence.
+              Practical GRC solutions — simplified, intelligent, and secure. A comprehensive GRC ecosystem that aligns people, processes, and technology to protect your organization and support sustainable growth.
             </p>
             <div className="space-y-2 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">

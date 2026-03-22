@@ -5,6 +5,7 @@ import SectionHeading from "@/components/SectionHeading";
 import BookingModal from "@/components/BookingModal";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 import softwareHero from "@/assets/software-hero.png";
+import platformDashboard from "@/assets/platform-dashboard.png";
 
 const features = [
   { icon: Monitor, title: "Unified Dashboard", description: "Single pane of glass for all your GRC metrics, compliance status, and risk indicators." },
@@ -15,6 +16,12 @@ const features = [
   { icon: Lock, title: "Enterprise Security", description: "SOC 2 Type II certified. End-to-end encryption, SSO, MFA, and granular RBAC." },
   { icon: Sparkles, title: "AI Engine", description: "Machine learning-powered risk scoring, gap analysis, and remediation recommendations." },
   { icon: FileText, title: "Evidence Library", description: "Centralized evidence repository with automated collection, tagging, and audit-trail." },
+];
+
+const modules = [
+  { name: "Cybersecurity (NIST CSF 2.0)", desc: "Comprehensive cybersecurity posture management aligned with the NIST Cybersecurity Framework." },
+  { name: "Payment Security (PCI DSS)", desc: "End-to-end PCI DSS compliance tracking for organizations handling payment card data." },
+  { name: "Data Security (PIPEDA)", desc: "Privacy governance and PIPEDA compliance embedded into your business operations." },
 ];
 
 const integrations = [
@@ -44,14 +51,13 @@ export default function SoftwarePage() {
               The Intelligent <span className="gradient-text">GRC Platform</span>
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl mx-auto">
-              Purpose-built software that unifies compliance tracking, risk management, and audit operations into a single, intelligent platform designed for regulated enterprises.
+              A structured, audit-ready platform that helps organizations manage compliance, controls, and evidence — without spreadsheets or guesswork. We automate compliance tasks, control monitoring, and audit management.
             </p>
             <Button size="lg" onClick={() => setDemoOpen(true)} className="glow-primary text-base px-8 h-12 active:scale-[0.97] transition-transform">
               Request a Demo <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           </div>
 
-          {/* Dashboard Preview inline in hero */}
           <ScrollReveal>
             <div className="rounded-2xl overflow-hidden glow-border max-w-5xl mx-auto shadow-2xl shadow-primary/5">
               <img src={softwareHero} alt="CertifyGRC Platform Dashboard" className="w-full h-auto" />
@@ -60,8 +66,33 @@ export default function SoftwarePage() {
         </div>
       </section>
 
-      {/* Features */}
+      {/* Platform Modules */}
       <section className="section-padding">
+        <div className="container-wide">
+          <ScrollReveal>
+            <SectionHeading badge="Compliance Modules" title="Built for Your Framework" description="Pre-built compliance modules for the most critical regulatory standards." />
+          </ScrollReveal>
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            {modules.map((mod, i) => (
+              <ScrollReveal key={mod.name} delay={i * 0.1}>
+                <div className="glass rounded-xl p-6 hover-lift glow-border h-full group">
+                  <h3 className="font-display font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">{mod.name}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{mod.desc}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <ScrollReveal>
+            <div className="rounded-2xl overflow-hidden glow-border max-w-5xl mx-auto shadow-2xl shadow-primary/5">
+              <img src={platformDashboard} alt="CertifyGRC Platform – Operational Resilience Dashboard" className="w-full h-auto" />
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="section-padding bg-muted/20">
         <div className="container-wide">
           <ScrollReveal>
             <SectionHeading badge="Features" title="Everything You Need" description="A comprehensive feature set designed for enterprise-grade GRC operations." />
@@ -83,7 +114,7 @@ export default function SoftwarePage() {
       </section>
 
       {/* Integrations */}
-      <section className="section-padding bg-muted/20">
+      <section className="section-padding">
         <div className="container-wide">
           <ScrollReveal>
             <SectionHeading badge="Integrations" title="Connects With Your Stack" description="Pre-built connectors for the tools your team already uses." />
@@ -101,7 +132,7 @@ export default function SoftwarePage() {
       </section>
 
       {/* CTA */}
-      <section className="section-padding">
+      <section className="section-padding bg-muted/20">
         <ScrollReveal>
           <div className="container-narrow text-center">
             <h2 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-4">

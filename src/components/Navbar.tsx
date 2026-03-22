@@ -7,10 +7,11 @@ import logo from "@/assets/certifygrc-logo.png";
 
 const navLinks = [
   { label: "Home", path: "/" },
-  { label: "Software", path: "/software" },
+  { label: "Application", path: "/software" },
   { label: "Consulting Services", path: "/consulting" },
   { label: "E-Learning", path: "/e-learning" },
-  { label: "Contact", path: "/contact" },
+  { label: "Alliance", path: "/partner" },
+  { label: "Contact Us", path: "/contact" },
 ];
 
 interface NavbarProps {
@@ -18,7 +19,7 @@ interface NavbarProps {
   onBookConsultation: () => void;
 }
 
-export default function Navbar({ onBookDemo, onBookConsultation }: NavbarProps) {
+export default function Navbar({ onBookDemo }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
@@ -74,11 +75,8 @@ export default function Navbar({ onBookDemo, onBookConsultation }: NavbarProps) 
           >
             {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </button>
-          <Button variant="outline" size="sm" onClick={onBookConsultation} className="border-primary/30 hover:border-primary hover:bg-primary/5">
-            Book Consultation
-          </Button>
           <Button size="sm" onClick={onBookDemo} className="glow-primary">
-            Book Demo
+            Talk with an Advisor
           </Button>
         </div>
 
@@ -119,11 +117,8 @@ export default function Navbar({ onBookDemo, onBookConsultation }: NavbarProps) 
               </Link>
             ))}
             <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border/50">
-              <Button variant="outline" onClick={onBookConsultation} className="w-full border-primary/30">
-                Book Consultation
-              </Button>
               <Button onClick={onBookDemo} className="w-full glow-primary">
-                Book Demo
+                Talk with an Advisor
               </Button>
             </div>
           </div>

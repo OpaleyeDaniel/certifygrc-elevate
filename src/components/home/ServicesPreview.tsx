@@ -7,16 +7,16 @@ import { ScrollReveal } from "@/hooks/useScrollReveal";
 import { Link } from "react-router-dom";
 
 const services = [
-  { icon: Server, title: "IT Service Management", frameworks: "ITIL · ISO 20000" },
-  { icon: Shield, title: "IT Governance", frameworks: "COBIT · ISO 38500" },
-  { icon: Lock, title: "Information & Cybersecurity", frameworks: "NIST CSF · ISO 27001 · SOC 2" },
-  { icon: RefreshCw, title: "Business Continuity", frameworks: "BCI GPG · ISO 22301" },
-  { icon: CreditCard, title: "Payment Security", frameworks: "PCI DSS" },
-  { icon: Eye, title: "Privacy & Data Protection", frameworks: "PIPEDA · NIST Privacy" },
-  { icon: Brain, title: "AI Governance", frameworks: "NIST AI RMF · ISO 42001" },
-  { icon: Building2, title: "Enterprise Architecture", frameworks: "TOGAF · Zachman" },
-  { icon: Zap, title: "Agile Project Management", frameworks: "Scrum · SAFe" },
-  { icon: Landmark, title: "OSFI Compliance", frameworks: "B-13 · B-10 · E-21" },
+  { icon: Server, title: "IT Service Management", frameworks: "ITIL · ISO 20000", description: "End-to-end IT service management capabilities that ensure technology delivers value." },
+  { icon: Shield, title: "IT Governance", frameworks: "COBIT · ISO 38500", description: "Effective IT governance frameworks for business value and risk management." },
+  { icon: Lock, title: "Information & Cybersecurity", frameworks: "NIST CSF · ISO 27001 · SOC 2", description: "Information security and cybersecurity programs that protect critical assets." },
+  { icon: RefreshCw, title: "Business Continuity", frameworks: "BCI GPG · ISO 22301", description: "Resilient operations that withstand and recover from disruptions." },
+  { icon: CreditCard, title: "Payment Security", frameworks: "PCI DSS", description: "PCI DSS compliance with risk-based implementation approach." },
+  { icon: Eye, title: "Privacy & Data Protection", frameworks: "PIPEDA · NIST Privacy", description: "Privacy by design embedded into business operations." },
+  { icon: Brain, title: "AI Governance", frameworks: "NIST AI RMF · ISO 42001", description: "Responsible AI governance addressing ethical and operational risks." },
+  { icon: Building2, title: "Enterprise Architecture", frameworks: "TOGAF · Zachman", description: "Enterprise-wide digital transformation through structured architecture." },
+  { icon: Zap, title: "Agile Project Management", frameworks: "Scrum · PMBOK", description: "Agile and hybrid delivery models balancing speed and governance." },
+  { icon: Landmark, title: "OSFI Compliance", frameworks: "B-13 · B-10 · E-21", description: "OSFI regulatory compliance for Canadian financial institutions." },
 ];
 
 export default function ServicesPreview() {
@@ -42,7 +42,8 @@ export default function ServicesPreview() {
                   <service.icon className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
                 </div>
                 <h3 className="font-display font-semibold text-sm text-foreground mb-1">{service.title}</h3>
-                <p className="text-xs text-muted-foreground">{service.frameworks}</p>
+                <p className="text-[11px] text-muted-foreground mb-1">{service.frameworks}</p>
+                <p className="text-xs text-muted-foreground/70 leading-relaxed line-clamp-2">{service.description}</p>
               </Link>
             </ScrollReveal>
           ))}

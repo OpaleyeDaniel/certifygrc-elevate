@@ -46,10 +46,10 @@ export default function ContactPage() {
                 Contact Us
               </span>
               <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-foreground tracking-tight mb-6 leading-[1.1]">
-                Let's <span className="gradient-text">Connect</span>
+                Connect <span className="gradient-text">With Us</span>
               </h1>
               <p className="text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0">
-                Whether you have questions about our platform, need consulting expertise, or want to explore partnership opportunities — we're here to help.
+                Feel free to reach out to us using the options below, and our dedicated team will respond to your inquiries promptly.
               </p>
             </div>
             <ScrollReveal>
@@ -68,7 +68,8 @@ export default function ContactPage() {
             {/* Left - Info */}
             <ScrollReveal>
               <div>
-                <h2 className="font-display font-bold text-2xl text-foreground mb-6">Get in Touch</h2>
+                <h2 className="font-display font-bold text-2xl text-foreground mb-2">How can we help?</h2>
+                <p className="text-muted-foreground mb-6 text-sm">Have a question or feedback? Fill out the form below, and we'll get back to you as soon as possible.</p>
                 <div className="space-y-4 mb-10">
                   {[
                     { icon: MapPin, label: "Office", value: "325 Front St W, Suite 300, Toronto, ON M5V 2Y1" },
@@ -120,24 +121,28 @@ export default function ContactPage() {
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="name">Full Name</Label>
-                        <Input id="name" required placeholder="Your full name" />
+                        <Label htmlFor="firstName">First Name</Label>
+                        <Input id="firstName" required placeholder="Your first name" />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email</Label>
-                        <Input id="email" type="email" required placeholder="you@company.com" />
+                        <Label htmlFor="lastName">Last Name</Label>
+                        <Input id="lastName" required placeholder="Your last name" />
                       </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email</Label>
+                      <Input id="email" type="email" required placeholder="you@company.com" />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="subject">Subject</Label>
                       <Input id="subject" required placeholder="How can we help?" />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="message">Message</Label>
+                      <Label htmlFor="message">Your Message</Label>
                       <Textarea id="message" required placeholder="Tell us about your needs..." rows={5} />
                     </div>
                     <Button type="submit" className="w-full glow-primary active:scale-[0.97] transition-transform">
-                      Send Message <Send className="w-4 h-4 ml-1" />
+                      Submit Form <Send className="w-4 h-4 ml-1" />
                     </Button>
                   </form>
                 )}

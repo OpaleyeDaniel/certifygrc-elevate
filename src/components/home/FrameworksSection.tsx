@@ -27,17 +27,39 @@ export default function FrameworksSection() {
           />
         </ScrollReveal>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 max-w-5xl mx-auto">
-          {frameworks.map((fw, index) => (
-            <ScrollReveal key={fw.name} delay={index * 0.05}>
-              <div className="group relative glass rounded-xl p-5 text-center hover-lift hover-glow cursor-pointer">
+        <div className="relative overflow-hidden mask-fade">
+          <div className="flex gap-4 animate-scroll">
+            {[...frameworks, ...frameworks].map((fw, index) => (
+              <div
+                key={`${fw.name}-${index}`}
+                className="group flex-shrink-0 glass rounded-xl p-5 hover-lift hover-glow cursor-pointer min-w-[180px] text-center"
+              >
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
                   <fw.icon className="w-5 h-5 text-primary" />
                 </div>
                 <span className="font-display font-semibold text-sm text-foreground block">
                   {fw.name}
                 </span>
-                <p className="text-[11px] text-muted-foreground mt-1 leading-snug opacity-0 group-hover:opacity-100 transition-opacity duration-300 max-h-0 group-hover:max-h-20 overflow-hidden">
+                <p className="text-[11px] text-muted-foreground mt-1 leading-snug opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {fw.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Static grid below for all frameworks */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 max-w-5xl mx-auto mt-12">
+          {frameworks.map((fw, index) => (
+            <ScrollReveal key={fw.name} delay={index * 0.05}>
+              <div className="group glass rounded-xl p-5 text-center hover-lift hover-glow cursor-pointer">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-3 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
+                  <fw.icon className="w-5 h-5 text-primary" />
+                </div>
+                <span className="font-display font-semibold text-sm text-foreground block">
+                  {fw.name}
+                </span>
+                <p className="text-[11px] text-muted-foreground mt-1 leading-snug">
                   {fw.description}
                 </p>
               </div>
