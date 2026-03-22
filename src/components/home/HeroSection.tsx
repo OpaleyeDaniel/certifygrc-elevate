@@ -8,7 +8,7 @@ interface HeroSectionProps {
   onBookConsultation: () => void;
 }
 
-const rotatingWords = ["Simplified", "Intelligent", "Secure", "Automated", "Scalable"];
+const rotatingWords = ["Smarter Compliance", "Simplified", "Intelligent", "Secure", "Automated", "Scalable"];
 
 export default function HeroSection({ onBookDemo, onBookConsultation }: HeroSectionProps) {
   const [wordIndex, setWordIndex] = useState(0);
@@ -26,7 +26,7 @@ export default function HeroSection({ onBookDemo, onBookConsultation }: HeroSect
   }, []);
 
   return (
-    <section className="relative overflow-hidden min-h-[90vh] flex items-center">
+    <section className="relative overflow-hidden min-h-[92vh] flex items-center">
       {/* Grid overlay */}
       <div className="absolute inset-0 opacity-[0.03]" style={{
         backgroundImage: `linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)`,
@@ -70,42 +70,41 @@ export default function HeroSection({ onBookDemo, onBookConsultation }: HeroSect
           <div className="max-w-xl">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6 animate-fade-in">
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-xs font-medium text-primary tracking-wide">Enterprise GRC Platform</span>
+              <span className="text-xs font-medium text-primary tracking-wide">Start with advice. Scale with technology</span>
             </div>
 
             <h1 className="font-display font-bold text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl text-foreground tracking-tight leading-[1.08] animate-fade-in" style={{ animationDelay: "0.1s" }}>
-              Smarter Governance.{" "}
-              <span className="gradient-text">Safer Decisions.</span>
+              Practical GRC Solutions
             </h1>
 
-            <div className="mt-5 flex items-center gap-2 text-lg md:text-xl text-muted-foreground animate-fade-in" style={{ animationDelay: "0.2s" }}>
-              <span>Practical GRC Solutions —</span>
+            <div className="mt-4 flex items-center gap-2 text-2xl md:text-3xl font-display font-bold animate-fade-in" style={{ animationDelay: "0.15s" }}>
+              <span className="text-muted-foreground">—</span>
               <span
-                className={`inline-block font-semibold text-primary transition-all duration-400 ${
-                  isAnimating ? "opacity-0 translate-y-2 blur-[2px]" : "opacity-100 translate-y-0 blur-0"
+                className={`inline-block gradient-text transition-all duration-400 ${
+                  isAnimating ? "opacity-0 translate-y-3 blur-[2px]" : "opacity-100 translate-y-0 blur-0"
                 }`}
               >
                 {rotatingWords[wordIndex]}
               </span>
             </div>
 
-            <p className="mt-5 text-base md:text-lg text-muted-foreground leading-relaxed animate-fade-in" style={{ animationDelay: "0.3s", opacity: 0 }}>
-              CertifyGRC delivers an integrated ecosystem of GRC software, expert consulting, and professional training — purpose-built to help regulated organizations simplify compliance, manage risk, and drive governance excellence.
+            <p className="mt-6 text-base md:text-lg text-muted-foreground leading-relaxed animate-fade-in" style={{ animationDelay: "0.3s", opacity: 0 }}>
+              A comprehensive GRC ecosystem that aligns people, processes, and technology to protect your organization and support sustainable growth.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4 animate-fade-in" style={{ animationDelay: "0.4s", opacity: 0 }}>
-              <Button size="lg" onClick={onBookDemo} className="glow-primary text-base px-8 h-12 active:scale-[0.97] transition-transform">
-                Book a Demo
+              <Button size="lg" onClick={onBookConsultation} className="glow-primary text-base px-8 h-12 active:scale-[0.97] transition-transform">
+                Explore Consulting Services
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
-              <Button size="lg" variant="outline" onClick={onBookConsultation} className="border-primary/30 hover:border-primary text-base px-8 h-12 active:scale-[0.97] transition-transform">
+              <Button size="lg" variant="outline" onClick={onBookDemo} className="border-primary/30 hover:border-primary text-base px-8 h-12 active:scale-[0.97] transition-transform">
                 <Play className="w-4 h-4 mr-1" />
-                Book Consultation
+                Explore the Platform
               </Button>
             </div>
 
             <div className="mt-10 flex items-center gap-6 text-sm text-muted-foreground animate-fade-in" style={{ animationDelay: "0.5s", opacity: 0 }}>
-              {["SOC 2 Ready", "ISO 27001 Aligned", "NIST CSF"].map((badge) => (
+              {["SOC 2 Ready", "ISO 27001 Aligned", "NIST CSF", "PCI DSS"].map((badge) => (
                 <div key={badge} className="flex items-center gap-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
                   {badge}

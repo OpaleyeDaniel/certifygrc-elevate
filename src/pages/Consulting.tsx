@@ -13,16 +13,66 @@ import { ScrollReveal } from "@/hooks/useScrollReveal";
 import consultingHero from "@/assets/consulting-hero.png";
 
 const services = [
-  { icon: Server, title: "IT Service Management", frameworks: ["ITIL 4", "ISO 20000"], description: "Design, implement, and optimize IT service management practices aligned with industry best practices. We help organizations establish efficient service delivery models that reduce downtime, improve customer satisfaction, and drive operational excellence." },
-  { icon: Shield, title: "IT Governance", frameworks: ["COBIT 2019", "ISO 38500"], description: "Establish robust IT governance structures that align technology investments with business strategy and ensure accountability at every level. Our consultants help boards and executives make informed technology decisions." },
-  { icon: Lock, title: "Information & Cybersecurity", frameworks: ["NIST CSF", "ISO 27001", "SOC 2"], description: "Build comprehensive cybersecurity programs from risk assessment through implementation, certification, and continuous monitoring. We guide you through the entire lifecycle of information security management." },
-  { icon: RefreshCw, title: "Business Continuity", frameworks: ["BCI GPG", "ISO 22301"], description: "Develop and test business continuity and disaster recovery plans that ensure organizational resilience against disruptions. Our BCM experts help you prepare for, respond to, and recover from incidents." },
-  { icon: CreditCard, title: "Payment Security", frameworks: ["PCI DSS v4.0"], description: "Achieve and maintain PCI DSS compliance with expert guidance through scoping, gap analysis, remediation, and audit preparation. Stay ahead of PCI DSS v4.0 requirements with our specialized team." },
-  { icon: Eye, title: "Privacy & Data Protection", frameworks: ["PIPEDA", "NIST Privacy"], description: "Navigate complex privacy regulations with comprehensive data protection programs, privacy impact assessments, and compliance roadmaps tailored to Canadian and international requirements." },
-  { icon: Brain, title: "AI Governance", frameworks: ["NIST AI RMF", "ISO 42001"], description: "Implement responsible AI governance frameworks addressing bias, transparency, accountability, and regulatory compliance. Stay ahead of emerging AI regulations with structured governance programs." },
-  { icon: Building2, title: "Enterprise Architecture", frameworks: ["TOGAF", "Zachman"], description: "Design and implement enterprise architecture programs that drive digital transformation and technology modernization. Align your IT landscape with strategic business objectives." },
-  { icon: Zap, title: "Agile Project Management", frameworks: ["Scrum", "SAFe", "PMI"], description: "Transform project delivery with agile methodologies scaled for enterprise environments. Our certified practitioners help teams adopt frameworks that improve velocity and quality." },
-  { icon: Landmark, title: "OSFI Compliance", frameworks: ["B-13", "B-10", "E-21"], description: "Specialized consulting for Canadian financial institutions navigating OSFI regulatory requirements including technology risk management, outsourcing, and operational resilience guidelines." },
+  {
+    icon: Server,
+    title: "IT Service Management (ITSM)",
+    frameworks: ["ITIL 4", "ISO 20000"],
+    description: "We help organizations design, implement, and continuously improve end-to-end IT service management capabilities that ensure technology delivers value, supports business operations, and meets service-level expectations.",
+  },
+  {
+    icon: Shield,
+    title: "IT Governance",
+    frameworks: ["COBIT 2019", "ISO 38500"],
+    description: "We support boards and executive management in establishing effective IT governance frameworks that ensure technology decisions deliver business value while managing risk and regulatory obligations.",
+  },
+  {
+    icon: Lock,
+    title: "Information & Cybersecurity",
+    frameworks: ["NIST CSF", "ISO 27001", "SOC 2"],
+    description: "We help organizations establish and mature information security and cybersecurity programs that protect critical assets, support regulatory compliance, and build trust with stakeholders.",
+  },
+  {
+    icon: RefreshCw,
+    title: "Business Continuity Management (BCM)",
+    frameworks: ["BCI GPG v7", "ISO 22301"],
+    description: "We enable organizations to build resilient operations that can withstand and recover from disruptions. Our BCM services ensure critical services are identified, protected, and recoverable.",
+  },
+  {
+    icon: CreditCard,
+    title: "Payment & Card Security",
+    frameworks: ["PCI DSS v4.0"],
+    description: "We help organizations that handle payment card data meet PCI DSS compliance requirements while reducing fraud and data-breach risk. Our services focus on practical, risk-based implementation.",
+  },
+  {
+    icon: Eye,
+    title: "Privacy & Data Protection",
+    frameworks: ["PIPEDA", "NIST Privacy"],
+    description: "We help organizations embed privacy by design into business operations, ensuring personal information is handled lawfully, transparently, and responsibly.",
+  },
+  {
+    icon: Brain,
+    title: "Artificial Intelligence (AI) Governance",
+    frameworks: ["NIST AI RMF", "ISO 42001"],
+    description: "We help organizations adopt AI responsibly by establishing AI governance, risk, and control frameworks that address ethical, legal, and operational risks across the AI lifecycle.",
+  },
+  {
+    icon: Building2,
+    title: "Enterprise Architecture & Digital Transformation",
+    frameworks: ["TOGAF", "Zachman"],
+    description: "We help organizations design and execute enterprise-wide digital transformation initiatives through structured enterprise architecture practices that align business strategy, technology, and execution.",
+  },
+  {
+    icon: Zap,
+    title: "Agile Project & Program Management",
+    frameworks: ["Scrum", "PMBOK 8th Ed"],
+    description: "We support organizations in adopting agile and hybrid delivery models that balance speed, governance, and risk management.",
+  },
+  {
+    icon: Landmark,
+    title: "OSFI Compliance",
+    frameworks: ["B-13", "B-10", "E-21"],
+    description: "We help federally regulated financial institutions meet OSFI expectations by strengthening governance, technology risk management, outsourcing oversight, and operational resilience.",
+  },
 ];
 
 export default function ConsultingPage() {
@@ -48,7 +98,7 @@ export default function ConsultingPage() {
                 Confidence Through <span className="gradient-text">Compliance</span>
               </h1>
               <p className="text-lg text-muted-foreground mb-8 max-w-xl">
-                10 specialized consulting domains delivered by certified professionals who understand your regulatory landscape and business context.
+                Helping businesses meet regulatory demands while enabling sustainable growth. 10 specialized consulting domains delivered by certified professionals who understand your regulatory landscape.
               </p>
               <Button size="lg" onClick={() => setConsultOpen(true)} className="glow-primary text-base px-8 h-12 active:scale-[0.97] transition-transform">
                 Book a Consultation <ArrowRight className="w-4 h-4 ml-1" />
@@ -56,7 +106,7 @@ export default function ConsultingPage() {
             </div>
             <ScrollReveal>
               <div className="rounded-2xl overflow-hidden glow-border shadow-2xl shadow-primary/5">
-                <img src={consultingHero} alt="Consulting team reviewing compliance strategy" className="w-full h-auto" />
+                <img src={consultingHero} alt="CertifyGRC consulting team reviewing compliance strategy" className="w-full h-auto" />
               </div>
             </ScrollReveal>
           </div>
@@ -87,7 +137,7 @@ export default function ConsultingPage() {
                       </span>
                     ))}
                   </div>
-                  <p className="text-sm text-muted-foreground line-clamp-2">{service.description}</p>
+                  <p className="text-sm text-muted-foreground line-clamp-3">{service.description}</p>
                   <span className="mt-4 inline-flex items-center text-sm font-medium text-primary">
                     Learn More <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
                   </span>
