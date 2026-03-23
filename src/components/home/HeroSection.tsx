@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ArrowRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroDashboard from "@/assets/hero-dashboard.png";
+import heroBg from "@/assets/hero-bg.png";
 
 interface HeroSectionProps {
   onBookDemo: () => void;
