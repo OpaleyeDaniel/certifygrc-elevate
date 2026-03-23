@@ -11,6 +11,9 @@ import IndustriesSection from "@/components/home/IndustriesSection";
 import PricingSection from "@/components/home/PricingSection";
 import CTASection from "@/components/home/CTASection";
 import BookingModal from "@/components/BookingModal";
+import InteractiveDashboard from "@/components/InteractiveDashboard";
+import SectionHeading from "@/components/SectionHeading";
+import { ScrollReveal } from "@/hooks/useScrollReveal";
 
 const Index = () => {
   const [demoOpen, setDemoOpen] = useState(false);
@@ -21,6 +24,25 @@ const Index = () => {
       <HeroSection onBookDemo={() => setDemoOpen(true)} onBookConsultation={() => setConsultOpen(true)} />
       <TrustBar />
       <PillarsSection />
+
+      {/* Interactive Dashboard Preview */}
+      <section className="section-padding">
+        <div className="container-wide">
+          <ScrollReveal>
+            <SectionHeading
+              badge="Platform Preview"
+              title="Experience the Dashboard"
+              description="Interact with our compliance dashboard — explore real-time compliance tracking, risk monitoring, and audit management."
+            />
+          </ScrollReveal>
+          <ScrollReveal>
+            <div className="max-w-5xl mx-auto">
+              <InteractiveDashboard />
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
       <WhyChooseSection />
       <PlatformSection />
       <ServicesPreview />
