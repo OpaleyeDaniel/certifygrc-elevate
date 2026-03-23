@@ -28,6 +28,12 @@ export default function HeroSection({ onBookDemo, onBookConsultation }: HeroSect
 
   return (
     <section className="relative overflow-hidden min-h-[92vh] flex items-center">
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <img src={heroBg} alt="" className="w-full h-full object-cover opacity-30 dark:opacity-40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
+      </div>
+
       {/* Grid overlay */}
       <div className="absolute inset-0 opacity-[0.03]" style={{
         backgroundImage: `linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)`,
