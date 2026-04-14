@@ -156,13 +156,17 @@ export default function Navbar({ onTalkWithAdvisor, onBookDemo }: NavbarProps) {
               <div className="h-full overflow-y-auto px-5 py-5 flex flex-col gap-1">
                 {navLinks.map((link) => {
                   const active = location.pathname === link.path;
-                  const drawerTone = active
-                    ? "text-primary bg-primary/10"
-                    : theme === "light"
-                      ? "text-slate-900 hover:text-slate-950 hover:bg-slate-100/80"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50";
                   return (
-                    <Link key={link.path} to={link.path} className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${drawerTone}`}>
+                    <Link
+                      key={link.path}
+                      to={link.path}
+                      className={cn(
+                        "px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300",
+                        active && "text-primary bg-primary/10",
+                        !active && isLight && "text-neutral-950 hover:text-neutral-950 hover:bg-slate-100/85",
+                        !active && !isLight && "text-white hover:text-white hover:bg-white/10",
+                      )}
+                    >
                       {link.label}
                     </Link>
                   );

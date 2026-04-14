@@ -109,8 +109,8 @@ export default function ApplicationFrameworksSections({ showCtas = true, hideInt
           <div className="container-wide">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               <div className={`order-2 lg:order-1 ${imgFrame} hover-lift p-1 sm:p-2`}>
-                <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-background/80 shadow-inner min-h-[min(52vw,320px)] sm:min-h-[360px]">
-                  <div className="absolute left-3 top-3 sm:left-4 sm:top-4 z-10 rounded-full bg-background/90 backdrop-blur-md border border-primary/20 px-3 py-1.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-foreground shadow-sm">
+                <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-background/80 shadow-inner min-h-[min(58vw,360px)] sm:min-h-[400px] md:min-h-[440px] flex justify-center">
+                  <div className="absolute left-3 top-3 sm:left-4 sm:top-4 z-20 rounded-full bg-background/90 backdrop-blur-md border border-primary/20 px-3 py-1.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-foreground shadow-sm">
                     ISO 27001 Compliance
                   </div>
                   <img
@@ -119,8 +119,9 @@ export default function ApplicationFrameworksSections({ showCtas = true, hideInt
                     className={imgClass}
                     loading="lazy"
                     decoding="async"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                   />
-                  <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10 z-10" />
                 </div>
               </div>
               <div className="order-1 lg:order-2">
@@ -165,8 +166,8 @@ export default function ApplicationFrameworksSections({ showCtas = true, hideInt
                 </ul>
               </div>
               <div className={`${imgFrame} hover-lift p-1 sm:p-2`}>
-                <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-background/80 shadow-inner min-h-[min(52vw,320px)] sm:min-h-[360px]">
-                  <div className="absolute left-3 top-3 sm:left-4 sm:top-4 z-10 rounded-full bg-background/90 backdrop-blur-md border border-primary/20 px-3 py-1.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-foreground shadow-sm">
+                <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-background/80 shadow-inner min-h-[min(58vw,360px)] sm:min-h-[400px] md:min-h-[440px] flex justify-center">
+                  <div className="absolute left-3 top-3 sm:left-4 sm:top-4 z-20 rounded-full bg-background/90 backdrop-blur-md border border-primary/20 px-3 py-1.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-foreground shadow-sm">
                     PCI DSS Compliance
                   </div>
                   <img
@@ -175,8 +176,9 @@ export default function ApplicationFrameworksSections({ showCtas = true, hideInt
                     className={imgClass}
                     loading="lazy"
                     decoding="async"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                   />
-                  <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10 z-10" />
                 </div>
               </div>
             </div>
@@ -189,8 +191,8 @@ export default function ApplicationFrameworksSections({ showCtas = true, hideInt
           <div className="container-wide">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               <div className={`order-2 lg:order-1 ${imgFrame} hover-lift p-1 sm:p-2`}>
-                <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-background/80 shadow-inner min-h-[min(52vw,320px)] sm:min-h-[360px]">
-                  <div className="absolute left-3 top-3 sm:left-4 sm:top-4 z-10 rounded-full bg-background/90 backdrop-blur-md border border-primary/20 px-3 py-1.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-foreground shadow-sm">
+                <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-background/80 shadow-inner min-h-[min(58vw,360px)] sm:min-h-[400px] md:min-h-[440px] flex justify-center">
+                  <div className="absolute left-3 top-3 sm:left-4 sm:top-4 z-20 rounded-full bg-background/90 backdrop-blur-md border border-primary/20 px-3 py-1.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-foreground shadow-sm">
                     SOC 2 Trust Services
                   </div>
                   <img
@@ -199,8 +201,9 @@ export default function ApplicationFrameworksSections({ showCtas = true, hideInt
                     className={imgClass}
                     loading="lazy"
                     decoding="async"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                   />
-                  <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10 z-10" />
                 </div>
               </div>
               <div className="order-1 lg:order-2">
