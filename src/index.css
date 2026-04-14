@@ -143,6 +143,21 @@
     @apply bg-gradient-to-br from-primary/10 via-background to-accent/10;
   }
 
+  /* Scroll reveal (minimal & professional) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition-property: opacity, transform;
+    transition-duration: 650ms;
+    transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal--in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   .section-padding {
     @apply py-20 md:py-28 lg:py-32;
   }
@@ -169,5 +184,137 @@
   .mask-fade {
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+}
+
+/* ─── Hero text: force white in both light and dark mode ─────────────────── */
+/*
+ * Hero sections sit on top of dark background images.
+ * `text-foreground` in light mode resolves to near-black, making text unreadable.
+ * This utility class forces white text for all hero content regardless of theme.
+ */
+.hero-text-white h1,
+.hero-text-white h2,
+.hero-text-white h3 {
+  color: #ffffff !important;
+}
+
+.hero-text-white p {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+/* Explicit Tailwind text-* classes inside hero are overridden here */
+.hero-text-white .text-foreground {
+  color: #ffffff !important;
+}
+
+.hero-text-white .text-muted-foreground {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+/* Gradient text spans must stay transparent (clip-based gradient) */
+.hero-text-white .gradient-text {
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+/* Preserve intentional primary/accent badge colors */
+.hero-text-white .text-primary {
+  color: hsl(var(--primary)) !important;
+}
+
+.hero-text-white .text-accent {
+  color: hsl(var(--accent)) !important;
+}
+
+/* Inline links inside hero */
+.hero-text-white a.text-foreground,
+.hero-text-white a.text-muted-foreground {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.hero-text-white a.text-foreground:hover,
+.hero-text-white a.text-muted-foreground:hover {
+  color: #ffffff !important;
+}
+
+/* ─── Smooth scrolling ────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent horizontal overflow on mobile */
+body {
+  overflow-x: hidden;
+}
+
+/* ─── Mobile responsiveness ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Tighten section padding on small screens */
+  .section-padding {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  /* Prevent hero dashboard from breaking on mobile */
+  .hero-dashboard { display: none; }
+
+  /* Ensure cards in grids don't create horizontal overflow */
+  .grid > * { min-width: 0; }
+
+  /* Better tap targets — only apply to interactive elements without explicit sizing */
+  button:not([class*="h-"]):not([class*="size-"]),
+  [role="button"]:not([class*="h-"]) {
+    min-height: 44px;
+  }
+}
+
+/* ─── Large-screen improvements ─────────────────────────────────────────── */
+@media (min-width: 1280px) {
+  .section-padding {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+/* Focus-visible ring for keyboard accessibility */
+:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Nice text rendering */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth image transitions */
+img {
+  transition: opacity 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .motion-safe\:animate-marquee-stream,
+  .motion-safe\:animate-marquee-stream-reverse {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  /* Disable framer-motion globally when user prefers reduced motion */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

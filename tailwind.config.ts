@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -108,6 +109,30 @@ export default {
           "0%, 100%": { backgroundPosition: "0% 50%" },
           "50%": { backgroundPosition: "100% 50%" },
         },
+        "hero-bg-drift": {
+          "0%, 100%": { transform: "scale(1.06) translate(0, 0)" },
+          "50%": { transform: "scale(1.06) translate(-1.2%, -0.8%)" },
+        },
+        "hero-text-in": {
+          "0%": { opacity: "0", transform: "translateY(22px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "hero-media-in": {
+          "0%": { opacity: "0", transform: "translateY(26px) scale(0.985)" },
+          "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
+        },
+        "hero-image-float": {
+          "0%, 100%": { transform: "translateY(0) scale(1)" },
+          "50%": { transform: "translateY(-8px) scale(1.02)" },
+        },
+        "hero-glow-pulse": {
+          "0%, 100%": { opacity: "0.45" },
+          "50%": { opacity: "0.75" },
+        },
+        "marquee-stream": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -120,8 +145,15 @@ export default {
         "pulse-glow": "pulse-glow 3s ease-in-out infinite",
         "scroll": "scroll 30s linear infinite",
         "gradient-shift": "gradient-shift 8s ease infinite",
+        "hero-bg-drift": "hero-bg-drift 26s ease-in-out infinite",
+        "hero-text-in": "hero-text-in 0.72s cubic-bezier(0.2, 0.8, 0.2, 1) forwards",
+        "hero-media-in": "hero-media-in 0.78s cubic-bezier(0.2, 0.8, 0.2, 1) 0.14s forwards",
+        "hero-image-float": "hero-image-float 7s ease-in-out infinite",
+        "hero-glow-pulse": "hero-glow-pulse 9s ease-in-out infinite",
+        "marquee-stream": "marquee-stream 52s linear infinite",
+        "marquee-stream-reverse": "marquee-stream 58s linear infinite reverse",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [animate],
 } satisfies Config;

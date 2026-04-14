@@ -1,26 +1,52 @@
 import SectionHeading from "@/components/SectionHeading";
-import { ScrollReveal } from "@/hooks/useScrollReveal";
-
-import soc2 from "@/assets/frameworks/soc2.png";
-import pciDss from "@/assets/frameworks/pci-dss.png";
-import nistCsf from "@/assets/frameworks/nist-csf.png";
-import nistAiRmf from "@/assets/frameworks/nist-ai-rmf.png";
-import cobit from "@/assets/frameworks/cobit.png";
-import iso42001 from "@/assets/frameworks/iso-42001.png";
-import iso22301 from "@/assets/frameworks/iso-22301.png";
-import iso20000 from "@/assets/frameworks/iso-20000.png";
-import iso27001 from "@/assets/frameworks/iso-27001.png";
+import ScrollReveal from "@/components/ScrollReveal";
 
 const frameworks = [
-  { name: "NIST CSF", image: nistCsf, description: "Cybersecurity Framework for critical infrastructure protection" },
-  { name: "ISO 27001", image: iso27001, description: "Information Security Management System (ISMS)" },
-  { name: "SOC 2", image: soc2, description: "Service organization controls for trust & security" },
-  { name: "PCI DSS", image: pciDss, description: "Payment Card Industry Data Security Standard" },
-  { name: "COBIT", image: cobit, description: "IT governance & management framework" },
-  { name: "NIST AI RMF", image: nistAiRmf, description: "Risk management framework for AI systems" },
-  { name: "ISO 20000", image: iso20000, description: "IT Service Management System Standard" },
-  { name: "ISO 22301", image: iso22301, description: "Business Continuity Management System" },
-  { name: "ISO 42001", image: iso42001, description: "AI Management System Standard (AIMS)" },
+  {
+    name: "COBIT",
+    image: "/framework-marquee/01.png",
+    description: "IT governance & management framework",
+  },
+  {
+    name: "ISO 42001",
+    image: "/framework-marquee/02.png",
+    description: "AI Management System Standard (AIMS)",
+  },
+  { 
+    name: "ISO 22301",
+    image: "/framework-marquee/03.png",
+    description: "Business Continuity Management System",
+  },
+  {
+    name: "ISO 20000",
+    image: "/framework-marquee/04.png",
+    description: "IT Service Management System Standard",
+  },
+  {
+    name: "ISO 27001",
+    image: "/framework-marquee/05.png",
+    description: "Information Security Management System (ISMS)",
+  },
+  {
+    name: "SOC 2",
+    image: "/framework-marquee/06.png",
+    description: "Service organization controls for trust & security",
+  },
+  {
+    name: "PIPEDA",
+    image: "/framework-marquee/07.png",
+    description: "Privacy protection standards for organizations",
+  },
+  {
+    name: "PCI DSS",
+    image: "/framework-marquee/08.png",
+    description: "Payment Card Industry Data Security Standard",
+  },
+  {
+    name: "NIST CSF",
+    image: "/framework-marquee/09.png",
+    description: "Cybersecurity Framework for critical infrastructure protection",
+  },
 ];
 
 export default function FrameworksSection() {
@@ -61,7 +87,7 @@ export default function FrameworksSection() {
         {/* Static grid with descriptions */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
           {frameworks.map((fw, index) => (
-            <ScrollReveal key={fw.name} delay={index * 0.05}>
+            <ScrollReveal key={fw.name} delayMs={index * 50}>
               <div className="group glass rounded-xl p-6 hover-lift hover-glow cursor-pointer flex items-start gap-4">
                 <div className="w-14 h-14 flex-shrink-0 rounded-xl bg-background/50 p-1.5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <img src={fw.image} alt={fw.name} className="w-full h-full object-contain" />

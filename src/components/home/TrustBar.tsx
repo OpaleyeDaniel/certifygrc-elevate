@@ -1,32 +1,40 @@
-import { ScrollReveal } from "@/hooks/useScrollReveal";
-
-const logos = [
-  "FinServ Corp", "SecureHealth", "GovTech Solutions", "CyberShield Inc",
-  "DataGuard Pro", "ComplianceAI", "RiskMatrix", "AuditPro Systems",
+const frameworks = [
+  "NIST CSF",
+  "ISO 27001",
+  "SOC 2",
+  "PCI DSS",
+  "COBIT",
+  "NIST AI RMF",
+  "ISO 20000",
+  "ISO 22301",
+  "ISO 42001",
+  "PIPEDA",
 ];
 
+/** Framework ticker aligned with homepage on [certifygrc.com](https://certifygrc.com/) */
 export default function TrustBar() {
+  const doubled = [...frameworks, ...frameworks];
   return (
-    <ScrollReveal>
-      <section className="py-16 border-y border-border/30">
-        <div className="container-wide">
-          <p className="text-center text-sm text-muted-foreground mb-8 font-medium tracking-wide uppercase">
-            Trusted by regulated organizations across finance, healthcare, and government
-          </p>
-          <div className="relative overflow-hidden mask-fade">
-            <div className="flex gap-8 animate-scroll">
-              {[...logos, ...logos, ...logos].map((logo, i) => (
-                <div
-                  key={i}
-                  className="flex-shrink-0 px-8 py-3 rounded-lg bg-muted/20 border border-border/20 text-muted-foreground/60 text-sm font-semibold whitespace-nowrap tracking-wide"
-                >
-                  {logo}
-                </div>
-              ))}
+    <section className="py-12 md:py-16 border-y border-border/30 bg-muted/10 overflow-x-hidden">
+      <div className="container-wide mb-6">
+        <p className="text-center text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          Frameworks supported across the CertifyGRC ecosystem
+        </p>
+      </div>
+      <div className="relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 md:w-32 z-10 bg-gradient-to-r from-background to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 md:w-32 z-10 bg-gradient-to-l from-background to-transparent" />
+        <div className="flex gap-4 md:gap-6 animate-scroll w-max">
+          {doubled.map((name, i) => (
+            <div
+              key={`${name}-${i}`}
+              className="flex-shrink-0 px-5 py-2.5 rounded-full bg-card/80 border border-border/50 text-sm font-medium text-foreground shadow-sm"
+            >
+              {name}
             </div>
-          </div>
+          ))}
         </div>
-      </section>
-    </ScrollReveal>
+      </div>
+    </section>
   );
 }
