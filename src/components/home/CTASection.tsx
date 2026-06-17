@@ -3,7 +3,7 @@ import { ArrowRight, Sparkles, LayoutDashboard, ShieldCheck, Users } from "lucid
 import { Button } from "@/components/ui/button";
 import { useBooking } from "@/contexts/BookingContext";
 import { useMemo, useState } from "react";
-import { slideInLeft, slideInRight, staggerContainer, revealUp, scrollViewport } from "@/lib/motion";
+import { slideInLeft, slideInRight, staggerGrid, revealUp, scrollViewport } from "@/lib/motion";
 
 export default function CTASection() {
   const { openDemo, openConsultation } = useBooking();
@@ -23,7 +23,6 @@ export default function CTASection() {
         chips: ["Roadmap", "Risk posture", "Execution guidance"],
       };
     }
-
     return {
       title: "Live product walkthrough",
       subtitle: "See how CertifyGRC automates evidence mapping and framework coverage.",
@@ -40,30 +39,78 @@ export default function CTASection() {
   const WidgetIcon = widget.icon;
 
   return (
-    <section className="section-padding relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" aria-hidden />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl pointer-events-none" aria-hidden />
+    <section
+      className="section-padding relative overflow-hidden"
+      style={{
+        background: "radial-gradient(ellipse 110% 70% at 50% 110%, #1a1450 0%, #0c0a1f 50%, #020617 80%)",
+      }}
+    >
+      {/* Dot matrix */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage: "radial-gradient(rgba(129,140,248,0.18) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+          maskImage: "radial-gradient(ellipse 80% 70% at 50% 100%, black 20%, transparent 75%)",
+          WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 100%, black 20%, transparent 75%)",
+        }}
+      />
+      {/* Gradient orbs */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[500px] opacity-[0.22]"
+        style={{
+          background: "radial-gradient(ellipse, rgba(99,102,241,1), transparent 65%)",
+          filter: "blur(90px)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-0 right-1/4 w-[400px] h-[350px] opacity-[0.12]"
+        style={{
+          background: "radial-gradient(ellipse, rgba(6,182,212,1), transparent 65%)",
+          filter: "blur(80px)",
+        }}
+      />
+      {/* Top fade from white */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-background to-transparent"
+      />
 
       <div className="container-wide relative z-10">
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
           {/* Left copy */}
           <motion.div
             className="max-w-2xl"
-            variants={staggerContainer}
+            variants={staggerGrid}
             initial="hidden"
             whileInView="visible"
             viewport={scrollViewport}
           >
+            <motion.span
+              variants={revealUp}
+              className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-widest uppercase mb-4"
+              style={{
+                background: "rgba(129,140,248,0.12)",
+                border: "1px solid rgba(129,140,248,0.28)",
+                color: "#a5b4fc",
+              }}
+            >
+              Get started today
+            </motion.span>
             <motion.h2
               variants={slideInLeft}
-              className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-foreground tracking-tight mb-4"
+              className="font-display font-bold text-display-lg text-white mb-4"
             >
               Ready to simplify your{" "}
               <span className="gradient-text">compliance?</span>
             </motion.h2>
             <motion.p
               variants={revealUp}
-              className="text-lg text-muted-foreground leading-relaxed"
+              className="text-body-lg leading-relaxed"
+              style={{ color: "rgba(255,255,255,0.62)" }}
             >
               Join organizations that trust CertifyGRC to navigate the complexities of governance,
               risk, and compliance.
@@ -72,7 +119,11 @@ export default function CTASection() {
             <motion.div variants={revealUp} className="mt-7 flex flex-wrap gap-3">
               <Button
                 size="lg"
-                className="glow-primary text-base px-8 group"
+                className="px-7 group font-semibold"
+                style={{
+                  background: "linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%)",
+                  boxShadow: "0 0 32px rgba(99,102,241,0.42), 0 4px 16px rgba(0,0,0,0.35)",
+                }}
                 onClick={() => { setMode("demo"); openDemo(); }}
               >
                 Book a Demo{" "}
@@ -81,20 +132,32 @@ export default function CTASection() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-primary/30 hover:border-primary text-base px-8"
+                className="px-7 font-semibold hover:-translate-y-0.5 transition-all"
+                style={{
+                  background: "rgba(255,255,255,0.06)",
+                  borderColor: "rgba(255,255,255,0.16)",
+                  color: "rgba(255,255,255,0.88)",
+                  backdropFilter: "blur(10px)",
+                }}
                 onClick={() => { setMode("consultation"); openConsultation(); }}
               >
-                Book Consultation
+                Book consultation
               </Button>
             </motion.div>
 
-            <motion.div variants={revealUp} className="mt-7 flex flex-wrap gap-2">
+            <motion.div variants={revealUp} className="mt-6 flex flex-wrap gap-2">
               {widget.chips.map((c) => (
                 <span
                   key={c}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest bg-background/70 border border-white/10 text-foreground"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium"
+                  style={{
+                    background: "rgba(255,255,255,0.06)",
+                    border: "1px solid rgba(255,255,255,0.12)",
+                    color: "rgba(255,255,255,0.72)",
+                    backdropFilter: "blur(8px)",
+                  }}
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-primary" />
+                  <Sparkles className="w-3 h-3 text-indigo-400" />
                   {c}
                 </span>
               ))}
@@ -109,147 +172,117 @@ export default function CTASection() {
             whileInView="visible"
             viewport={scrollViewport}
           >
-            <div className="absolute -top-10 -right-10 w-56 h-56 rounded-full bg-accent/10 blur-3xl pointer-events-none" aria-hidden />
-            <div className="absolute -bottom-12 -left-10 w-56 h-56 rounded-full bg-primary/10 blur-3xl pointer-events-none" aria-hidden />
-
-            <div className="rounded-[1.6rem] border border-border/60 bg-card/35 backdrop-blur-xl shadow-2xl shadow-primary/10 overflow-hidden ring-1 ring-white/10 transition-transform duration-500 hover:-translate-y-0.5">
-              <div className="p-4 md:p-5 border-b border-border/40 flex items-center justify-between gap-3 flex-wrap">
+            <div className="rounded-[1.5rem] overflow-hidden transition-transform duration-300 hover:-translate-y-1" style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.15)", backdropFilter: "blur(20px)", boxShadow: "0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.08) inset" }}>
+              <div className="p-4 flex items-center justify-between gap-3 flex-wrap" style={{ borderBottom: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)" }}>
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0">
-                    <WidgetIcon className="w-5 h-5 text-primary" />
+                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary/12 to-accent/8 border border-primary/15 flex items-center justify-center flex-shrink-0">
+                    <WidgetIcon className="w-4.5 h-4.5 text-primary" strokeWidth={1.8} />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Mock Scheduler</div>
-                    <div className="font-display font-bold text-foreground truncate">{widget.title}</div>
+                    <div className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.42)" }}>Scheduler</div>
+                    <div className="font-display font-bold text-sm text-white truncate">{widget.title}</div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1 rounded-xl bg-muted/60 p-1 border border-border/40">
-                  <button
-                    type="button"
-                    onClick={() => setMode("demo")}
-                    className={[
-                      "px-3 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all",
-                      mode === "demo"
-                        ? "bg-background text-foreground shadow-sm"
-                        : "text-muted-foreground hover:text-foreground",
-                    ].join(" ")}
-                    aria-label="Switch to demo"
-                  >
-                    Demo
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setMode("consultation")}
-                    className={[
-                      "px-3 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all",
-                      mode === "consultation"
-                        ? "bg-background text-foreground shadow-sm"
-                        : "text-muted-foreground hover:text-foreground",
-                    ].join(" ")}
-                    aria-label="Switch to consultation"
-                  >
-                    Consultation
-                  </button>
+                <div className="flex items-center gap-1 rounded-xl p-1" style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                  {(["demo", "consultation"] as const).map((m) => (
+                    <button
+                      key={m}
+                      type="button"
+                      onClick={() => setMode(m)}
+                      className={[
+                        "px-3 py-1.5 rounded-lg text-xs font-semibold transition-all capitalize",
+                        mode === m
+                          ? "bg-primary/20 text-primary border border-primary/30 shadow-sm"
+                          : "hover:text-white",
+                      ].join(" ")}
+                      style={{ color: mode === m ? undefined : "rgba(255,255,255,0.55)" }}
+                    >
+                      {m}
+                    </button>
+                  ))}
                 </div>
               </div>
 
-              <div className="p-4 md:p-5">
-                <div className="rounded-2xl border border-border/60 bg-background/30 overflow-hidden">
+              <div className="p-4">
+                <div className="rounded-xl border border-border/50 bg-muted/20 overflow-hidden mb-4">
                   <div className="aspect-[16/9] relative">
-                    <div className="absolute inset-0">
-                      <img
-                        src="/home-cta-mockup/frameworks.png"
-                        alt="CertifyGRC dashboards composite background"
-                        className="w-full h-full object-cover object-center motion-safe:animate-float motion-reduce:animate-none"
-                        loading="lazy"
-                        draggable={false}
-                      />
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-tr from-background/20 via-transparent to-primary/10 pointer-events-none" />
-
+                    <img
+                      src="/home-cta-mockup/frameworks.png"
+                      alt="CertifyGRC dashboard"
+                      className="w-full h-full object-cover object-center motion-safe:animate-float motion-reduce:animate-none"
+                      loading="lazy"
+                      draggable={false}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-primary/5 pointer-events-none" />
                     <div
                       className={[
-                        "absolute left-3 top-3 w-[58%] md:w-[60%] rounded-2xl border border-white/10 bg-background/70 backdrop-blur-sm overflow-hidden shadow-lg shadow-black/10",
+                        "absolute left-3 top-3 w-[55%] rounded-xl border border-white/60 bg-white/90 backdrop-blur-sm overflow-hidden shadow-card",
                         "transition-all duration-500",
-                        mode === "demo" ? "opacity-100 translate-y-0" : "opacity-90 translate-y-1",
+                        mode === "demo" ? "opacity-100 translate-y-0" : "opacity-80 translate-y-1",
                       ].join(" ")}
                     >
-                      <img
-                        src="/home-cta-mockup/table.png"
-                        alt="Compliance table overlay"
-                        className="w-full h-full object-cover object-center"
-                        loading="lazy"
-                        draggable={false}
-                      />
+                      <img src="/home-cta-mockup/table.png" alt="Compliance table" className="w-full h-full object-cover object-center" loading="lazy" draggable={false} />
                     </div>
-
                     <div
                       className={[
-                        "absolute right-3 bottom-3 w-[62%] rounded-2xl border border-white/10 bg-background/70 backdrop-blur-sm overflow-hidden shadow-lg shadow-black/10",
+                        "absolute right-3 bottom-3 w-[58%] rounded-xl border border-white/60 bg-white/90 backdrop-blur-sm overflow-hidden shadow-card",
                         "transition-all duration-500",
-                        mode === "consultation" ? "opacity-100 translate-y-0" : "opacity-85 translate-y-1",
+                        mode === "consultation" ? "opacity-100 translate-y-0" : "opacity-75 translate-y-1",
                       ].join(" ")}
                     >
-                      <img
-                        src="/home-cta-mockup/doc-overview.png"
-                        alt="Document overview overlay"
-                        className="w-full h-full object-cover object-center"
-                        loading="lazy"
-                        draggable={false}
-                      />
+                      <img src="/home-cta-mockup/doc-overview.png" alt="Document overview" className="w-full h-full object-cover object-center" loading="lazy" draggable={false} />
                     </div>
-
                     <div className="absolute left-3 bottom-3 right-3 pointer-events-none">
-                      <div className="rounded-xl border border-white/10 bg-background/70 backdrop-blur-sm p-3">
-                        <div className="flex items-center justify-between gap-3">
+                      <div className="rounded-lg border border-white/60 bg-white/90 backdrop-blur-sm p-2.5">
+                        <div className="flex items-center justify-between gap-2">
                           <div>
-                            <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Book Consultation</div>
-                            <div className="font-display font-bold text-foreground mt-1">CertifyGRC</div>
+                            <div className="text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">CertifyGRC</div>
+                            <div className="font-display font-bold text-xs text-foreground">Compliance Platform</div>
                           </div>
-                          <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-                            <ShieldCheck className="w-5 h-5 text-primary" />
+                          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary/12 to-accent/8 border border-primary/15 flex items-center justify-center">
+                            <ShieldCheck className="w-4 h-4 text-primary" strokeWidth={1.8} />
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <div className="space-y-2">
+                  {widget.steps.map((s, idx) => (
+                    <div
+                      key={s.label}
+                      className="rounded-xl p-3 transition-all"
+                      style={{
+                        background: idx === 0 ? "rgba(99,102,241,0.12)" : "rgba(255,255,255,0.04)",
+                        border: `1px solid ${idx === 0 ? "rgba(99,102,241,0.3)" : "rgba(255,255,255,0.08)"}`,
+                      }}
+                    >
+                      <div className="flex items-start gap-2.5">
+                        <span className="inline-flex items-center justify-center w-5 h-5 rounded-md text-[10px] font-bold flex-shrink-0 mt-0.5" style={{ background: "rgba(99,102,241,0.2)", border: "1px solid rgba(99,102,241,0.3)", color: "#a5b4fc" }}>
+                          {idx + 1}
+                        </span>
+                        <div>
+                          <div className="font-semibold text-xs text-white">{s.label}</div>
+                          <div className="text-[11px] mt-0.5" style={{ color: "rgba(255,255,255,0.5)" }}>{s.hint}</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
 
                 <div className="mt-4">
-                  <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
-                    What happens next
-                  </div>
-                  <div className="space-y-2">
-                    {widget.steps.map((s, idx) => (
-                      <div
-                        key={s.label}
-                        className={[
-                          "rounded-xl border border-border/50 bg-card/40 p-3 transition-all",
-                          idx === 0 ? "ring-1 ring-primary/20" : "hover:border-primary/25 hover:bg-card/50",
-                        ].join(" ")}
-                      >
-                        <div className="flex items-start gap-3">
-                          <span className="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-primary/10 border border-primary/20 text-xs font-bold text-primary flex-shrink-0 mt-0.5">
-                            {idx + 1}
-                          </span>
-                          <div>
-                            <div className="font-semibold text-foreground">{s.label}</div>
-                            <div className="text-sm text-muted-foreground mt-0.5">{s.hint}</div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="mt-5">
                   <Button
                     size="lg"
-                    className="glow-primary w-full"
+                    className="w-full font-semibold"
+                    style={{
+                      background: "linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%)",
+                      boxShadow: "0 0 20px rgba(99,102,241,0.35), 0 4px 12px rgba(0,0,0,0.3)",
+                    }}
                     onClick={() => { if (mode === "demo") openDemo(); else openConsultation(); }}
                   >
-                    {mode === "demo" ? "Book a Demo" : "Book Consultation"}
+                    {mode === "demo" ? "Book a demo" : "Book consultation"}
                   </Button>
                 </div>
               </div>

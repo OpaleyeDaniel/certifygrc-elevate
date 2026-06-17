@@ -6,48 +6,49 @@ interface SectionHeadingProps {
   title: string;
   description?: string;
   center?: boolean;
+  className?: string;
 }
 
 /**
- * Animated section heading.
- * Uses its own whileInView so it works whether or not its parent section
- * also has animation wrappers.
+ * Animated section heading with badge, title, and optional description.
+ * Uses the premium type scale from the design system.
  */
 export default function SectionHeading({
   badge,
   title,
   description,
   center = true,
+  className = "",
 }: SectionHeadingProps) {
   return (
-    <div className={`mb-12 md:mb-16 ${center ? "text-center" : ""}`}>
+    <div className={`mb-10 md:mb-12 ${center ? "text-center" : ""} ${className}`}>
       {badge && (
         <motion.span
-          className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary border border-primary/20 mb-4"
-          initial={{ opacity: 0, y: -12, scale: 0.96 }}
+          className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-widest uppercase bg-primary/8 text-primary border border-primary/15 mb-3"
+          initial={{ opacity: 0, y: -10, scale: 0.97 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={scrollViewport}
-          transition={{ duration: 0.75, ease: [...scrollEase] }}
+          transition={{ duration: 0.65, ease: [...scrollEase] }}
         >
           {badge}
         </motion.span>
       )}
       <motion.h2
-        className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-foreground tracking-tight"
-        initial={{ opacity: 0, y: 16 }}
+        className="font-display font-bold text-display-lg text-foreground"
+        initial={{ opacity: 0, y: 14 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={scrollViewport}
-        transition={{ duration: scrollRevealDuration, ease: [...scrollEase], delay: badge ? 0.1 : 0 }}
+        transition={{ duration: scrollRevealDuration, ease: [...scrollEase], delay: badge ? 0.08 : 0 }}
       >
         {title}
       </motion.h2>
       {description && (
         <motion.p
-          className={`mt-4 text-muted-foreground text-lg leading-relaxed ${center ? "max-w-2xl mx-auto" : ""}`}
-          initial={{ opacity: 0, y: 12 }}
+          className={`mt-3 text-muted-foreground text-body-lg leading-relaxed ${center ? "max-w-xl mx-auto" : ""}`}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={scrollViewport}
-          transition={{ duration: 0.88, ease: [...scrollEase], delay: badge ? 0.16 : 0.08 }}
+          transition={{ duration: 0.8, ease: [...scrollEase], delay: badge ? 0.14 : 0.06 }}
         >
           {description}
         </motion.p>

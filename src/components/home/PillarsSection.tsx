@@ -1,17 +1,18 @@
-import { motion } from "framer-motion";
-import { Monitor, Users, GraduationCap, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Monitor, Users, GraduationCap, ArrowRight, Sparkles } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
-import { staggerFast, revealUp, cardHover, scrollViewport } from "@/lib/motion";
+import { PremiumCard, PremiumCardGrid } from "@/components/ui/PremiumCard";
 
 const pillars = [
   {
     icon: Monitor,
     title: "Software Application",
     description:
-      "A structured, audit-ready platform for compliance, controls, and evidence — without spreadsheets or guesswork.",
+      "A structured, audit-ready platform for compliance, controls, and evidence — no spreadsheets, no guesswork.",
     link: "/software",
     features: ["Framework automation", "Evidence mapping", "Executive reporting"],
+    accent: "#6366f1",
+    featured: true,
+    label: "Core Product",
   },
   {
     icon: Users,
@@ -20,68 +21,101 @@ const pillars = [
       "Operational resilience and regulatory programs delivered with practical execution and audit-ready outcomes.",
     link: "/consulting",
     features: ["OSFI & Canada focus", "BCM & cyber", "Privacy & AI governance"],
+    accent: "#8b5cf6",
+    featured: false,
+    label: "Advisory",
   },
   {
     icon: GraduationCap,
-    title: "E-Learning",
+    title: "Cyber Aware",
     description:
-      "Professional learning that builds GRC competency — from foundational standards to advanced practitioner skills.",
-    link: "/e-learning",
-    features: ["Role-based paths", "Certification prep", "Workshops"],
+      "Strengthen security culture, reduce human risk, and equip teams with real-world defensive skills.",
+    link: "/cyber-aware",
+    features: ["Security awareness", "Phishing simulation", "Human risk management"],
+    accent: "#06b6d4",
+    featured: false,
+    label: "Training",
   },
 ];
 
 export default function PillarsSection() {
   return (
-    <section className="section-padding">
+    <section className="section-padding bg-transparent">
       <div className="container-wide">
         <SectionHeading
-          badge="Our ecosystem"
-          title="Software, consulting, and learning together"
-          description="The same narrative you see on CertifyGRC: technology-enabled GRC with advisory depth and professional development."
+          badge="Our Ecosystem"
+          title="Software, consulting, and learning — together"
+          description="Technology-enabled GRC with advisory depth and professional development under one roof."
         />
 
-        <motion.div
-          className="grid md:grid-cols-3 gap-6"
-          variants={staggerFast}
-          initial="hidden"
-          whileInView="visible"
-          viewport={scrollViewport}
-        >
+        <PremiumCardGrid className="grid md:grid-cols-3 gap-4 md:gap-5">
           {pillars.map((pillar) => (
-            <motion.div key={pillar.title} variants={revealUp}>
-              <motion.div whileHover={cardHover}>
-                <Link
-                  to={pillar.link}
-                  className="group glass rounded-2xl p-8 hover-glow flex flex-col h-full"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-                    <pillar.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="font-display font-semibold text-xl text-foreground mb-3">
-                    {pillar.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-6 flex-1">
-                    {pillar.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {pillar.features.map((f) => (
-                      <span
-                        key={f}
-                        className="px-3 py-1 rounded-full bg-muted/50 text-xs text-muted-foreground border border-border/50"
-                      >
-                        {f}
-                      </span>
-                    ))}
-                  </div>
-                  <span className="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
-                    Learn More <ArrowRight className="w-4 h-4" />
+            <PremiumCard
+              key={pillar.title}
+              to={pillar.link}
+              accent={pillar.accent}
+              featured={pillar.featured}
+              padding="lg"
+            >
+              {pillar.featured && (
+                <div className="absolute top-5 right-5 z-20">
+                  <span
+                    className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider"
+                    style={{
+                      background: `${pillar.accent}18`,
+                      border: `1px solid ${pillar.accent}30`,
+                      color: pillar.accent,
+                    }}
+                  >
+                    <Sparkles className="h-2.5 w-2.5" />
+                    {pillar.label}
                   </span>
-                </Link>
-              </motion.div>
-            </motion.div>
+                </div>
+              )}
+
+              <div
+                className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:-translate-y-0.5"
+                style={{
+                  background: `linear-gradient(135deg, ${pillar.accent}18, ${pillar.accent}08)`,
+                  border: `1px solid ${pillar.accent}28`,
+                }}
+              >
+                <pillar.icon className="w-5 h-5" style={{ color: pillar.accent }} strokeWidth={1.8} />
+              </div>
+
+              <h3 className="font-display font-bold text-[1.2rem] leading-snug text-foreground mb-2">
+                {pillar.title}
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-5 flex-1">
+                {pillar.description}
+              </p>
+
+              <div className="flex flex-wrap gap-1.5 mb-5">
+                {pillar.features.map((f) => (
+                  <span
+                    key={f}
+                    className="px-2.5 py-1 rounded-full text-[11px] font-medium"
+                    style={{
+                      background: `${pillar.accent}0e`,
+                      border: `1px solid ${pillar.accent}22`,
+                      color: pillar.accent,
+                    }}
+                  >
+                    {f}
+                  </span>
+                ))}
+              </div>
+
+              <span
+                className="inline-flex items-center gap-1.5 text-sm font-semibold transition-all duration-200 group-hover:gap-2.5 mt-auto"
+                style={{ color: pillar.accent }}
+              >
+                Learn more
+                <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+              </span>
+            </PremiumCard>
           ))}
-        </motion.div>
+        </PremiumCardGrid>
       </div>
     </section>
   );

@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import { Mail, Linkedin, Instagram } from "lucide-react";
+import { BrandLogo } from "@/components/BrandLogo";
 
 const footerLinks = {
   Platform: [
     { label: "Application", path: "/software" },
     { label: "Frameworks", path: "/frameworks" },
     { label: "Consulting Services", path: "/consulting" },
-    { label: "E-Learning", path: "/e-learning" },
+    { label: "Cyber Aware", path: "/cyber-aware" },
     { label: "Alliance", path: "/partner" },
   ],
   Company: [
@@ -31,23 +32,22 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border/50 bg-card/30">
-      <div className="container-wide section-padding">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+    <footer className="relative z-10 border-t border-white/[0.07]" style={{ background: "linear-gradient(180deg, hsl(220,42%,7%) 0%, hsl(222,47%,5%) 100%)" }}>
+      <div className="container-wide py-12 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <img src="/certifygrc-logo.png" alt="CertifyGRC" className="h-8 w-auto" loading="eager" />
-            </Link>
-            <p className="text-muted-foreground text-sm leading-relaxed mb-6 max-w-sm">
-              CertifyGRC is a governance, risk, and compliance (GRC) company delivering technology enabled solutions that help organizations operationalize trust, meet regulatory expectations, and scale with confidence.
+            <BrandLogo linked size="md" className="mb-4" />
+            <p className="text-muted-foreground text-sm leading-relaxed mb-5 max-w-sm">
+              CertifyGRC delivers technology-enabled GRC solutions that help organizations operationalize trust,
+              meet regulatory expectations, and scale with confidence.
             </p>
-            <div className="space-y-2 text-sm text-muted-foreground">
+            <div className="space-y-1.5 text-sm text-muted-foreground">
               <a
                 href="mailto:info@certifygrc.com"
                 className="inline-flex items-center gap-2 hover:text-primary transition-colors"
               >
-                <Mail className="w-4 h-4 text-primary" />
+                <Mail className="w-3.5 h-3.5 text-primary" />
                 info@certifygrc.com
               </a>
             </div>
@@ -56,8 +56,8 @@ export default function Footer() {
           {/* Links */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h4 className="font-display font-semibold text-foreground mb-4">{title}</h4>
-              <ul className="space-y-3">
+              <h4 className="font-display font-semibold text-xs uppercase tracking-widest text-foreground/70 mb-4">{title}</h4>
+              <ul className="space-y-2.5">
                 {links.map((link) => (
                   <li key={link.label}>
                     <Link
@@ -74,37 +74,35 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-16 pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-muted-foreground">
+        <div className="mt-12 pt-6 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-muted-foreground/70">
             © 2026 CertifyGRC. All Rights Reserved.
           </p>
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-4">
-              <Link to="/terms" className="text-xs text-muted-foreground hover:text-primary transition-colors">
-                Terms & Conditions
-              </Link>
-              <Link to="/privacy" className="text-xs text-muted-foreground hover:text-primary transition-colors">
-                Privacy Policy
-              </Link>
-            </div>
-            <span className="hidden md:block w-px h-5 bg-border/60" />
+            <Link to="/terms" className="text-xs text-muted-foreground/70 hover:text-primary transition-colors">
+              Terms & Conditions
+            </Link>
+            <Link to="/privacy" className="text-xs text-muted-foreground/70 hover:text-primary transition-colors">
+              Privacy Policy
+            </Link>
+            <span className="hidden md:block w-px h-4 bg-border/60" />
             <a
               href="https://www.linkedin.com"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-muted-foreground/60 hover:text-primary transition-colors"
               aria-label="LinkedIn"
               target="_blank"
               rel="noreferrer"
             >
-              <Linkedin className="w-5 h-5" />
+              <Linkedin className="w-4 h-4" />
             </a>
             <a
               href="https://www.instagram.com"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-muted-foreground/60 hover:text-primary transition-colors"
               aria-label="Instagram"
               target="_blank"
               rel="noreferrer"
             >
-              <Instagram className="w-5 h-5" />
+              <Instagram className="w-4 h-4" />
             </a>
           </div>
         </div>

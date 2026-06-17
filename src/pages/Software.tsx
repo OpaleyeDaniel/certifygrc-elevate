@@ -9,7 +9,11 @@ import { heroImagery } from "@/constants/heroImagery";
 import { applicationDashboards } from "@/constants/applicationDashboards";
 import ApplicationFrameworksSections from "@/components/marketing/ApplicationFrameworksSections";
 import ScrollReveal from "@/components/ScrollReveal";
-import GrcDashboardExperienceMock from "@/components/marketing/GrcDashboardExperienceMock";
+import GrcDashboardShowcase from "@/components/marketing/GrcDashboardShowcase";
+import WaitlistSection from "@/components/marketing/WaitlistSection";
+import { PremiumCard, PremiumCardGrid } from "@/components/ui/PremiumCard";
+
+const ACCENTS = ["#6366f1", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b", "#ec4899", "#3b82f6", "#14b8a6"];
 
 const features = [
   { icon: Monitor, title: "Unified Dashboard", description: "Single pane of glass for all your GRC metrics, compliance status, and risk indicators." },
@@ -40,17 +44,14 @@ export default function SoftwarePage() {
         foregroundAlt={heroImagery.software.foregroundAlt}
       >
         <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary border border-primary/20">
-          Frameworks
+          Application
         </span>
-        <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-foreground tracking-tight">
-          Compliance and Privacy Frameworks, <span className="gradient-text">Automated</span>
+        <h1 className="font-display font-bold text-display-lg md:text-display-xl text-foreground tracking-tight">
+          GRC Command Center, <span className="gradient-text">Built for Operators</span>
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
-          CertifyGRC Software offers a robust suite of over 3 industry-leading compliance frameworks, including{" "}
-          <strong className="text-foreground font-medium">
-            NIST CSF, ISO 27001, SOC 2, PCI-DSS, PIPEDA, COBIT, NIST AI RMF, ISO 20000, ISO 22301, ISO 42001
-          </strong>
-          .
+          See live posture, structured assessments, auditor workflows, and evidence-backed reporting in one premium workspace designed
+          for teams who need clarity from the first dashboard to the final audit readout.
         </p>
         <div className="flex flex-wrap gap-3 pt-2">
           <Button
@@ -69,14 +70,30 @@ export default function SoftwarePage() {
       <ApplicationFrameworksSections showCtas={false} hideIntroBlock />
 
       <ScrollReveal>
-        <section className="section-padding bg-muted/20 border-y border-border/40">
-          <div className="container-wide">
-            <SectionHeading
-              badge="Application"
-              title="GRC dashboard experience"
-              description="The same structured, audit-ready workspace your teams use to run controls, evidence, and framework coverage day to day."
-            />
-            <GrcDashboardExperienceMock features={features} />
+        <section
+          id="live-preview"
+          className="section-padding relative overflow-hidden"
+          style={{ background: "linear-gradient(180deg, hsl(222,47%,6%) 0%, hsl(222,47%,5%) 50%, hsl(220,42%,7%) 100%)" }}
+        >
+          {/* Subtle top gradient orb */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 rounded-full opacity-30 blur-3xl"
+            style={{ width: 900, height: 400, background: "radial-gradient(ellipse, rgba(99,102,241,0.15), transparent 70%)" }}
+          />
+          <div className="mx-auto max-w-[min(100%,96rem)] px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="text-center mb-8">
+              <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
+                Live Preview
+              </span>
+              <h2 className="font-display font-bold text-3xl md:text-4xl text-foreground tracking-tight">
+                Explore every screen. No sign-up required.
+              </h2>
+              <p className="mt-3 text-muted-foreground max-w-2xl mx-auto text-base">
+                25+ real application screenshots. Hit Play Demo and watch the full product tour auto-scroll through the entire platform.
+              </p>
+            </div>
+            <GrcDashboardShowcase onBookDemo={() => setDemoOpen(true)} />
           </div>
         </section>
       </ScrollReveal>
@@ -85,17 +102,26 @@ export default function SoftwarePage() {
         <section className="section-padding">
           <div className="container-wide">
             <SectionHeading badge="Features" title="Built for enterprise delivery" description="Everything your teams need to run continuous compliance programs." />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
-              {features.map((f) => (
-                <div key={f.title} className="glass rounded-xl p-6 hover-lift glow-border">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <f.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <h3 className="font-display font-semibold text-foreground mb-2">{f.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{f.description}</p>
-                </div>
-              ))}
-            </div>
+            <PremiumCardGrid className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mt-10">
+              {features.map((f, i) => {
+                const accent = ACCENTS[i % ACCENTS.length];
+                return (
+                  <PremiumCard key={f.title} accent={accent} padding="md" interactive={false}>
+                    <div
+                      className="w-10 h-10 rounded-lg flex items-center justify-center mb-4 transition-transform duration-300 group-hover:-translate-y-0.5"
+                      style={{
+                        background: `linear-gradient(135deg, ${accent}18, ${accent}08)`,
+                        border: `1px solid ${accent}28`,
+                      }}
+                    >
+                      <f.icon className="w-5 h-5" style={{ color: accent }} />
+                    </div>
+                    <h3 className="font-display font-semibold text-foreground mb-2">{f.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{f.description}</p>
+                  </PremiumCard>
+                );
+              })}
+            </PremiumCardGrid>
           </div>
         </section>
       </ScrollReveal>
@@ -104,16 +130,25 @@ export default function SoftwarePage() {
         <section className="section-padding bg-muted/20">
           <div className="container-wide">
             <SectionHeading badge="Integrations" title="Connects with your stack" description="Pre-built connectors for the tools your teams already use." />
-            <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto mt-10">
-              {integrations.map((name) => (
-                <div key={name} className="px-5 py-3 rounded-xl glass hover-lift text-sm font-medium text-foreground">
-                  {name}
-                </div>
+            <PremiumCardGrid className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto mt-10">
+              {integrations.map((name, i) => (
+                <PremiumCard
+                  key={name}
+                  accent={ACCENTS[i % ACCENTS.length]}
+                  padding="sm"
+                  interactive={false}
+                  className="!h-auto"
+                  contentClassName="!flex-row px-5 py-3"
+                >
+                  <span className="text-sm font-medium text-foreground whitespace-nowrap">{name}</span>
+                </PremiumCard>
               ))}
-            </div>
+            </PremiumCardGrid>
           </div>
         </section>
       </ScrollReveal>
+
+      <WaitlistSection source="application" />
 
       <ScrollReveal>
         <section className="section-padding">

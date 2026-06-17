@@ -12,7 +12,7 @@ export const heroImagery = {
   consulting: {
     background: "/hero-background-consulting.png",
     foreground: "/hero-ai/hero-consulting-ai.png",
-    foregroundAlt: "Professional consulting and executive advisory — strategy and collaboration",
+    foregroundAlt: "Professional consulting and executive advisory strategy and collaboration",
   },
   eLearning: {
     background: "/hero-background-elearning.png",

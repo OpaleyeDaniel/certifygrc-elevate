@@ -6,93 +6,67 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 222 84% 5%;
+    /* ── Dark enterprise theme ─────────────────────────────────────── */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222 84% 5%;
+    /* Base background: deep navy-black */
+    --background: 222 47% 5%;
+    --foreground: 210 20% 92%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 84% 5%;
+    /* Card surface: slightly elevated dark navy */
+    --card: 220 42% 8%;
+    --card-foreground: 210 20% 92%;
 
+    --popover: 220 42% 9%;
+    --popover-foreground: 210 20% 92%;
+
+    /* Brand — keep indigo + cyan */
     --primary: 239 84% 67%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 214 32% 91%;
-    --secondary-foreground: 222 47% 11%;
+    /* Secondary surface */
+    --secondary: 220 42% 14%;
+    --secondary-foreground: 210 20% 82%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    /* Muted surface */
+    --muted: 220 42% 11%;
+    --muted-foreground: 215 20% 58%;
 
+    /* Accent — keep cyan */
     --accent: 199 89% 48%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
+    /* Borders: subtle white-ish on dark */
+    --border: 220 42% 16%;
+    --input: 220 42% 13%;
     --ring: 239 84% 67%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5% 26%;
+    /* Sidebar (dark) */
+    --sidebar-background: 222 47% 6%;
+    --sidebar-foreground: 210 20% 82%;
     --sidebar-primary: 239 84% 67%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 5% 96%;
-    --sidebar-accent-foreground: 240 6% 10%;
-    --sidebar-border: 220 13% 91%;
+    --sidebar-accent: 220 42% 11%;
+    --sidebar-accent-foreground: 210 20% 88%;
+    --sidebar-border: 220 42% 16%;
     --sidebar-ring: 239 84% 67%;
 
+    /* Glow / glass — dark versions */
     --glow-primary: 239 84% 67%;
     --glow-accent: 199 89% 48%;
-    --glass-bg: 0 0% 100% / 0.7;
-    --glass-border: 214 32% 91% / 0.5;
-  }
+    --glass-bg: 220 42% 8% / 0.80;
+    --glass-border: 220 42% 22% / 0.5;
 
-  .dark {
-    --background: 222 47% 2%;
-    --foreground: 210 40% 98%;
-
-    --card: 222 47% 7%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222 47% 7%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 239 84% 67%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
-
-    --accent: 199 89% 48%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 239 84% 67%;
-
-    --sidebar-background: 222 47% 4%;
-    --sidebar-foreground: 210 40% 96%;
-    --sidebar-primary: 239 84% 67%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217 33% 12%;
-    --sidebar-accent-foreground: 210 40% 96%;
-    --sidebar-border: 217 33% 17%;
-    --sidebar-ring: 239 84% 67%;
-
-    --glow-primary: 239 84% 67%;
-    --glow-accent: 199 89% 48%;
-    --glass-bg: 222 47% 7% / 0.7;
-    --glass-border: 217 33% 25% / 0.3;
+    /* Extended surface tokens */
+    --surface-elevated: 220 42% 10%;
+    --surface-muted: 220 42% 8%;
+    --surface-subtle: 220 42% 12%;
+    --border-subtle: 220 42% 14%;
+    --border-strong: 220 42% 22%;
   }
 }
 
@@ -104,51 +78,116 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-feature-settings: "ss01", "cv11";
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
   }
 }
 
 @layer utilities {
+  /* ─── Glass surfaces (dark edition) ─────────────────────────── */
   .glass {
-    @apply bg-card/70 backdrop-blur-xl border border-border/50;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(13, 22, 40, 0.8);
+    box-shadow: 0 4px 24px -8px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
 
   .glass-strong {
-    @apply bg-card/85 backdrop-blur-2xl border border-border/60;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(13, 22, 40, 0.92);
+    box-shadow: 0 8px 32px -12px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
   }
 
+  /* ─── Premium section surfaces ────────────────────────────────── */
+  .surface-section {
+    @apply relative bg-transparent;
+  }
+
+  /* ─── Glow effects ────────────────────────────────────────────── */
+  /* Glow effects — stronger on dark backgrounds */
   .glow-primary {
-    box-shadow: 0 0 40px -10px hsl(var(--primary) / 0.4);
+    box-shadow: 0 0 40px -8px hsl(var(--primary) / 0.55);
   }
 
   .glow-accent {
-    box-shadow: 0 0 40px -10px hsl(var(--accent) / 0.4);
+    box-shadow: 0 0 40px -8px hsl(var(--accent) / 0.50);
   }
 
   .glow-border {
-    @apply border border-primary/20;
-    box-shadow: inset 0 0 20px -10px hsl(var(--primary) / 0.1),
-                0 0 20px -10px hsl(var(--primary) / 0.1);
+    @apply border border-primary/30;
+    box-shadow: inset 0 0 20px -8px hsl(var(--primary) / 0.12),
+                0 0 24px -8px hsl(var(--primary) / 0.20);
   }
 
+  /* ─── Typography ─────────────────────────────────────────────── */
+  /* Premium gradient text — cool white → brand indigo (not rainbow) */
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      120deg,
+      hsl(220 60% 96%) 0%,
+      hsl(239 80% 82%) 38%,
+      hsl(239 84% 67%) 100%
+    );
+  }
+
+  /* Accent variant — indigo → cyan for CTAs */
+  .gradient-text-accent {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      120deg,
+      hsl(239 84% 72%) 0%,
+      hsl(210 100% 72%) 55%,
+      hsl(199 89% 60%) 100%
+    );
   }
 
   .gradient-bg {
-    @apply bg-gradient-to-br from-primary/10 via-background to-accent/10;
+    background: linear-gradient(
+      145deg,
+      hsl(var(--primary) / 0.08) 0%,
+      hsl(var(--background)) 42%,
+      hsl(var(--accent) / 0.06) 100%
+    );
   }
 
-  /* Scroll reveal (minimal & professional) */
+  .gradient-hero-premium {
+    background: linear-gradient(
+      165deg,
+      hsl(234 55% 12%) 0%,
+      hsl(239 45% 18%) 38%,
+      hsl(262 40% 22%) 68%,
+      hsl(234 50% 14%) 100%
+    );
+  }
+
+  .gradient-section-soft {
+    background: linear-gradient(
+      180deg,
+      hsl(220 42% 7%) 0%,
+      hsl(var(--background)) 45%,
+      hsl(220 42% 7%) 100%
+    );
+  }
+
+  /* ─── Grain texture ──────────────────────────────────────────── */
+  .texture-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23a)' opacity='.025'/%3E%3C/svg%3E");
+  }
+
+  /* ─── Scroll reveal ─────────────────────────────────────────── */
   .reveal {
     opacity: 0;
     transform: translateY(14px);
     transition-property: opacity, transform;
-    transition-duration: 650ms;
+    transition-duration: 600ms;
     transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
     will-change: opacity, transform;
   }
@@ -158,41 +197,281 @@
     transform: translateY(0);
   }
 
+  /* ─── Layout ─────────────────────────────────────────────────── */
   .section-padding {
-    @apply py-20 md:py-28 lg:py-32;
+    @apply py-16 md:py-20 lg:py-24;
   }
 
   .container-narrow {
-    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
   .container-wide {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
+  /* ─── Hover effects ─────────────────────────────────────────── */
   .hover-lift {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
+    @apply transition-all duration-300 hover:-translate-y-1;
   }
 
   .hover-glow {
     @apply transition-all duration-300;
   }
   .hover-glow:hover {
-    box-shadow: 0 0 30px -5px hsl(var(--primary) / 0.3);
+    box-shadow: 0 0 28px -6px hsl(var(--primary) / 0.25);
   }
 
+  /* ─── Section blend transitions ─────────────────────────────── */
+
+  /**
+   * Add .section-blend to any <section> that sits between white sections.
+   * Creates a smooth top-and-bottom gradient fade so sections feel connected
+   * rather than abruptly stacked on top of each other.
+   */
+  .section-blend {
+    @apply relative;
+  }
+  .section-blend::before,
+  .section-blend::after {
+    content: '';
+    position: absolute;
+    inset-x: 0;
+    height: 80px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .section-blend::before {
+    top: 0;
+    background: linear-gradient(to bottom, hsl(var(--background)), transparent);
+  }
+  .section-blend::after {
+    bottom: 0;
+    background: linear-gradient(to top, hsl(var(--background)), transparent);
+  }
+
+  .section-blend-top::before {
+    content: '';
+    position: absolute;
+    inset-x: 0;
+    top: 0;
+    height: 64px;
+    background: linear-gradient(to bottom, hsl(var(--background)), transparent);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .section-blend-bottom::after {
+    content: '';
+    position: absolute;
+    inset-x: 0;
+    bottom: 0;
+    height: 64px;
+    background: linear-gradient(to top, hsl(var(--background)), transparent);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Remove hard borders between adjacent sections */
+  .section-seamless {
+    border-top: none !important;
+    border-bottom: none !important;
+  }
+
+  /* ─── Animated grid background ──────────────────────────────── */
+  .animated-grid {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.5) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.5) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .animated-grid-fine {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.35) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.35) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* ─── Mask utilities ────────────────────────────────────────── */
   .mask-fade {
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   }
+
+  .mask-fade-y {
+    mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+  }
+
+  /* ─── Premium card surfaces — full solid fills, not edge-only ─── */
+  .surface-card {
+    background: linear-gradient(145deg, hsl(221 42% 13%), hsl(222 47% 9%));
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.05) inset,
+      0 4px 24px rgba(0, 0, 0, 0.45);
+  }
+
+  .surface-card-navy {
+    background: linear-gradient(145deg, hsl(221 48% 15%), hsl(222 45% 10%));
+  }
+
+  .surface-card-indigo {
+    background: linear-gradient(145deg, hsl(234 42% 16%), hsl(235 40% 11%));
+  }
+
+  .surface-card-charcoal {
+    background: linear-gradient(145deg, hsl(220 18% 14%), hsl(222 20% 10%));
+  }
+
+  .surface-card-graphite {
+    background: linear-gradient(145deg, hsl(218 25% 13%), hsl(220 22% 9%));
+  }
+
+  /* ─── Premium card tokens (dark edition) ───────────────────── */
+  .card-premium {
+    @apply relative rounded-2xl overflow-hidden surface-card;
+    transition: box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.35s ease;
+    will-change: transform;
+  }
+
+  /* Shimmer sweep — soft white streak on dark */
+  .card-premium::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.06) 50%, transparent 70%);
+    transform: translateX(-120%) skewX(-15deg);
+    transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 20;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .card-premium:hover::after {
+    transform: translateX(240%) skewX(-15deg);
+  }
+
+  .card-premium:hover {
+    border-color: rgba(99, 102, 241, 0.32);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.06) inset,
+      0 4px 8px rgba(0, 0, 0, 0.6),
+      0 20px 44px -12px rgba(99, 102, 241, 0.22),
+      0 0 0 1px rgba(99, 102, 241, 0.08);
+    transform: translateY(-4px) scale(1.01);
+  }
+
+  .card-premium:active {
+    transform: translateY(-1px) scale(0.99);
+    transition-duration: 0.15s;
+  }
+
+  .card-featured {
+    @apply relative rounded-2xl ring-1 ring-primary/20 overflow-hidden;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, hsl(220 42% 8%) 55%);
+    border: 1px solid rgba(99, 102, 241, 0.28);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.05) inset,
+      0 8px 24px -8px rgba(99, 102, 241, 0.2),
+      0 0 0 1px rgba(99, 102, 241, 0.08);
+    transition: box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  .card-featured::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 28%, rgba(255, 255, 255, 0.07) 50%, transparent 72%);
+    transform: translateX(-120%) skewX(-15deg);
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 20;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .card-featured:hover::after {
+    transform: translateX(240%) skewX(-15deg);
+  }
+
+  .card-featured:hover {
+    border-color: rgba(99, 102, 241, 0.45);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.07) inset,
+      0 4px 8px rgba(0, 0, 0, 0.6),
+      0 28px 56px -12px rgba(99, 102, 241, 0.30),
+      0 0 0 1.5px rgba(99, 102, 241, 0.18);
+    transform: translateY(-5px) scale(1.015);
+  }
+
+  .card-featured:active {
+    transform: translateY(-2px) scale(0.99);
+    transition-duration: 0.15s;
+  }
+
+  /* PremiumCardShell hover helper — picks up group-hover from Framer Motion wrapper */
+  .pcshell {
+    transition: border-color 0.4s ease, box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    background: linear-gradient(145deg, hsl(221 42% 13%), hsl(222 47% 9%));
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.05) inset,
+      0 4px 24px rgba(0, 0, 0, 0.45);
+  }
+  .pcshell:hover {
+    border-color: rgba(99, 102, 241, 0.32) !important;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.06) inset,
+      0 4px 8px rgba(0, 0, 0, 0.6),
+      0 20px 50px -16px rgba(99, 102, 241, 0.26),
+      0 0 0 1px rgba(99, 102, 241, 0.08) !important;
+  }
+
+  /* Shimmer skeleton loader */
+  .skeleton-shimmer {
+    @apply relative overflow-hidden bg-muted;
+  }
+
+  .skeleton-shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(var(--background) / 0.6),
+      transparent
+    );
+    animation: shimmer 1.8s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    100% { transform: translateX(100%); }
+  }
+
+  /* Table row entrance */
+  .table-row-animate {
+    animation: tableRowIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes tableRowIn {
+    from {
+      opacity: 0;
+      transform: translateX(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 }
 
-/* ─── Hero text: force white in both light and dark mode ─────────────────── */
-/*
- * Hero sections sit on top of dark background images.
- * `text-foreground` in light mode resolves to near-black, making text unreadable.
- * This utility class forces white text for all hero content regardless of theme.
- */
+/* ─── Hero text forced white (inner page photo heroes) ─────────── */
 .hero-text-white h1,
 .hero-text-white h2,
 .hero-text-white h3 {
@@ -203,7 +482,6 @@
   color: rgba(255, 255, 255, 0.82) !important;
 }
 
-/* Explicit Tailwind text-* classes inside hero are overridden here */
 .hero-text-white .text-foreground {
   color: #ffffff !important;
 }
@@ -212,14 +490,12 @@
   color: rgba(255, 255, 255, 0.72) !important;
 }
 
-/* Gradient text spans must stay transparent (clip-based gradient) */
 .hero-text-white .gradient-text {
   -webkit-background-clip: text !important;
   background-clip: text !important;
   color: transparent !important;
 }
 
-/* Preserve intentional primary/accent badge colors */
 .hero-text-white .text-primary {
   color: hsl(var(--primary)) !important;
 }
@@ -228,7 +504,6 @@
   color: hsl(var(--accent)) !important;
 }
 
-/* Inline links inside hero */
 .hero-text-white a.text-foreground,
 .hero-text-white a.text-muted-foreground {
   color: rgba(255, 255, 255, 0.85) !important;
@@ -239,59 +514,53 @@
   color: #ffffff !important;
 }
 
-/* ─── Smooth scrolling ────────────────────────────────────────────────────── */
+/* ─── Smooth scrolling ─────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
 }
 
-/* Prevent horizontal overflow on mobile */
 body {
   overflow-x: hidden;
 }
 
-/* ─── Mobile responsiveness ──────────────────────────────────────────────── */
+/* ─── Mobile responsiveness ───────────────────────────────────── */
 @media (max-width: 768px) {
-  /* Tighten section padding on small screens */
   .section-padding {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
   }
 
-  /* Prevent hero dashboard from breaking on mobile */
   .hero-dashboard { display: none; }
 
-  /* Ensure cards in grids don't create horizontal overflow */
   .grid > * { min-width: 0; }
 
-  /* Better tap targets — only apply to interactive elements without explicit sizing */
   button:not([class*="h-"]):not([class*="size-"]),
   [role="button"]:not([class*="h-"]) {
     min-height: 44px;
   }
 }
 
-/* ─── Large-screen improvements ─────────────────────────────────────────── */
+/* ─── Large-screen improvements ────────────────────────────────── */
 @media (min-width: 1280px) {
   .section-padding {
-    padding-top: 7rem;
-    padding-bottom: 7rem;
+    padding-top: 5.5rem;
+    padding-bottom: 5.5rem;
   }
 }
 
-/* Focus-visible ring for keyboard accessibility */
+/* ─── Focus visible ────────────────────────────────────────────── */
 :focus-visible {
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-/* Nice text rendering */
+/* ─── Typography polish ────────────────────────────────────────── */
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Smooth image transitions */
 img {
   transition: opacity 0.3s ease;
 }
@@ -309,7 +578,6 @@ img {
     transform: none !important;
   }
 
-  /* Disable framer-motion globally when user prefers reduced motion */
   *,
   *::before,
   *::after {

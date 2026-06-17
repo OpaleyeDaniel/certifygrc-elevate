@@ -1,0 +1,25 @@
+/** Microcopy — waitlist modal (banner + form). */
+export const waitlistPopupCopy = {
+  bannerHeadline: "Get Early Access to CertifyGRC v1.0",
+  bannerSubtext:
+    "Experience a smarter way to implement NIST CSF 2.0, with exclusive demo access and 30-day hands-on use of our live platform.",
+  bannerCtaVisual: "Join Waitlist",
+  bannerFooter: "Limited access • Closed group • First Release – May 2026",
+  bannerKicker: "v1.0 preview",
+  formTitle: "Reserve your spot",
+  formDescription: "Share your work email — we’ll send your private access link when your cohort opens.",
+  formTrustStrip: "Secure submission · Privacy-first · No spam",
+  formPanelKicker: "Early access",
+  nameLabel: "Full Name",
+  namePlaceholder: "Daniel Hall",
+  emailLabel: "Email",
+  emailPlaceholder: "name@company.com",
+  ctaIdle: "Join the waitlist",
+  ctaLoading: "Joining…",
+  dismiss: "Not now",
+  successTitle: "You’re in",
+  successFallback: "We sent a confirmation to your inbox.",
+  privacyLead: "We only email you about CertifyGRC.",
+  privacyLink: "Privacy Policy",
+  closeLabel: "Close dialog",
+} as const;

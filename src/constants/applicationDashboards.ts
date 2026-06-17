@@ -4,13 +4,13 @@
 export const applicationDashboards = {
   /** Application page hero — matches premium hero artwork */
   hero: "/hero-ai/hero-application.png",
-  /** GRC command center overview */
+  /** GRC Command Center — health, readiness, coverage, workflow pressure, risk mix, evidence, maturity */
   tailored: "/application-section-dashboards/tailored.png",
-  /** Assessment / structured controls */
+  /** NIST CSF 2.0–style assessment — functions, questions, progress */
   iso: "/application-section-dashboards/iso-27001.png",
-  /** Audit report & evidence flow */
+  /** Audit reporting — summaries, controls, exports, evidence-backed reporting */
   pci: "/application-section-dashboards/pci-dss.png",
-  /** Review & approval workspace */
+  /** Auditor workspace — verification, approvals, pending reviews */
   soc: "/application-section-dashboards/soc-2.png",
   /** Optional deep-dive band on Application page */
   showcase: "/hero-dashboard.png",

@@ -28,6 +28,9 @@ import ScrollReveal from "@/components/ScrollReveal";
 import PageHero from "@/components/PageHero";
 import { heroImagery } from "@/constants/heroImagery";
 import { siteCs } from "@/constants/siteImages";
+import { PremiumCard, PremiumCardGrid } from "@/components/ui/PremiumCard";
+
+const SERVICE_ACCENTS = ["#6366f1", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b", "#ec4899", "#3b82f6", "#14b8a6", "#a855f7", "#f97316"];
 
 type Service = {
   key: string;
@@ -272,7 +275,7 @@ export default function ConsultingPage() {
             <span className="text-xs font-medium text-primary">Confidence Through Compliance</span>
           </div>
 
-          <h1 className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-foreground tracking-tight leading-[1.05]">
+          <h1 className="font-display font-bold text-display-lg md:text-display-xl text-foreground tracking-tight">
             Confidence Through <span className="gradient-text">Compliance</span>
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
@@ -301,56 +304,65 @@ export default function ConsultingPage() {
               description="Choose the domain you need. Each service is delivered with real-world delivery, audit-ready evidence, and measurable outcomes."
             />
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-              {sortedServices.map((service, i) => (
-                <button
-                  key={service.key}
-                  type="button"
-                  onClick={() => setSelectedService(service)}
-                  className="text-left group relative rounded-3xl overflow-hidden border border-border/50 bg-card/30 backdrop-blur-md shadow-lg shadow-black/5 hover:shadow-2xl hover:shadow-primary/10 hover:border-primary/30 hover:-translate-y-1 transition-all duration-500"
-                  style={{ transitionDelay: `${i * 60}ms` }}
-                >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
-                  <div className="relative h-48 sm:h-52 overflow-hidden border-b border-border/50">
-                    <img
-                      src={siteCs(Math.min(i + 1, 10))}
-                      alt=""
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
-                    <div className="absolute bottom-3 left-3 w-11 h-11 rounded-xl bg-primary/90 flex items-center justify-center shadow-lg">
-                      <service.icon className="w-5 h-5 text-primary-foreground" />
-                    </div>
-                  </div>
-                  <div className="p-6 pt-5">
-
-                  <h3 className="font-display font-semibold text-lg text-foreground mb-2">
-                    {service.title}
-                  </h3>
-
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {service.frameworks.map((fw) => (
-                      <span
-                        key={fw}
-                        className="px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium border border-primary/20"
+            <PremiumCardGrid className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 mt-10">
+              {sortedServices.map((service, i) => {
+                const accent = SERVICE_ACCENTS[i % SERVICE_ACCENTS.length];
+                return (
+                  <PremiumCard
+                    key={service.key}
+                    accent={accent}
+                    padding="none"
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => setSelectedService(service)}
+                    onKeyDown={(e) => e.key === "Enter" && setSelectedService(service)}
+                    className="text-left"
+                  >
+                    <div className="relative h-48 sm:h-52 overflow-hidden border-b border-border/50">
+                      <img
+                        src={siteCs(Math.min(i + 1, 10))}
+                        alt=""
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+                      <div
+                        className="absolute bottom-3 left-3 w-11 h-11 rounded-xl flex items-center justify-center shadow-lg"
+                        style={{ background: `${accent}e6` }}
                       >
-                        {fw}
-                      </span>
-                    ))}
-                  </div>
-
-                  <p className="text-sm text-muted-foreground line-clamp-2">
-                    {service.description}
-                  </p>
-
-                  <div className="mt-4 inline-flex items-center text-sm font-medium text-primary">
-                    Read More <ArrowRight className="w-3 h-3 ml-1" />
-                  </div>
-                  </div>
-                </button>
-              ))}
-            </div>
+                        <service.icon className="w-5 h-5 text-white" />
+                      </div>
+                    </div>
+                    <div className="p-6 pt-5">
+                      <h3 className="font-display font-semibold text-lg text-foreground mb-2">
+                        {service.title}
+                      </h3>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {service.frameworks.map((fw) => (
+                          <span
+                            key={fw}
+                            className="px-2.5 py-1 rounded-full text-xs font-medium"
+                            style={{
+                              background: `${accent}14`,
+                              color: accent,
+                              border: `1px solid ${accent}28`,
+                            }}
+                          >
+                            {fw}
+                          </span>
+                        ))}
+                      </div>
+                      <p className="text-sm text-muted-foreground line-clamp-2">
+                        {service.description}
+                      </p>
+                      <div className="mt-4 inline-flex items-center text-sm font-medium" style={{ color: accent }}>
+                        Read More <ArrowRight className="w-3 h-3 ml-1" />
+                      </div>
+                    </div>
+                  </PremiumCard>
+                );
+              })}
+            </PremiumCardGrid>
           </div>
         </section>
       </ScrollReveal>
@@ -362,7 +374,7 @@ export default function ConsultingPage() {
           if (!open) setSelectedService(null);
         }}
       >
-        <DialogContent className="sm:max-w-2xl glass-strong max-h-[85vh] overflow-y-auto">
+        <DialogContent className="sm:max-w-2xl max-h-[85vh] overflow-y-auto" style={{ background: "hsl(220,42%,8%)", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "0 8px 40px rgba(0,0,0,0.5)" }}>
           {selectedService && (
             <>
               <DialogHeader>
@@ -387,7 +399,7 @@ export default function ConsultingPage() {
               </div>
 
               <div className="mt-6 grid gap-4 md:grid-cols-2">
-                <div className="rounded-2xl glass p-5 border border-border/40">
+                <PremiumCard accent="#6366f1" padding="md" animate={false} interactive={false}>
                   <h3 className="font-display font-semibold text-foreground mb-3">
                     Core Consulting Services
                   </h3>
@@ -396,8 +408,8 @@ export default function ConsultingPage() {
                       <li key={x}>{x}</li>
                     ))}
                   </ul>
-                </div>
-                <div className="rounded-2xl glass p-5 border border-border/40">
+                </PremiumCard>
+                <PremiumCard accent="#10b981" padding="md" animate={false} interactive={false}>
                   <h3 className="font-display font-semibold text-foreground mb-3">
                     Business Benefits
                   </h3>
@@ -406,7 +418,7 @@ export default function ConsultingPage() {
                       <li key={x}>{x}</li>
                     ))}
                   </ul>
-                </div>
+                </PremiumCard>
               </div>
 
               <Button

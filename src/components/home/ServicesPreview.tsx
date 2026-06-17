@@ -1,10 +1,11 @@
-import { motion } from "framer-motion";
 import {
   Server, Shield, Lock, RefreshCw, CreditCard,
   Eye, Brain, Building2, Zap, Landmark,
 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
-import { staggerFast, revealUp, scrollViewport } from "@/lib/motion";
+import { PremiumCard, PremiumCardGrid } from "@/components/ui/PremiumCard";
+
+const ACCENTS = ["#6366f1", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b", "#ec4899", "#3b82f6", "#14b8a6", "#a855f7", "#f97316"];
 
 const services = [
   { icon: Server, title: "IT Service Management", frameworks: "ITIL · ISO 20000" },
@@ -16,41 +17,39 @@ const services = [
   { icon: Brain, title: "AI Governance", frameworks: "NIST AI RMF · ISO 42001" },
   { icon: Building2, title: "Enterprise Architecture", frameworks: "TOGAF · Zachman" },
   { icon: Zap, title: "Agile Project Management", frameworks: "Scrum · SAFe" },
-  { icon: Landmark, title: "OSFI Compliance", frameworks: "B-13 · B-10 · E-21" },
+  { icon: Landmark, title: "OSFI Compliance", frameworks: "B-13 · B-10 · E 21" },
 ];
 
 export default function ServicesPreview() {
   return (
-    <section className="section-padding">
+    <section className="section-padding bg-transparent">
       <div className="container-wide">
         <SectionHeading
           badge="Consulting Services"
-          title="Expert-Led, Framework-Driven"
+          title="Expert-led, framework-driven"
           description="10 specialized consulting domains delivered by certified professionals who understand your regulatory landscape."
         />
 
-        <motion.div
-          className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4"
-          variants={staggerFast}
-          initial="hidden"
-          whileInView="visible"
-          viewport={scrollViewport}
-        >
-          {services.map((service) => (
-            <motion.div
-              key={service.title}
-              variants={revealUp}
-              whileHover={{ y: -4, scale: 1.03, transition: { type: "spring", stiffness: 320, damping: 22 } }}
-              className="group glass rounded-xl p-5 cursor-default"
-            >
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-                <service.icon className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
-              </div>
-              <h3 className="font-display font-semibold text-sm text-foreground mb-1">{service.title}</h3>
-              <p className="text-xs text-muted-foreground">{service.frameworks}</p>
-            </motion.div>
-          ))}
-        </motion.div>
+        <PremiumCardGrid className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-3.5">
+          {services.map((service, i) => {
+            const accent = ACCENTS[i % ACCENTS.length];
+            return (
+              <PremiumCard key={service.title} accent={accent} padding="sm" interactive={false}>
+                <div
+                  className="w-9 h-9 rounded-lg flex items-center justify-center mb-3 transition-all duration-300 group-hover:-translate-y-0.5"
+                  style={{
+                    background: `linear-gradient(135deg, ${accent}18, ${accent}08)`,
+                    border: `1px solid ${accent}28`,
+                  }}
+                >
+                  <service.icon className="w-4 h-4" style={{ color: accent }} strokeWidth={1.8} />
+                </div>
+                <h3 className="font-display font-semibold text-xs text-foreground mb-1 leading-snug">{service.title}</h3>
+                <p className="text-[10px] text-muted-foreground leading-relaxed">{service.frameworks}</p>
+              </PremiumCard>
+            );
+          })}
+        </PremiumCardGrid>
       </div>
     </section>
   );

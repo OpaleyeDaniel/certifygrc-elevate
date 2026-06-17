@@ -21,11 +21,11 @@ export default function FrameworksPage() {
           <span className="text-xs font-medium text-primary">Frameworks</span>
         </div>
 
-        <h1 className="font-display font-bold text-4xl sm:text-5xl text-foreground tracking-tight leading-[1.05]">
+        <h1 className="font-display font-bold text-display-lg md:text-display-xl text-foreground tracking-tight">
           Compliance and Privacy Frameworks, <span className="gradient-text">Automated</span>
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
-          CertifyGRC Software offers a robust suite of industry-leading compliance frameworks—mapped to controls, evidence, and audit-ready workflows.
+          CertifyGRC Software offers a robust suite of industry leading compliance frameworks mapped to controls, evidence, and audit ready workflows.
         </p>
 
         <div className="flex flex-wrap gap-4 pt-2">

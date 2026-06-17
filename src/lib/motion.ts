@@ -1,145 +1,236 @@
-import type { Variants } from "framer-motion";
+import type { Transition, Variants } from "framer-motion";
 
-/** Smooth, noticeable scroll reveals — shared easing across the app */
-export const scrollEase = [0.16, 1, 0.3, 1] as const;
+/** Premium enterprise motion — Stripe / Linear inspired */
 
-export const scrollRevealDuration = 0.95;
+export const scrollEase = [0.22, 1, 0.36, 1] as const;
+export const easeOut = [0.16, 1, 0.3, 1] as const;
+export const easeInOut = [0.45, 0, 0.15, 1] as const;
 
-/** Default `viewport` for `whileInView` — triggers when ~⅕ visible, slightly before center */
+/** Duration tokens (seconds) */
+export const motionDuration = {
+  fast: 0.2,
+  standard: 0.4,
+  section: 0.65,
+  hero: 0.9,
+  page: 0.5,
+} as const;
+
+export const scrollRevealDuration = motionDuration.section;
+
 export const scrollViewport = {
   once: true as const,
-  amount: 0.2,
-  margin: "0px 0px -10% 0px",
+  amount: 0.12,
+  margin: "0px 0px -4% 0px",
 };
 
-export const transitionBase = {
-  duration: 0.48,
-  ease: "easeInOut",
-} as const;
+export const transitionBase: Transition = {
+  duration: motionDuration.standard,
+  ease: easeInOut,
+};
 
 export const springBase = {
   type: "spring" as const,
-  stiffness: 240,
+  stiffness: 280,
   damping: 26,
 };
 
-// Page-level transitions
+export const springSoft = {
+  type: "spring" as const,
+  stiffness: 220,
+  damping: 28,
+};
+
+/** Page route transitions — fade + upward motion */
 export const pageTransition: Variants = {
-  initial: { opacity: 0, y: 12 },
+  initial: { opacity: 0, y: 20 },
   animate: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.45, ease: scrollEase },
+    transition: { duration: motionDuration.page, ease: scrollEase },
   },
   exit: {
     opacity: 0,
-    y: 8,
+    y: 20,
     transition: { duration: 0.38, ease: scrollEase },
   },
 };
 
-// Scroll-reveal: fade up
+export const pageLoadStagger: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.06 },
+  },
+};
+
+export const revealSection: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: motionDuration.section, ease: scrollEase },
+  },
+};
+
 export const revealUp: Variants = {
-  hidden: { opacity: 0, y: 18 },
+  hidden: { opacity: 0, y: 28 },
   visible: (delay = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: scrollRevealDuration, ease: scrollEase, delay },
+    transition: { duration: motionDuration.section, ease: scrollEase, delay },
   }),
 };
 
-// Scroll-reveal: fade in (no vertical movement)
+export const revealBlur: Variants = {
+  hidden: { opacity: 0, y: 18, filter: "blur(6px)" },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: motionDuration.hero, ease: scrollEase, delay },
+  }),
+};
+
 export const revealFade: Variants = {
   hidden: { opacity: 0 },
   visible: (delay = 0) => ({
     opacity: 1,
-    transition: { duration: 0.85, ease: scrollEase, delay },
+    transition: { duration: motionDuration.hero, ease: scrollEase, delay },
   }),
 };
 
-// Slide in from left
 export const slideInLeft: Variants = {
-  hidden: { opacity: 0, x: -28 },
+  hidden: { opacity: 0, x: -32 },
   visible: (delay = 0) => ({
     opacity: 1,
     x: 0,
-    transition: { duration: scrollRevealDuration, ease: scrollEase, delay },
+    transition: { duration: motionDuration.section, ease: scrollEase, delay },
   }),
 };
 
-// Slide in from right
 export const slideInRight: Variants = {
-  hidden: { opacity: 0, x: 28 },
+  hidden: { opacity: 0, x: 32 },
   visible: (delay = 0) => ({
     opacity: 1,
     x: 0,
-    transition: { duration: scrollRevealDuration, ease: scrollEase, delay },
+    transition: { duration: motionDuration.section, ease: scrollEase, delay },
   }),
 };
 
-// Scale up (pop in)
 export const scaleUp: Variants = {
-  hidden: { opacity: 0, scale: 0.9 },
+  hidden: { opacity: 0, scale: 0.94 },
   visible: (delay = 0) => ({
     opacity: 1,
     scale: 1,
-    transition: { type: "spring", stiffness: 220, damping: 28, delay },
+    transition: { ...springSoft, delay },
   }),
 };
 
-// Scale down (drop in from above, like a card dropping)
 export const dropIn: Variants = {
-  hidden: { opacity: 0, y: -20, scale: 0.97 },
+  hidden: { opacity: 0, y: -20, scale: 0.96 },
   visible: (delay = 0) => ({
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { type: "spring", stiffness: 220, damping: 28, delay },
+    transition: { ...springSoft, delay },
   }),
 };
 
-// Stagger container
+/** Card grid stagger — 100ms between each card */
 export const staggerContainer: Variants = {
   hidden: {},
   visible: {
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.06,
-    },
+    transition: { staggerChildren: 0.1, delayChildren: 0.08 },
   },
 };
 
-// Faster stagger for tight card grids
 export const staggerFast: Variants = {
   hidden: {},
   visible: {
-    transition: {
-      staggerChildren: 0.11,
-      delayChildren: 0.12,
-    },
+    transition: { staggerChildren: 0.08, delayChildren: 0.06 },
   },
 };
 
-// Slower stagger for feature sections
 export const staggerSlow: Variants = {
   hidden: {},
   visible: {
-    transition: {
-      staggerChildren: 0.16,
-      delayChildren: 0.1,
-    },
+    transition: { staggerChildren: 0.14, delayChildren: 0.1 },
   },
 };
 
-// Card hover effect (use with whileHover on motion.div)
-export const cardHover = {
-  scale: 1.025,
-  y: -4,
-  transition: { type: "spring" as const, stiffness: 320, damping: 22 },
+export const staggerGrid: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+  },
 };
 
-// Subtle hover for nav/buttons
-export const subtleHover = {
-  scale: 1.04,
-  transition: { type: "spring" as const, stiffness: 400, damping: 20 },
+/** Card entrance — fade up with index-based delay */
+export const cardReveal: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: motionDuration.section, ease: scrollEase, delay },
+  }),
 };
+
+/** Card hover / tap micro-interactions */
+export const cardHover = {
+  y: -4,
+  scale: 1.02,
+  transition: springBase,
+};
+
+export const cardTap = {
+  scale: 0.98,
+  transition: { duration: motionDuration.fast, ease: easeOut },
+};
+
+export const subtleHover = {
+  scale: 1.02,
+  transition: springBase,
+};
+
+export const buttonTap = {
+  scale: 0.98,
+  transition: { duration: 0.15, ease: easeOut },
+};
+
+/** Modal / drawer */
+export const modalOverlay: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.3, ease: easeInOut } },
+  exit: { opacity: 0, transition: { duration: 0.25, ease: easeInOut } },
+};
+
+export const modalContent: Variants = {
+  hidden: { opacity: 0, scale: 0.95, y: 8 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: scrollEase },
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.97,
+    y: 6,
+    transition: { duration: 0.28, ease: easeInOut },
+  },
+};
+
+/** Table row reveal */
+export const tableRowReveal: Variants = {
+  hidden: { opacity: 0, x: -8 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.45, ease: scrollEase, delay },
+  }),
+};
+
+export const fadeUpTransition = {
+  duration: scrollRevealDuration,
+  ease: scrollEase,
+} as const;

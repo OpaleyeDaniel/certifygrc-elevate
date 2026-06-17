@@ -19,6 +19,8 @@ import {
 } from "@/components/ui/select";
 import { CheckCircle, Sparkles, AlertCircle, Loader2 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
+import { formSubmitUserMessage } from "@/lib/formSubmitApi";
+import { PremiumCardStandalone } from "@/components/ui/PremiumCard";
 
 interface BookingModalProps {
   open: boolean;
@@ -132,10 +134,8 @@ export default function BookingModal({ open, onOpenChange, type }: BookingModalP
         body: JSON.stringify(consultationFormData),
       });
       const json = await safeJson(res);
-      if (!res.ok || !json?.success) {
-        throw new Error(
-          (json?.error as string) ?? `Request failed (${res.status}). Please try again.`
-        );
+      if (!res.ok || json?.success === false) {
+        throw new Error(formSubmitUserMessage(res, json));
       }
       setStatus("success");
       setTimeout(() => {
@@ -167,10 +167,8 @@ export default function BookingModal({ open, onOpenChange, type }: BookingModalP
         }),
       });
       const json = await safeJson(res);
-      if (!res.ok || !json?.success) {
-        throw new Error(
-          (json?.error as string) ?? `Request failed (${res.status}). Please try again.`
-        );
+      if (!res.ok || json?.success === false) {
+        throw new Error(formSubmitUserMessage(res, json));
       }
       setStatus("success");
       setTimeout(() => {
@@ -194,8 +192,8 @@ export default function BookingModal({ open, onOpenChange, type }: BookingModalP
       <DialogContent
         className={
           type === "consultation"
-            ? "sm:max-w-5xl p-0 max-h-[90vh] overflow-y-auto glass-strong"
-            : "sm:max-w-md glass-strong max-h-[90vh] overflow-y-auto"
+            ? "sm:max-w-5xl p-0 max-h-[90vh] overflow-y-auto"
+            : "sm:max-w-md max-h-[90vh] overflow-y-auto"
         }
       >
         <AnimatePresence mode="wait">
@@ -267,9 +265,9 @@ export default function BookingModal({ open, onOpenChange, type }: BookingModalP
                           </div>
                         ))}
                       </div>
-                      <div className="glass rounded-2xl p-6 glow-border">
+                      <PremiumCardStandalone accent="#6366f1" padding="md" interactive={false}>
                         <ConsultationIllustration />
-                      </div>
+                      </PremiumCardStandalone>
                     </div>
                   </div>
 
