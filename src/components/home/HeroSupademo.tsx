@@ -37,13 +37,13 @@ export default function HeroSupademo() {
         className="pointer-events-none absolute -inset-6 rounded-[1.75rem] opacity-70 blur-2xl"
         style={{
           background:
-            "radial-gradient(ellipse 80% 70% at 50% 45%, rgba(99,102,241,0.28) 0%, transparent 70%)",
+            "radial-gradient(ellipse 80% 70% at 50% 45%, rgba(48,92,222,0.28) 0%, transparent 70%)",
         }}
       />
 
       <motion.div
         id="hero-demo"
-        className="relative overflow-hidden rounded-2xl border border-white/[0.12] bg-[#0c1018] shadow-[0_24px_80px_-20px_rgba(0,0,0,0.65),0_0_0_1px_rgba(99,102,241,0.1)]"
+        className="relative overflow-hidden rounded-2xl border border-white/[0.12] bg-[#0c1018] shadow-[0_24px_80px_-20px_rgba(0,0,0,0.65),0_0_0_1px_rgba(48,92,222,0.1)]"
         initial={reduceMotion ? false : { opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
@@ -92,7 +92,7 @@ export default function HeroSupademo() {
           {!iframeLoaded && (
             <div
               aria-hidden
-              className="absolute inset-0 animate-pulse bg-gradient-to-br from-indigo-500/10 via-transparent to-cyan-500/5"
+              className="absolute inset-0 animate-pulse bg-gradient-to-br from-primary/10 via-transparent to-accent/5"
             />
           )}
         </div>

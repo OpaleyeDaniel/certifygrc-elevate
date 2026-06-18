@@ -205,7 +205,7 @@ export default function BlogPostPage() {
               className="mt-8 rounded-2xl overflow-hidden relative p-6 text-center"
               style={{ background: "linear-gradient(135deg, #0f0c29, #1a1450)" }}
             >
-              <div className="absolute inset-0 opacity-20" style={{ background: "radial-gradient(circle at 50% 0%, #6366f1, transparent 70%)" }} />
+              <div className="absolute inset-0 opacity-20" style={{ background: "radial-gradient(circle at 50% 0%, #305CDE, transparent 70%)" }} />
               <div className="relative z-10">
                 <p className="text-white/60 text-xs font-semibold uppercase tracking-widest mb-3">Ready to get compliant?</p>
                 <h3 className="font-display font-bold text-white text-xl mb-3">Start your NIST CSF 2.0 assessment today</h3>

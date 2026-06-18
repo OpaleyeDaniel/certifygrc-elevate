@@ -5,6 +5,7 @@ import SectionHeading from "@/components/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { slideInLeft, slideInRight, scrollViewport } from "@/lib/motion";
 import { PremiumCard, PremiumCardGrid } from "@/components/ui/PremiumCard";
+import { BRAND_PRIMARY } from "@/lib/brandColors";
 
 const items = [
   {
@@ -12,28 +13,24 @@ const items = [
     title: "Business Continuity & Operational Resilience",
     description:
       "ISO 22301-aligned business continuity programs that protect critical services, reduce downtime, and meet regulatory expectations.",
-    accent: "#6366f1",
   },
   {
     icon: Landmark,
     title: "Regulatory & Governance Compliance",
     description:
       "OSFI-aligned governance, technology risk, and third-party risk compliance for federally regulated organizations.",
-    accent: "#8b5cf6",
   },
   {
     icon: Lock,
     title: "Cybersecurity & Information Security",
     description:
       "Risk-based cybersecurity programs aligned with ISO 27001, SOC 2, and NIST CSF.",
-    accent: "#06b6d4",
   },
   {
     icon: FileText,
     title: "Privacy & Data Protection",
     description:
       "Practical PIPEDA compliance and privacy governance embedded into business operations.",
-    accent: "#10b981",
   },
 ];
 
@@ -79,15 +76,15 @@ export default function ConsultingResilienceSection() {
             </h3>
             <PremiumCardGrid className="grid sm:grid-cols-2 gap-3 md:gap-3.5">
               {items.map((it) => (
-                <PremiumCard key={it.title} accent={it.accent} padding="md" interactive={false}>
+                <PremiumCard key={it.title} padding="md" interactive={false}>
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:-translate-y-0.5"
                     style={{
-                      background: `linear-gradient(135deg, ${it.accent}18, ${it.accent}08)`,
-                      border: `1px solid ${it.accent}28`,
+                      background: `linear-gradient(135deg, ${BRAND_PRIMARY}18, ${BRAND_PRIMARY}08)`,
+                      border: `1px solid ${BRAND_PRIMARY}28`,
                     }}
                   >
-                    <it.icon className="w-5 h-5" style={{ color: it.accent }} strokeWidth={1.8} />
+                    <it.icon className="w-5 h-5 text-primary" strokeWidth={1.8} />
                   </div>
                   <h3 className="font-display font-semibold text-sm text-foreground mb-2 leading-snug">
                     {it.title}

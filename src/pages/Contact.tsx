@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BRAND_PRIMARY } from "@/lib/brandColors";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
@@ -24,8 +25,6 @@ import { heroImagery } from "@/constants/heroImagery";
 import { formSubmitUserMessage } from "@/lib/formSubmitApi";
 import { revealUp, scrollEase, scrollViewport, staggerContainer } from "@/lib/motion";
 import { PremiumCard, PremiumCardGrid, PremiumCardStandalone } from "@/components/ui/PremiumCard";
-
-const SUPPORT_ACCENTS = ["#6366f1", "#8b5cf6", "#06b6d4"];
 
 const supportCategories = [
   { icon: MessageSquare, title: "Sales", description: "Learn about our platform and services", email: "sales@certifygrc.com" },
@@ -181,7 +180,7 @@ export default function ContactPage() {
                   </p>
                 </motion.div>
 
-                <PremiumCardStandalone accent="#6366f1" padding="md" interactive={false} className="mt-8">
+                <PremiumCardStandalone padding="md" interactive={false} className="mt-8">
                   <div className="flex items-start gap-4">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/12 text-primary ring-1 ring-primary/20">
                       <Mail className="h-6 w-6" aria-hidden />
@@ -205,12 +204,12 @@ export default function ContactPage() {
                   </div>
                   <PremiumCardGrid className="space-y-3">
                     {supportCategories.map((cat, i) => (
-                      <PremiumCard key={cat.title} accent={SUPPORT_ACCENTS[i % SUPPORT_ACCENTS.length]} padding="sm" interactive={false} contentClassName="flex items-center gap-3">
+                      <PremiumCard key={cat.title} padding="sm" interactive={false} contentClassName="flex items-center gap-3">
                         <div
                           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
                           style={{
-                            background: `${SUPPORT_ACCENTS[i % SUPPORT_ACCENTS.length]}14`,
-                            color: SUPPORT_ACCENTS[i % SUPPORT_ACCENTS.length],
+                            background: `${BRAND_PRIMARY}14`,
+                            color: BRAND_PRIMARY,
                           }}
                         >
                           <cat.icon className="h-5 w-5" aria-hidden />
@@ -243,7 +242,7 @@ export default function ContactPage() {
                 viewport={{ ...scrollViewport, once: true }}
                 transition={{ duration: 0.65, ease: [...scrollEase], delay: 0.08 }}
               >
-                <PremiumCardStandalone id="contact-form" accent="#6366f1" padding="lg" interactive={false} className="rounded-[1.35rem]">
+                <PremiumCardStandalone id="contact-form" padding="lg" interactive={false} className="rounded-[1.35rem]">
                   <h2 className="font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl">Send a message</h2>
                   <p className="mt-2 text-sm text-muted-foreground">
                     Full name, email, and your message we&apos;ll confirm receipt and respond within 24 hours on business days.
@@ -361,7 +360,7 @@ export default function ContactPage() {
           <div className="container-wide">
             <div className="grid gap-6 lg:grid-cols-12 lg:items-stretch">
               <div className="lg:col-span-4">
-              <PremiumCardStandalone accent="#6366f1" padding="lg" interactive={false} className="h-full">
+              <PremiumCardStandalone padding="lg" interactive={false} className="h-full">
                   <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/12 text-primary">
                     <MapPin className="h-5 w-5" aria-hidden />
                   </div>

@@ -16,7 +16,7 @@ import { evidenceRows, riskRegisterRows } from "@/components/marketing/grcWorksp
 function riskBadgeClass(level: "high" | "medium" | "low") {
   if (level === "high") return "bg-red-500/15 text-red-700 border-red-500/25";
   if (level === "medium") return "bg-amber-500/15 text-amber-800 border-amber-500/25";
-  return "bg-emerald-500/15 text-emerald-800 border-emerald-500/25";
+  return "bg-primary/15 text-emerald-800 border-primary/25";
 }
 
 export function EvidenceManagementMock() {
@@ -72,7 +72,7 @@ export function EvidenceManagementMock() {
                 className="flex items-center justify-between gap-3 rounded-xl border border-border/50 bg-card/40 px-3 py-2 text-[13px] text-foreground"
               >
                 <span className="min-w-0 truncate">{l}</span>
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" aria-hidden />
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-primary" aria-hidden />
               </div>
             ))}
           </div>
@@ -104,7 +104,7 @@ export function EvidenceManagementMock() {
                 className={cn(
                   "inline-flex w-fit items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold",
                   row.status === "approved"
-                    ? "border-emerald-500/25 bg-emerald-500/10 text-emerald-700"
+                    ? "border-primary/25 bg-primary/10 text-primary"
                     : "border-amber-500/25 bg-amber-500/10 text-amber-800",
                 )}
               >

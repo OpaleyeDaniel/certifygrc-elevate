@@ -4,8 +4,7 @@ import {
 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import { PremiumCard, PremiumCardGrid } from "@/components/ui/PremiumCard";
-
-const ACCENTS = ["#6366f1", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b", "#ec4899", "#3b82f6", "#14b8a6", "#a855f7", "#f97316"];
+import { BRAND_PRIMARY } from "@/lib/brandColors";
 
 const services = [
   { icon: Server, title: "IT Service Management", frameworks: "ITIL · ISO 20000" },
@@ -31,24 +30,21 @@ export default function ServicesPreview() {
         />
 
         <PremiumCardGrid className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-3.5">
-          {services.map((service, i) => {
-            const accent = ACCENTS[i % ACCENTS.length];
-            return (
-              <PremiumCard key={service.title} accent={accent} padding="sm" interactive={false}>
-                <div
-                  className="w-9 h-9 rounded-lg flex items-center justify-center mb-3 transition-all duration-300 group-hover:-translate-y-0.5"
-                  style={{
-                    background: `linear-gradient(135deg, ${accent}18, ${accent}08)`,
-                    border: `1px solid ${accent}28`,
-                  }}
-                >
-                  <service.icon className="w-4 h-4" style={{ color: accent }} strokeWidth={1.8} />
-                </div>
-                <h3 className="font-display font-semibold text-xs text-foreground mb-1 leading-snug">{service.title}</h3>
-                <p className="text-[10px] text-muted-foreground leading-relaxed">{service.frameworks}</p>
-              </PremiumCard>
-            );
-          })}
+          {services.map((service) => (
+            <PremiumCard key={service.title} padding="sm" interactive={false}>
+              <div
+                className="w-9 h-9 rounded-lg flex items-center justify-center mb-3 transition-all duration-300 group-hover:-translate-y-0.5"
+                style={{
+                  background: `linear-gradient(135deg, ${BRAND_PRIMARY}18, ${BRAND_PRIMARY}08)`,
+                  border: `1px solid ${BRAND_PRIMARY}28`,
+                }}
+              >
+                <service.icon className="w-4 h-4 text-primary" strokeWidth={1.8} />
+              </div>
+              <h3 className="font-display font-semibold text-xs text-foreground mb-1 leading-snug">{service.title}</h3>
+              <p className="text-[10px] text-muted-foreground leading-relaxed">{service.frameworks}</p>
+            </PremiumCard>
+          ))}
         </PremiumCardGrid>
       </div>
     </section>

@@ -18,8 +18,8 @@ export default function BlogReadingProgress() {
       className="fixed top-0 left-0 right-0 z-[200] h-[3px] origin-left"
       style={{
         scaleX,
-        background: "linear-gradient(90deg, #6366f1, #8b5cf6, #6366f1)",
-        boxShadow: "0 0 8px rgba(99,102,241,0.5)",
+        background: "linear-gradient(90deg, #305CDE, #5B7FE8, #305CDE)",
+        boxShadow: "0 0 8px rgba(48,92,222,0.5)",
       }}
     />
   );

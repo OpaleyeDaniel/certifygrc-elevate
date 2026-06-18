@@ -6,31 +6,28 @@ import PageHero from "@/components/PageHero";
 import { heroImagery } from "@/constants/heroImagery";
 import ScrollReveal from "@/components/ScrollReveal";
 import { PremiumCard, PremiumCardGrid } from "@/components/ui/PremiumCard";
+import { BRAND_PRIMARY } from "@/lib/brandColors";
 
 const categories = [
   {
     icon: Shield,
     title: "ISO & Standards Training",
     courses: ["ISO 27001 Lead Implementer", "ISO 27001 Lead Auditor", "ISO 22301 Foundation", "ISO 20000 Practitioner"],
-    accent: "#6366f1",
   },
   {
     icon: Brain,
     title: "Cybersecurity Programs",
     courses: ["NIST CSF Implementation", "SOC 2 Readiness", "PCI DSS Compliance", "Incident Response Planning"],
-    accent: "#8b5cf6",
   },
   {
     icon: BookOpen,
     title: "Governance & Risk",
     courses: ["COBIT 2019 Foundation", "Enterprise Risk Management", "IT Governance Essentials", "Regulatory Compliance"],
-    accent: "#06b6d4",
   },
   {
     icon: GraduationCap,
     title: "AI & Emerging Tech",
     courses: ["AI Governance Fundamentals", "NIST AI RMF Workshop", "Responsible AI Practices", "Data Ethics"],
-    accent: "#10b981",
   },
 ];
 
@@ -63,21 +60,21 @@ export default function CyberAwarePage() {
             <SectionHeading badge="Course Catalog" title="Learning Paths" description="Structured programs across four key domains of GRC excellence." />
             <PremiumCardGrid className="grid sm:grid-cols-2 gap-3 md:gap-4 max-w-4xl mx-auto">
               {categories.map((cat) => (
-                <PremiumCard key={cat.title} accent={cat.accent} padding="lg" interactive={false}>
+                <PremiumCard key={cat.title} padding="lg" interactive={false}>
                   <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:-translate-y-0.5"
                     style={{
-                      background: `linear-gradient(135deg, ${cat.accent}18, ${cat.accent}08)`,
-                      border: `1px solid ${cat.accent}28`,
+                      background: `linear-gradient(135deg, ${BRAND_PRIMARY}18, ${BRAND_PRIMARY}08)`,
+                      border: `1px solid ${BRAND_PRIMARY}28`,
                     }}
                   >
-                    <cat.icon className="w-6 h-6" style={{ color: cat.accent }} />
+                    <cat.icon className="w-6 h-6 text-primary" />
                   </div>
                   <h3 className="font-display font-semibold text-xl text-foreground mb-4">{cat.title}</h3>
                   <ul className="space-y-2 mb-6">
                     {cat.courses.map((course) => (
                       <li key={course} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <div className="w-1.5 h-1.5 rounded-full" style={{ background: `${cat.accent}99` }} />
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
                         {course}
                       </li>
                     ))}

@@ -26,10 +26,10 @@ const PULSE_DECAY= 0.022;  // activation decay per frame (1 → 0)
 const TRAIL_LEN  = 18;     // max trail segment count
 
 type RGB = readonly [number, number, number];
-const INDIGO: RGB = [99, 102, 241];
-const VIOLET: RGB = [139, 92, 246];
-const CYAN:   RGB = [6,  182, 212];
-const PALETTE: RGB[] = [INDIGO, INDIGO, INDIGO, INDIGO, INDIGO, VIOLET, VIOLET, CYAN];
+const BRAND: RGB = [48, 92, 222];
+const BRAND_LIGHT_RGB: RGB = [91, 127, 232];
+const BRAND_INDIGO_RGB: RGB = [74, 111, 212];
+const PALETTE: RGB[] = [BRAND, BRAND, BRAND, BRAND, BRAND_LIGHT_RGB, BRAND_INDIGO_RGB, BRAND_LIGHT_RGB];
 
 /* ─── Types ───────────────────────────────────────────────────────── */
 interface NetworkNode {

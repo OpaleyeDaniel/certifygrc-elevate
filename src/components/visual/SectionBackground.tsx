@@ -32,7 +32,7 @@ export default function SectionBackground({
             className="pointer-events-none absolute inset-0 opacity-[0.032]"
             style={{
               backgroundImage:
-                "linear-gradient(hsl(239 84% 67% / 0.7) 1px, transparent 1px), linear-gradient(90deg, hsl(239 84% 67% / 0.7) 1px, transparent 1px)",
+                "linear-gradient(hsl(225 72% 53% / 0.55) 1px, transparent 1px), linear-gradient(90deg, hsl(225 72% 53% / 0.55) 1px, transparent 1px)",
               backgroundSize: "40px 40px",
               maskImage:
                 "radial-gradient(ellipse 85% 85% at 50% 50%, black 15%, transparent 100%)",

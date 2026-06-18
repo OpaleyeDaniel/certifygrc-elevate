@@ -40,8 +40,8 @@ export default function BlogPostCard({ post, variant = "default", index = 0 }: P
         onMouseMove={onMouseMove}
         className="relative h-full flex flex-col rounded-2xl overflow-hidden transition-shadow duration-400"
         style={{
-          background: "linear-gradient(155deg, rgba(99,102,241,0.22) 0%, rgba(99,102,241,0.08) 42%, hsl(221,42%,13%) 100%)",
-          border: "1px solid rgba(99,102,241,0.28)",
+          background: "linear-gradient(155deg, rgba(48,92,222,0.22) 0%, rgba(48,92,222,0.08) 42%, hsl(221,42%,13%) 100%)",
+          border: "1px solid rgba(48,92,222,0.28)",
           boxShadow: "0 1px 0 rgba(255,255,255,0.05) inset, 0 4px 24px rgba(0,0,0,0.45)",
           "--gx": "50%",
           "--gy": "50%",
@@ -50,7 +50,7 @@ export default function BlogPostCard({ post, variant = "default", index = 0 }: P
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 z-0 opacity-0 transition-opacity duration-400 group-hover:opacity-100 rounded-2xl"
-          style={{ background: "radial-gradient(320px circle at var(--gx) var(--gy), rgba(99,102,241,0.06), transparent 70%)" }}
+          style={{ background: "radial-gradient(320px circle at var(--gx) var(--gy), rgba(48,92,222,0.06), transparent 70%)" }}
         />
 
         <Link to={`/blog/${slug}`} className="block overflow-hidden aspect-[16/10] bg-muted/20">
@@ -165,7 +165,7 @@ function FeaturedCard({ post, slug, imageUrl }: { post: SanityPost; slug: string
           <Link
             to={`/blog/${slug}`}
             className="inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-300 hover:gap-3 shadow-lg"
-            style={{ background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))", color: "#fff", boxShadow: "0 0 20px rgba(99,102,241,0.3)" }}
+            style={{ background: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))", color: "#fff", boxShadow: "0 0 20px rgba(48,92,222,0.3)" }}
           >
             Read Article <ArrowRight className="w-4 h-4" />
           </Link>
@@ -184,8 +184,8 @@ function HorizontalCard({ post, slug, imageUrl, index }: { post: SanityPost; slu
       whileHover={{ x: 4 }}
       className="group flex gap-4 sm:gap-6 rounded-xl p-4 transition-shadow duration-300"
       style={{
-        background: "linear-gradient(155deg, rgba(99,102,241,0.18) 0%, hsl(221,42%,13%) 100%)",
-        border: "1px solid rgba(99,102,241,0.22)",
+        background: "linear-gradient(155deg, rgba(48,92,222,0.18) 0%, hsl(221,42%,13%) 100%)",
+        border: "1px solid rgba(48,92,222,0.22)",
         boxShadow: "0 1px 0 rgba(255,255,255,0.04) inset, 0 4px 20px rgba(0,0,0,0.4)",
       }}
     >
@@ -236,7 +236,7 @@ function CompactCard({ post, slug, index }: { post: SanityPost; slug: string; in
 }
 
 function PlaceholderCover({ category, small }: { category?: SanityPost["categories"] extends (infer C)[] | undefined ? C : never; small?: boolean }) {
-  const color = (category as { color?: string })?.color ?? "#6366f1";
+  const color = (category as { color?: string })?.color ?? "#305CDE";
   return (
     <div
       className={cn("w-full h-full flex items-center justify-center", small ? "text-xl" : "text-3xl")}

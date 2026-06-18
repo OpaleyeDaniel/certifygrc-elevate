@@ -61,7 +61,7 @@ export default function CTASection() {
         aria-hidden
         className="pointer-events-none absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[500px] opacity-[0.22]"
         style={{
-          background: "radial-gradient(ellipse, rgba(99,102,241,1), transparent 65%)",
+          background: "radial-gradient(ellipse, rgba(48,92,222,1), transparent 65%)",
           filter: "blur(90px)",
         }}
       />
@@ -122,7 +122,7 @@ export default function CTASection() {
                 className="px-7 group font-semibold"
                 style={{
                   background: "linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%)",
-                  boxShadow: "0 0 32px rgba(99,102,241,0.42), 0 4px 16px rgba(0,0,0,0.35)",
+                  boxShadow: "0 0 32px rgba(48,92,222,0.42), 0 4px 16px rgba(0,0,0,0.35)",
                 }}
                 onClick={() => { setMode("demo"); openDemo(); }}
               >
@@ -255,12 +255,12 @@ export default function CTASection() {
                       key={s.label}
                       className="rounded-xl p-3 transition-all"
                       style={{
-                        background: idx === 0 ? "rgba(99,102,241,0.12)" : "rgba(255,255,255,0.04)",
-                        border: `1px solid ${idx === 0 ? "rgba(99,102,241,0.3)" : "rgba(255,255,255,0.08)"}`,
+                        background: idx === 0 ? "rgba(48,92,222,0.12)" : "rgba(255,255,255,0.04)",
+                        border: `1px solid ${idx === 0 ? "rgba(48,92,222,0.3)" : "rgba(255,255,255,0.08)"}`,
                       }}
                     >
                       <div className="flex items-start gap-2.5">
-                        <span className="inline-flex items-center justify-center w-5 h-5 rounded-md text-[10px] font-bold flex-shrink-0 mt-0.5" style={{ background: "rgba(99,102,241,0.2)", border: "1px solid rgba(99,102,241,0.3)", color: "#a5b4fc" }}>
+                        <span className="inline-flex items-center justify-center w-5 h-5 rounded-md text-[10px] font-bold flex-shrink-0 mt-0.5" style={{ background: "rgba(48,92,222,0.2)", border: "1px solid rgba(48,92,222,0.3)", color: "#a5b4fc" }}>
                           {idx + 1}
                         </span>
                         <div>
@@ -278,7 +278,7 @@ export default function CTASection() {
                     className="w-full font-semibold"
                     style={{
                       background: "linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%)",
-                      boxShadow: "0 0 20px rgba(99,102,241,0.35), 0 4px 12px rgba(0,0,0,0.3)",
+                      boxShadow: "0 0 20px rgba(48,92,222,0.35), 0 4px 12px rgba(0,0,0,0.3)",
                     }}
                     onClick={() => { if (mode === "demo") openDemo(); else openConsultation(); }}
                   >

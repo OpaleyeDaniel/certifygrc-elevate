@@ -5,27 +5,25 @@ import SectionHeading from "@/components/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { slideInLeft, slideInRight, scrollViewport } from "@/lib/motion";
 import { PremiumCard, PremiumCardGrid, PremiumCardStandalone } from "@/components/ui/PremiumCard";
+import { BRAND_PRIMARY } from "@/lib/brandColors";
 
 const categories = [
   {
     logo: "/home-platform/nist-csf-2-0.png",
     title: "Cybersecurity (NIST CSF 2.0)",
     description: "Map controls, monitor maturity, and operationalize cyber governance.",
-    accent: "#6366f1",
     surface: "security" as const,
   },
   {
     logo: "/home-platform/pci-dss.png",
     title: "Payment Security (PCI DSS)",
     description: "Scope, remediate, and manage PCI DSS evidence with audit-ready workflows.",
-    accent: "#818cf8",
     surface: "assessment" as const,
   },
   {
     logo: "/home-platform/pipeda.png",
     title: "Data Security (PIPEDA)",
     description: "Embed privacy governance and data protection practices into operations.",
-    accent: "#06b6d4",
     surface: "compliance" as const,
   },
 ];
@@ -45,12 +43,12 @@ export default function PlatformSection() {
 
             <PremiumCardGrid className="grid sm:grid-cols-3 gap-3 mt-6">
               {categories.map((cat) => (
-                <PremiumCard key={cat.title} accent={cat.accent} surface={cat.surface} padding="sm">
+                <PremiumCard key={cat.title} surface={cat.surface} padding="sm">
                   <div
                     className="w-14 h-14 rounded-xl flex items-center justify-center mb-3 overflow-hidden mx-auto sm:mx-0"
                     style={{
-                      background: `linear-gradient(135deg, ${cat.accent}15, ${cat.accent}06)`,
-                      border: `1px solid ${cat.accent}25`,
+                      background: `linear-gradient(135deg, ${BRAND_PRIMARY}15, ${BRAND_PRIMARY}06)`,
+                      border: `1px solid ${BRAND_PRIMARY}25`,
                     }}
                   >
                     <img src={cat.logo} alt={cat.title} className="w-10 h-10 object-contain" loading="lazy" draggable={false} />
@@ -62,10 +60,10 @@ export default function PlatformSection() {
             </PremiumCardGrid>
 
             <div className="mt-5">
-              <PremiumCardStandalone surface="compliance" accent="#6366f1" padding="md">
+              <PremiumCardStandalone surface="compliance" padding="md">
                 <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-accent/15 to-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Layers className="w-5 h-5 text-accent" strokeWidth={1.8} />
+                  <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Layers className="w-5 h-5 text-primary" strokeWidth={1.8} />
                   </div>
                   <div>
                     <p className="font-display font-semibold text-sm text-foreground">

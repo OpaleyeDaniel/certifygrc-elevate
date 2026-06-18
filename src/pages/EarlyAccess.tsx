@@ -33,7 +33,7 @@ export default function EarlyAccessPage() {
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute -left-20 bottom-20 h-72 w-72 rounded-full bg-cyan-500/6 blur-3xl"
+        className="pointer-events-none absolute -left-20 bottom-20 h-72 w-72 rounded-full bg-primary/6 blur-3xl"
         aria-hidden
       />
 
@@ -91,7 +91,7 @@ export default function EarlyAccessPage() {
         >
           <div
             className="rounded-[1.35rem] p-6 sm:p-8 md:p-10 md:px-12"
-            style={{ background: "linear-gradient(145deg, hsl(220,42%,9%), hsl(220,42%,7%))", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 40px -12px rgba(99,102,241,0.2)" }}
+            style={{ background: "linear-gradient(145deg, hsl(220,42%,9%), hsl(220,42%,7%))", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 40px -12px rgba(48,92,222,0.2)" }}
           >
             <PartnerApplicationForm variant="earlyAccess" />
           </div>

@@ -85,7 +85,7 @@ export function buildPartnerInternalHtml(data: PartnerFormValues): string {
 <style>
   body { font-family: 'Inter', Arial, sans-serif; background: #f5f7fa; margin: 0; padding: 0; }
   .wrapper { max-width: 640px; margin: 40px auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
-  .header { background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%); padding: 28px 32px; }
+  .header { background: linear-gradient(135deg, #305CDE 0%, #5B7FE8 100%); padding: 28px 32px; }
   .header h1 { color: #fff; margin: 0; font-size: 20px; font-weight: 700; }
   .header p { color: rgba(255,255,255,0.88); margin: 6px 0 0; font-size: 13px; }
   .body { padding: 28px 32px; }
@@ -126,12 +126,12 @@ export function buildPartnerConfirmationHtml(data: PartnerFormValues): string {
 <style>
   body { font-family: 'Inter', Arial, sans-serif; background: #f5f7fa; margin: 0; padding: 0; }
   .wrapper { max-width: 640px; margin: 40px auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
-  .header { background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%); padding: 36px; text-align: center; }
+  .header { background: linear-gradient(135deg, #305CDE 0%, #5B7FE8 100%); padding: 36px; text-align: center; }
   .header h1 { color: #fff; margin: 0; font-size: 22px; font-weight: 700; }
   .header p { color: rgba(255,255,255,0.92); margin: 8px 0 0; font-size: 14px; }
   .body { padding: 32px 36px; }
   .body p { color: #374151; font-size: 15px; line-height: 1.7; margin: 0 0 14px; }
-  .cta { display: inline-block; background: linear-gradient(135deg, #4f46e5, #06b6d4); color: #fff !important; text-decoration: none; border-radius: 8px; padding: 11px 26px; font-size: 15px; font-weight: 600; margin-top: 8px; }
+  .cta { display: inline-block; background: linear-gradient(135deg, #305CDE, #5B7FE8); color: #fff !important; text-decoration: none; border-radius: 8px; padding: 11px 26px; font-size: 15px; font-weight: 600; margin-top: 8px; }
   .footer { padding: 18px 36px; background: #f9fafb; text-align: center; font-size: 12px; color: #9ca3af; border-top: 1px solid #e5e7eb; }
 </style>
 </head>
@@ -143,7 +143,7 @@ export function buildPartnerConfirmationHtml(data: PartnerFormValues): string {
     </div>
     <div class="body">
       ${bodyP}
-      <p>If you have questions in the meantime, reply to this email or contact us at <a href="mailto:info@certifygrc.com" style="color:#4f46e5;">info@certifygrc.com</a>.</p>
+      <p>If you have questions in the meantime, reply to this email or contact us at <a href="mailto:info@certifygrc.com" style="color:#305CDE;">info@certifygrc.com</a>.</p>
       <a href="https://certifygrc.vercel.app" class="cta">Visit CertifyGRC</a>
     </div>
     <div class="footer">

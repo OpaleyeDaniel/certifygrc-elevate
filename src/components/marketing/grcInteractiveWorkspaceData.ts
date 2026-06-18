@@ -36,7 +36,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     tourTitle: "Sign In",
     tourBody:
       "The branded login screen where users enter email and password to access their GRC workspace — with optional SSO and enterprise authentication.",
-    accentColor: "#6366f1",
+    accentColor: "#305CDE",
   },
   /* ── DASHBOARD ─────────────────────────────────── */
   {
@@ -47,7 +47,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "GRC Command Center — live posture, workflow pressure map, risk mix, audit readiness",
     tourTitle: "GRC Command Center",
     tourBody: "Your live posture at a glance. System health, audit readiness, workflow bottlenecks, and risk distribution — all in one screen.",
-    accentColor: "#6366f1",
+    accentColor: "#305CDE",
   },
   {
     id: "dashboard-notifications",
@@ -57,7 +57,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "GRC dashboard with real-time compliance notifications and activity feed",
     tourTitle: "Real-Time Alerts",
     tourBody: "Intelligent notifications keep your team informed of compliance changes, control updates, and assessment events as they happen.",
-    accentColor: "#8b5cf6",
+    accentColor: "#4A6FD4",
   },
   {
     id: "action-needed",
@@ -67,7 +67,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "Action needed panel with workflow items — waiting for evidence, pending review, revision queue",
     tourTitle: "Workflow Queue",
     tourBody: "Clear prioritization of what needs attention right now. Waiting for evidence, pending auditor review, and revision queues — all in one place.",
-    accentColor: "#f59e0b",
+    accentColor: "#6888E0",
   },
   /* ── NIST CSF ASSESSMENT ───────────────────────── */
   {
@@ -78,7 +78,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "NIST CSF 2.0 Assessment Dashboard with GOVERN, IDENTIFY, PROTECT, DETECT, RESPOND, RECOVER function cards",
     tourTitle: "NIST CSF 2.0 Dashboard",
     tourBody: "All six CSF functions at a glance. Track progress, questions answered, and potential gaps across your entire framework coverage.",
-    accentColor: "#6366f1",
+    accentColor: "#305CDE",
   },
   {
     id: "nist-overview-2",
@@ -88,7 +88,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "NIST CSF 2.0 assessment dashboard showing function progress and gap indicators",
     tourTitle: "Function Coverage",
     tourBody: "Color-coded progress across GOVERN, IDENTIFY, PROTECT, DETECT, RESPOND, and RECOVER functions. See gaps and completion rates instantly.",
-    accentColor: "#10b981",
+    accentColor: "#5B7FE8",
   },
   {
     id: "nist-tabs",
@@ -98,7 +98,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "NIST CSF function tabs navigation with assessment workflow",
     tourTitle: "Structured Navigation",
     tourBody: "Navigate between NIST CSF functions seamlessly. Each function contains categorized questions mapped to real subcategory outcomes.",
-    accentColor: "#06b6d4",
+    accentColor: "#5B7FE8",
   },
   /* ── GOVERN FUNCTION ───────────────────────────── */
   {
@@ -109,7 +109,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "GOVERN function assessment list with GV.OC, GV.OT, GV.PO, GV.RM categories",
     tourTitle: "GOVERN Function",
     tourBody: "The new NIST CSF 2.0 Govern function. Map your organizational context, supply chain risk, and cybersecurity strategy in one structured flow.",
-    accentColor: "#7c3aed",
+    accentColor: "#4A6FD4",
   },
   {
     id: "govern-review",
@@ -119,7 +119,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "Review Answers workflow in GOVERN function",
     tourTitle: "Answer Review",
     tourBody: "Review and modify previous responses at any time. Complete audit trails ensure your assessments remain accurate and defensible.",
-    accentColor: "#7c3aed",
+    accentColor: "#4A6FD4",
   },
   /* ── QUESTION & EVIDENCE ────────────────────────── */
   {
@@ -130,7 +130,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "Individual assessment question with maturity level selection and evidence upload",
     tourTitle: "Question & Evidence",
     tourBody: "Answer structured compliance questions, select your maturity level, and upload supporting evidence — all in one focused interface.",
-    accentColor: "#06b6d4",
+    accentColor: "#5B7FE8",
   },
   {
     id: "question-2",
@@ -140,7 +140,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "Detailed assessment question with No / Partial / Yes maturity selection and evidence upload zone",
     tourTitle: "Maturity Assessment",
     tourBody: "Select No, Partial, or Yes for each control. Drill down to specific maturity levels (1 Initial through 5 Optimized) for precision scoring.",
-    accentColor: "#06b6d4",
+    accentColor: "#5B7FE8",
   },
   {
     id: "focus-mode",
@@ -150,7 +150,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "Focus Mode assessment interface for deep single-question answering",
     tourTitle: "Focus Mode",
     tourBody: "Enter Focus Mode for distraction-free question answering. Work through categories one at a time with auto-saved progress.",
-    accentColor: "#8b5cf6",
+    accentColor: "#4A6FD4",
   },
   {
     id: "question-complete",
@@ -160,7 +160,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "Complete assessment answer with evidence attached and maturity level 4 - Managed selected",
     tourTitle: "Submit Responses",
     tourBody: "Once you've answered all questions and attached evidence, complete the category and return to the function overview to continue.",
-    accentColor: "#10b981",
+    accentColor: "#5B7FE8",
   },
   /* ── EVIDENCE & AI ──────────────────────────────── */
   {
@@ -171,7 +171,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "Evidence upload with AI analysis showing document verification status",
     tourTitle: "AI Document Analysis",
     tourBody: "Upload evidence and let the AI engine verify whether it satisfies the control requirement. Instant compliance validation.",
-    accentColor: "#f59e0b",
+    accentColor: "#6888E0",
   },
   {
     id: "view-document",
@@ -181,7 +181,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "Document viewer with evidence file and AI compliance analysis",
     tourTitle: "Evidence Viewer",
     tourBody: "View uploaded documents inline. See AI-generated document summaries, compliance status, and assessment reasoning without leaving the platform.",
-    accentColor: "#f59e0b",
+    accentColor: "#6888E0",
   },
   {
     id: "ai-analysis",
@@ -191,7 +191,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "AI compliance analysis with remediation steps and next actions",
     tourTitle: "AI Remediation Guide",
     tourBody: "When gaps are identified, the AI engine generates missing requirements, remediation steps, and next actions — grounded in your specific context.",
-    accentColor: "#f59e0b",
+    accentColor: "#6888E0",
   },
   {
     id: "ai-improvement",
@@ -201,7 +201,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "AI-powered improvement steps with common mistakes, risk impact, and maturity progression",
     tourTitle: "AI Improvement Plan",
     tourBody: "Detailed improvement guidance including common mistakes, risk impact analysis, maturity progression roadmap, and audit tips.",
-    accentColor: "#ec4899",
+    accentColor: "#7BA3EB",
   },
   /* ── EVIDENCE LIBRARY ───────────────────────────── */
   {
@@ -212,7 +212,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "Evidence library organized by NIST function with file count and function coverage charts",
     tourTitle: "Evidence Repository",
     tourBody: "All evidence organized by NIST function. See file counts, functions covered, and average coverage — a complete audit-ready evidence trail.",
-    accentColor: "#10b981",
+    accentColor: "#5B7FE8",
   },
   /* ── GAP ANALYSIS ───────────────────────────────── */
   {
@@ -255,7 +255,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "Comprehensive audit report with 101 controls, 71 gaps identified, 41 with evidence",
     tourTitle: "Audit-Ready Report",
     tourBody: "Generate comprehensive audit reports. 101 controls answered, gaps identified, evidence attached — everything an auditor needs in one place.",
-    accentColor: "#3b82f6",
+    accentColor: "#4A6FD4",
   },
   {
     id: "audit-respond",
@@ -265,7 +265,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "Audit report showing RESPOND function controls with status and risk assessment tags",
     tourTitle: "Control Tracking",
     tourBody: "Filter audit reports by function. See each control's compliance status, risk level, and audit readiness — grouped by NIST CSF function.",
-    accentColor: "#3b82f6",
+    accentColor: "#4A6FD4",
   },
   /* ── COMMENT & REVIEW ───────────────────────────── */
   {
@@ -276,7 +276,7 @@ export const interactiveWorkspaceSteps: WorkspaceStep[] = [
     imageAlt: "Auditor review workflow with maturity score assessment, approve and request revision actions",
     tourTitle: "Auditor Workflow",
     tourBody: "Auditors review evidence, assign maturity scores, add overall comments, and Approve or Request Revision — all with full traceability.",
-    accentColor: "#10b981",
+    accentColor: "#5B7FE8",
   },
 ];
 

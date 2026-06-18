@@ -35,7 +35,7 @@ export default function ApplicationProductShowcase({
     <div className={cn("relative min-w-0", className)}>
       {/* Ambient depth — no boxed frame */}
       <div
-        className="pointer-events-none absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 h-[min(78%,520px)] w-[min(118%,680px)] rounded-[50%] bg-gradient-to-br from-primary/18 via-primary/5 to-cyan-500/10 blur-3xl opacity-90"
+        className="pointer-events-none absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 h-[min(78%,520px)] w-[min(118%,680px)] rounded-[50%] bg-gradient-to-br from-primary/18 via-primary/5 to-accent/8 blur-3xl opacity-90"
         aria-hidden
       />
       <div

@@ -53,17 +53,17 @@ export const SEED_AUTHORS: SanityAuthor[] = [
 ];
 
 export const SEED_CATEGORIES: SanityCategory[] = [
-  { _id: "seed-cat-governance", title: "Governance", slug: { current: "governance" }, description: "Board oversight, policy, and corporate governance", color: "#6366f1" },
-  { _id: "seed-cat-risk", title: "Risk Management", slug: { current: "risk-management" }, description: "Enterprise and operational risk strategies", color: "#8b5cf6" },
-  { _id: "seed-cat-compliance", title: "Compliance", slug: { current: "compliance" }, description: "Regulatory compliance and audit readiness", color: "#06b6d4" },
-  { _id: "seed-cat-cyber", title: "Cybersecurity", slug: { current: "cybersecurity" }, description: "Security operations and threat management", color: "#3b82f6" },
-  { _id: "seed-cat-audit", title: "Internal Audit", slug: { current: "internal-audit" }, description: "Audit methodology and assurance", color: "#10b981" },
-  { _id: "seed-cat-ai", title: "AI Governance", slug: { current: "ai-governance" }, description: "Responsible AI and model risk", color: "#f59e0b" },
-  { _id: "seed-cat-privacy", title: "Privacy", slug: { current: "privacy" }, description: "Data protection and privacy programs", color: "#ec4899" },
+  { _id: "seed-cat-governance", title: "Governance", slug: { current: "governance" }, description: "Board oversight, policy, and corporate governance", color: "#305CDE" },
+  { _id: "seed-cat-risk", title: "Risk Management", slug: { current: "risk-management" }, description: "Enterprise and operational risk strategies", color: "#4A6FD4" },
+  { _id: "seed-cat-compliance", title: "Compliance", slug: { current: "compliance" }, description: "Regulatory compliance and audit readiness", color: "#5B7FE8" },
+  { _id: "seed-cat-cyber", title: "Cybersecurity", slug: { current: "cybersecurity" }, description: "Security operations and threat management", color: "#4A6FD4" },
+  { _id: "seed-cat-audit", title: "Internal Audit", slug: { current: "internal-audit" }, description: "Audit methodology and assurance", color: "#5B7FE8" },
+  { _id: "seed-cat-ai", title: "AI Governance", slug: { current: "ai-governance" }, description: "Responsible AI and model risk", color: "#6888E0" },
+  { _id: "seed-cat-privacy", title: "Privacy", slug: { current: "privacy" }, description: "Data protection and privacy programs", color: "#7BA3EB" },
   { _id: "seed-cat-regulatory", title: "Regulatory Updates", slug: { current: "regulatory-updates" }, description: "Latest regulatory changes and guidance", color: "#ef4444" },
-  { _id: "seed-cat-iso", title: "ISO Standards", slug: { current: "iso-standards" }, description: "ISO 27001, 27701, and related standards", color: "#14b8a6" },
+  { _id: "seed-cat-iso", title: "ISO Standards", slug: { current: "iso-standards" }, description: "ISO 27001, 27701, and related standards", color: "#6888E0" },
   { _id: "seed-cat-esg", title: "ESG", slug: { current: "esg" }, description: "Environmental, social, and governance reporting", color: "#22c55e" },
-  { _id: "seed-cat-nist", title: "NIST CSF 2.0", slug: { current: "nist-csf-2" }, description: "NIST Cybersecurity Framework 2.0 guidance", color: "#6366f1" },
+  { _id: "seed-cat-nist", title: "NIST CSF 2.0", slug: { current: "nist-csf-2" }, description: "NIST Cybersecurity Framework 2.0 guidance", color: "#305CDE" },
 ];
 
 export const SEED_TAGS: SanityTag[] = [

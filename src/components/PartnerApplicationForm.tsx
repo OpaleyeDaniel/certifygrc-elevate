@@ -254,7 +254,7 @@ export default function PartnerApplicationForm({ variant = "partner" }: PartnerA
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-cyan-500/10 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
         <div className="relative mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/20">
           <Check className="h-10 w-10 text-primary" strokeWidth={2.5} />
         </div>

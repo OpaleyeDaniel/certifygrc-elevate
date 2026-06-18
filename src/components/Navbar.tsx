@@ -58,9 +58,9 @@ function NavLinkItem({
           layoutId="nav-active-pill"
           className="absolute inset-0 rounded-lg"
           style={{
-            background: "linear-gradient(180deg, rgba(99,102,241,0.22) 0%, rgba(99,102,241,0.10) 100%)",
+            background: "linear-gradient(180deg, rgba(48,92,222,0.22) 0%, rgba(48,92,222,0.10) 100%)",
             border: "1px solid rgba(129,140,248,0.28)",
-            boxShadow: "0 0 20px rgba(99,102,241,0.15), inset 0 1px 0 rgba(255,255,255,0.06)",
+            boxShadow: "0 0 20px rgba(48,92,222,0.15), inset 0 1px 0 rgba(255,255,255,0.06)",
           }}
           transition={{ type: "spring", stiffness: 380, damping: 32 }}
         />
@@ -166,8 +166,8 @@ export default function Navbar({ onTalkWithAdvisor }: NavbarProps) {
               onClick={onTalkWithAdvisor}
               className="group relative overflow-hidden px-5 text-[13px] font-semibold tracking-[-0.01em] whitespace-nowrap"
               style={{
-                background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)",
-                boxShadow: "0 0 28px rgba(99,102,241,0.35), inset 0 1px 0 rgba(255,255,255,0.12)",
+                background: "linear-gradient(135deg, #305CDE 0%, #305CDE 100%)",
+                boxShadow: "0 0 28px rgba(48,92,222,0.35), inset 0 1px 0 rgba(255,255,255,0.12)",
               }}
             >
               <span className="relative z-10 flex items-center gap-1.5">

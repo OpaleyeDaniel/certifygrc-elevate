@@ -226,7 +226,7 @@ export default function GrcInteractiveWorkspaceExperience({ onBookDemo }: Props)
                 onClick={togglePlay}
                 style={
                   !autoPlay
-                    ? { background: "linear-gradient(135deg, #6366f1, #8b5cf6)", color: "white" }
+                    ? { background: "linear-gradient(135deg, #305CDE, #4A6FD4)", color: "white" }
                     : {}
                 }
               >
@@ -314,10 +314,10 @@ export default function GrcInteractiveWorkspaceExperience({ onBookDemo }: Props)
               background: "linear-gradient(160deg, rgba(18,16,45,0.96) 0%, rgba(8,6,25,0.99) 100%)",
               border: "1px solid rgba(255,255,255,0.1)",
               boxShadow: [
-                "0 0 0 1px rgba(99,102,241,0.12)",
+                "0 0 0 1px rgba(48,92,222,0.12)",
                 "0 2px 0 0 rgba(255,255,255,0.06) inset",
                 "0 32px 80px -16px rgba(0,0,0,0.55)",
-                "0 8px 32px rgba(99,102,241,0.08)",
+                "0 8px 32px rgba(48,92,222,0.08)",
               ].join(", "),
             }}
           >
@@ -326,7 +326,7 @@ export default function GrcInteractiveWorkspaceExperience({ onBookDemo }: Props)
               aria-hidden
               className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100 rounded-[1.75rem]"
               style={{
-                background: "radial-gradient(380px circle at var(--gx, 50%) var(--gy, 50%), rgba(99,102,241,0.06), transparent 70%)",
+                background: "radial-gradient(380px circle at var(--gx, 50%) var(--gy, 50%), rgba(48,92,222,0.06), transparent 70%)",
               }}
             />
 
@@ -353,8 +353,8 @@ export default function GrcInteractiveWorkspaceExperience({ onBookDemo }: Props)
                     className="flex items-center gap-1.5 rounded-full bg-white/[0.08] border border-white/[0.1] px-2.5 py-1"
                   >
                     <span className="relative flex h-2 w-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60" />
-                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/50" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
                     </span>
                     <span className="text-[11px] font-semibold text-white/80">Playing</span>
                   </motion.div>
@@ -487,7 +487,7 @@ export default function GrcInteractiveWorkspaceExperience({ onBookDemo }: Props)
                 onClick={() => { setAutoPlay(false); goTo(i); }}
                 className={cn(
                   "relative shrink-0 h-14 w-24 rounded-lg overflow-hidden border-2 transition-all duration-200",
-                  i === index ? "border-primary shadow-[0_0_8px_rgba(99,102,241,0.4)]" : "border-transparent opacity-50 hover:opacity-80 hover:border-border/60",
+                  i === index ? "border-primary shadow-[0_0_8px_rgba(48,92,222,0.4)]" : "border-transparent opacity-50 hover:opacity-80 hover:border-border/60",
                 )}
               >
                 <img

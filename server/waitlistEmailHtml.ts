@@ -36,7 +36,7 @@ export function buildWaitlistInternalHtml(input: {
   <style>
     body { font-family: 'Inter', Arial, sans-serif; background: #f5f7fa; margin: 0; padding: 0; }
     .wrapper { max-width: 600px; margin: 40px auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
-    .header { background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%); padding: 32px 36px; }
+    .header { background: linear-gradient(135deg, #305CDE 0%, #5B7FE8 100%); padding: 32px 36px; }
     .header h1 { color: #fff; margin: 0; font-size: 22px; font-weight: 700; }
     .header p { color: rgba(255,255,255,0.85); margin: 6px 0 0; font-size: 14px; }
     .body { padding: 32px 36px; }
@@ -93,13 +93,13 @@ export function buildWaitlistConfirmationHtml(input: {
   <style>
     body { font-family: 'Inter', Arial, sans-serif; background: #f5f7fa; margin: 0; padding: 0; }
     .wrapper { max-width: 600px; margin: 40px auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
-    .header { background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%); padding: 36px; text-align: center; }
+    .header { background: linear-gradient(135deg, #305CDE 0%, #5B7FE8 100%); padding: 36px; text-align: center; }
     .header h1 { color: #fff; margin: 0; font-size: 24px; font-weight: 700; }
     .header p { color: rgba(255,255,255,0.9); margin: 8px 0 0; font-size: 15px; }
     .body { padding: 36px; }
     .body p { color: #374151; font-size: 15px; line-height: 1.7; margin: 0 0 16px; }
     .box { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px 18px; font-size: 14px; color: #374151; line-height: 1.65; margin: 18px 0; }
-    .cta { display: inline-block; background: linear-gradient(135deg, #4f46e5, #06b6d4); color: #fff !important; text-decoration: none; border-radius: 10px; padding: 14px 28px; font-size: 15px; font-weight: 600; margin-top: 8px; }
+    .cta { display: inline-block; background: linear-gradient(135deg, #305CDE, #5B7FE8); color: #fff !important; text-decoration: none; border-radius: 10px; padding: 14px 28px; font-size: 15px; font-weight: 600; margin-top: 8px; }
     .footer { padding: 20px 36px; background: #f9fafb; text-align: center; font-size: 12px; color: #9ca3af; border-top: 1px solid #e5e7eb; }
   </style>
 </head>
@@ -119,9 +119,9 @@ export function buildWaitlistConfirmationHtml(input: {
         <a href="${accessFormUrl}" class="cta">Complete your access form</a>
       </p>
       <p style="text-align:center; font-size: 14px; color: #6b7280; margin-top: 12px;">
-        Or copy this link: <a href="${accessFormUrl}" style="color:#4f46e5;">${accessFormUrl}</a>
+        Or copy this link: <a href="${accessFormUrl}" style="color:#305CDE;">${accessFormUrl}</a>
       </p>
-      <p>Our team will review your information and reply with clear next steps. If you have questions in the meantime, reply to this email or write us at <a href="mailto:info@certifygrc.com" style="color:#4f46e5;">info@certifygrc.com</a>.</p>
+      <p>Our team will review your information and reply with clear next steps. If you have questions in the meantime, reply to this email or write us at <a href="mailto:info@certifygrc.com" style="color:#305CDE;">info@certifygrc.com</a>.</p>
     </div>
     <div class="footer">
       © ${new Date().getFullYear()} CertifyGRC · certifygrc.com<br />

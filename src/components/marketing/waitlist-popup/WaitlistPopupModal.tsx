@@ -37,7 +37,7 @@ function BannerAmbientOrbs() {
   if (reduce) {
     return (
       <>
-        <div className="absolute -right-24 top-1/4 h-72 w-72 rounded-full bg-cyan-400/20 blur-[80px]" />
+        <div className="absolute -right-24 top-1/4 h-72 w-72 rounded-full bg-primary/15 blur-[80px]" />
         <div className="absolute -left-16 bottom-0 h-64 w-64 rounded-full bg-indigo-500/25 blur-[72px]" />
       </>
     );
@@ -45,7 +45,7 @@ function BannerAmbientOrbs() {
   return (
     <>
       <motion.div
-        className="absolute -right-24 top-1/4 h-72 w-72 rounded-full bg-cyan-400/22 blur-[80px]"
+        className="absolute -right-24 top-1/4 h-72 w-72 rounded-full bg-primary/15 blur-[80px]"
         animate={{ opacity: [0.18, 0.32, 0.2], scale: [1, 1.06, 1] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -55,7 +55,7 @@ function BannerAmbientOrbs() {
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
       />
       <motion.div
-        className="absolute left-1/2 top-0 h-[50%] w-[120%] -translate-x-1/2 bg-gradient-to-b from-cyan-400/12 via-transparent to-transparent blur-2xl"
+        className="absolute left-1/2 top-0 h-[50%] w-[120%] -translate-x-1/2 bg-gradient-to-b from-primary/10 via-transparent to-transparent blur-2xl"
         animate={{ opacity: [0.12, 0.22, 0.14] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -70,13 +70,13 @@ function BannerLightTrails() {
   return (
     <>
       <motion.div
-        className="absolute -left-1/3 top-[-20%] h-[140%] w-[55%] rotate-[18deg] bg-gradient-to-r from-transparent via-cyan-300/25 to-transparent opacity-70 blur-2xl"
+        className="absolute -left-1/3 top-[-20%] h-[140%] w-[55%] rotate-[18deg] bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-70 blur-2xl"
         animate={{ x: ["-8%", "18%", "-8%"] }}
         transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden
       />
       <motion.div
-        className="absolute -right-1/4 bottom-[-30%] h-[90%] w-[45%] rotate-[-12deg] bg-gradient-to-l from-transparent via-indigo-400/20 to-transparent opacity-60 blur-3xl"
+        className="absolute -right-1/4 bottom-[-30%] h-[90%] w-[45%] rotate-[-12deg] bg-gradient-to-l from-transparent via-primary/15 to-transparent opacity-60 blur-3xl"
         animate={{ x: ["6%", "-10%", "6%"] }}
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         aria-hidden
@@ -167,13 +167,13 @@ function BannerDashboardMock({ animate }: { animate: boolean }) {
           "backdrop-blur-[24px] ring-1 ring-white/[0.08]",
         )}
       >
-        <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-cyan-400/20 blur-2xl" />
+        <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/15 blur-2xl" />
         <div className="pointer-events-none absolute -bottom-6 -left-6 h-20 w-20 rounded-full bg-indigo-500/25 blur-2xl" />
         <div className="mb-3 flex items-center justify-between gap-2">
           <div className="flex gap-1.5">
             <span className="h-2 w-2 rounded-full bg-red-400/80" />
             <span className="h-2 w-2 rounded-full bg-amber-400/80" />
-            <span className="h-2 w-2 rounded-full bg-emerald-400/80" />
+            <span className="h-2 w-2 rounded-full bg-primary/70" />
           </div>
           <span className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-sky-200/90">
             NIST CSF 2.0
@@ -191,7 +191,7 @@ function BannerDashboardMock({ animate }: { animate: boolean }) {
               {bars.map((h, i) => (
                 <div
                   key={i}
-                  className="w-full max-w-[14px] rounded-sm bg-gradient-to-t from-sky-500/30 to-cyan-300/90"
+                  className="w-full max-w-[14px] rounded-sm bg-gradient-to-t from-primary/25 to-accent/80"
                   style={{ height: `${h}%` }}
                 />
               ))}
@@ -203,14 +203,14 @@ function BannerDashboardMock({ animate }: { animate: boolean }) {
           </div>
         </div>
         <div className="flex items-center gap-2 border-t border-white/[0.08] pt-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-400/15 ring-1 ring-emerald-400/25">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/12 ring-1 ring-primary/25">
             <ShieldMini />
           </div>
           <div className="min-w-0 flex-1 space-y-1">
             <div className="h-2 w-3/4 max-w-[180px] rounded bg-white/20" />
             <div className="h-2 w-1/2 max-w-[120px] rounded bg-white/10" />
           </div>
-          <div className="rounded-md bg-emerald-400/15 px-2 py-1 text-[10px] font-semibold text-emerald-200/95">
+          <div className="rounded-md bg-primary/12 px-2 py-1 text-[10px] font-semibold text-primary/90">
             98%
           </div>
         </div>
@@ -222,7 +222,7 @@ function BannerDashboardMock({ animate }: { animate: boolean }) {
 
 function ShieldMini() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-emerald-300" aria-hidden>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-primary" aria-hidden>
       <path
         d="M12 3L5 6v6c0 4.5 3.5 8.5 7 9.5 3.5-1 7-5 7-9.5V6l-7-3z"
         stroke="currentColor"
@@ -285,7 +285,7 @@ function BannerContent({ compact }: { compact?: boolean }) {
           "shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)]",
         )}
       >
-        <Sparkles className="h-3.5 w-3.5 text-cyan-300" aria-hidden />
+        <Sparkles className="h-3.5 w-3.5 text-primary" aria-hidden />
         {copy.bannerKicker}
       </motion.div>
 
@@ -473,7 +473,7 @@ export default function WaitlistPopupModal({ open, onOpenChange }: Props) {
             )}
           >
             <div
-              className="pointer-events-none absolute inset-x-0 top-0 z-20 h-px bg-gradient-to-r from-transparent via-cyan-400/35 to-transparent"
+              className="pointer-events-none absolute inset-x-0 top-0 z-20 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"
               aria-hidden
             />
             <div
@@ -511,7 +511,7 @@ export default function WaitlistPopupModal({ open, onOpenChange }: Props) {
                   aria-hidden
                 />
                 <div
-                  className="pointer-events-none absolute left-0 top-0 hidden h-full w-px bg-gradient-to-b from-cyan-400/25 via-primary/15 to-transparent lg:block"
+                  className="pointer-events-none absolute left-0 top-0 hidden h-full w-px bg-gradient-to-b from-primary/20 via-primary/15 to-transparent lg:block"
                   aria-hidden
                 />
 
@@ -663,10 +663,10 @@ export default function WaitlistPopupModal({ open, onOpenChange }: Props) {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -4 }}
                             transition={{ duration: 0.32, ease: scrollEase }}
-                            className="flex gap-3 rounded-xl border border-emerald-500/22 bg-emerald-500/[0.08] px-4 py-4 shadow-sm"
+                            className="flex gap-3 rounded-xl border border-primary/22 bg-primary/[0.08] px-4 py-4 shadow-sm"
                           >
-                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-500/15">
-                              <CheckCircle2 className="h-5 w-5 text-emerald-600" aria-hidden />
+                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/15">
+                              <CheckCircle2 className="h-5 w-5 text-primary" aria-hidden />
                             </div>
                             <div className="space-y-1 pt-0.5">
                               <p className="text-sm font-semibold text-foreground">{copy.successTitle}</p>

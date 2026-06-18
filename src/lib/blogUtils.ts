@@ -89,5 +89,5 @@ export function headingId(key: string): string {
 
 /** Category accent color with fallback */
 export function categoryColor(color?: string): string {
-  return color ?? "#6366f1";
+  return color ?? "#305CDE";
 }

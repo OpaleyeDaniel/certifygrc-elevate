@@ -265,7 +265,7 @@ export default function BookingModal({ open, onOpenChange, type }: BookingModalP
                           </div>
                         ))}
                       </div>
-                      <PremiumCardStandalone accent="#6366f1" padding="md" interactive={false}>
+                      <PremiumCardStandalone padding="md" interactive={false}>
                         <ConsultationIllustration />
                       </PremiumCardStandalone>
                     </div>

@@ -46,7 +46,7 @@ function ProgressBar({ progress, delay = 0 }: { progress: number; delay?: number
   return (
     <div className="h-2 bg-muted/50 rounded-full overflow-hidden">
       <motion.div
-        className="h-full rounded-full bg-gradient-to-r from-primary via-violet-500 to-accent"
+        className="h-full rounded-full bg-gradient-to-r from-primary via-primary/80 to-accent"
         initial={{ width: 0 }}
         animate={{ width: `${progress}%` }}
         transition={{ duration: 1, ease: scrollEase, delay }}
@@ -59,7 +59,7 @@ export default function InteractiveDashboard() {
   const [activeTab, setActiveTab] = useState("Overview");
 
   return (
-    <PremiumCardShell padding="none" accent="#6366f1" className="overflow-hidden shadow-card-hover">
+    <PremiumCardShell padding="none" accent="#305CDE" className="overflow-hidden shadow-card-hover">
       {/* Top bar */}
       <div className="flex items-center justify-between px-5 py-3 border-b border-border/50 bg-card/50">
         <div className="flex items-center gap-2">

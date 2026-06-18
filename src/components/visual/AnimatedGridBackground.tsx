@@ -21,7 +21,7 @@ export default function AnimatedGridBackground({
       aria-hidden
       className={`pointer-events-none absolute inset-0 ${opacity} ${className}`}
       style={{
-        backgroundImage: `linear-gradient(hsl(239 84% 67% / 0.7) 1px, transparent 1px), linear-gradient(90deg, hsl(239 84% 67% / 0.7) 1px, transparent 1px)`,
+        backgroundImage: `linear-gradient(hsl(225 72% 53% / 0.55) 1px, transparent 1px), linear-gradient(90deg, hsl(225 72% 53% / 0.55) 1px, transparent 1px)`,
         backgroundSize: size,
         ...(fadeEdges
           ? {

@@ -14,7 +14,7 @@ export default function TermsPage() {
               title="Terms & Conditions"
               description="These terms govern access to and use of the CertifyGRC website and services."
             />
-            <PremiumCardStandalone accent="#6366f1" padding="lg" className="prose prose-slate max-w-none">
+            <PremiumCardStandalone padding="lg" className="prose prose-slate max-w-none">
               <p>
                 This page is a placeholder. Replace this content with your company&apos;s official Terms & Conditions.
               </p>

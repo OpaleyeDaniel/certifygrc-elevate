@@ -1,15 +1,17 @@
 /**
- * Premium card surface tokens — meaningful GRC category colors.
- * Each variant is a full material fill, not border-only styling.
+ * Premium card surface tokens — unified brand-aligned materials.
+ * Surfaces differ by subtle navy depth, not rainbow accent colors.
  */
+
+import { BRAND_PRIMARY, brandRgb } from "@/lib/brandColors";
 
 export type CardSurfaceVariant =
   | "default"
-  | "compliance"   /* Deep navy */
-  | "security"     /* Graphite */
-  | "risk"         /* Dark slate */
-  | "assessment"   /* Dark indigo */
-  | "analytics";   /* Rich midnight */
+  | "compliance"
+  | "security"
+  | "risk"
+  | "assessment"
+  | "analytics";
 
 export interface CardSurfaceStyle {
   background: string;
@@ -18,48 +20,52 @@ export interface CardSurfaceStyle {
   wash: string;
 }
 
+const BRAND_GLOW = brandRgb(0.20);
+const BRAND_WASH = brandRgb(0.12);
+const BRAND_BORDER = brandRgb(0.18);
+
 const SURFACES: Record<CardSurfaceVariant, CardSurfaceStyle> = {
   default: {
     background:
-      "linear-gradient(155deg, hsl(221 42% 15%) 0%, hsl(222 47% 11%) 55%, hsl(222 47% 9%) 100%)",
+      "linear-gradient(155deg, hsl(225 42% 15%) 0%, hsl(225 47% 11%) 55%, hsl(225 47% 9%) 100%)",
     border: "rgba(255,255,255,0.09)",
-    glow: "rgba(99,102,241,0.22)",
-    wash: "rgba(99,102,241,0.14)",
+    glow: BRAND_GLOW,
+    wash: BRAND_WASH,
   },
   compliance: {
     background:
-      "linear-gradient(155deg, hsl(221 48% 17%) 0%, hsl(222 45% 12%) 50%, hsl(223 42% 10%) 100%)",
-    border: "rgba(99,102,241,0.22)",
-    glow: "rgba(99,102,241,0.28)",
-    wash: "rgba(99,102,241,0.18)",
+      "linear-gradient(155deg, hsl(225 48% 16%) 0%, hsl(225 45% 12%) 50%, hsl(225 42% 10%) 100%)",
+    border: BRAND_BORDER,
+    glow: brandRgb(0.22),
+    wash: brandRgb(0.14),
   },
   security: {
     background:
-      "linear-gradient(155deg, hsl(220 18% 16%) 0%, hsl(222 20% 12%) 50%, hsl(223 22% 10%) 100%)",
-    border: "rgba(148,163,184,0.18)",
-    glow: "rgba(148,163,184,0.20)",
-    wash: "rgba(148,163,184,0.10)",
+      "linear-gradient(155deg, hsl(225 18% 16%) 0%, hsl(225 20% 12%) 50%, hsl(225 22% 10%) 100%)",
+    border: "rgba(148,163,184,0.16)",
+    glow: "rgba(148,163,184,0.16)",
+    wash: "rgba(148,163,184,0.08)",
   },
   risk: {
     background:
-      "linear-gradient(155deg, hsl(215 25% 16%) 0%, hsl(217 22% 12%) 50%, hsl(218 20% 10%) 100%)",
-    border: "rgba(100,116,139,0.20)",
-    glow: "rgba(100,116,139,0.22)",
-    wash: "rgba(100,116,139,0.12)",
+      "linear-gradient(155deg, hsl(225 22% 16%) 0%, hsl(225 20% 12%) 50%, hsl(225 18% 10%) 100%)",
+    border: "rgba(100,116,139,0.18)",
+    glow: "rgba(100,116,139,0.18)",
+    wash: "rgba(100,116,139,0.10)",
   },
   assessment: {
     background:
-      "linear-gradient(155deg, hsl(234 42% 17%) 0%, hsl(235 38% 12%) 50%, hsl(236 35% 10%) 100%)",
-    border: "rgba(129,140,248,0.24)",
-    glow: "rgba(129,140,248,0.26)",
-    wash: "rgba(129,140,248,0.16)",
+      "linear-gradient(155deg, hsl(225 42% 16%) 0%, hsl(225 38% 12%) 50%, hsl(225 35% 10%) 100%)",
+    border: BRAND_BORDER,
+    glow: brandRgb(0.20),
+    wash: brandRgb(0.12),
   },
   analytics: {
     background:
-      "linear-gradient(155deg, hsl(228 35% 14%) 0%, hsl(230 32% 11%) 50%, hsl(232 30% 9%) 100%)",
-    border: "rgba(6,182,212,0.20)",
-    glow: "rgba(6,182,212,0.22)",
-    wash: "rgba(6,182,212,0.12)",
+      "linear-gradient(155deg, hsl(225 35% 14%) 0%, hsl(225 32% 11%) 50%, hsl(225 30% 9%) 100%)",
+    border: BRAND_BORDER,
+    glow: brandRgb(0.18),
+    wash: brandRgb(0.10),
   },
 };
 
@@ -67,33 +73,33 @@ export function getCardSurface(variant: CardSurfaceVariant = "default"): CardSur
   return SURFACES[variant];
 }
 
-/** Rich accent-tinted surfaces — visible color fill, not transparent washes */
-export function getAccentSurface(accent: string, featured = false): CardSurfaceStyle {
-  const alphaStrong = featured ? "52" : "40";
-  const alphaMid = featured ? "28" : "22";
-  const alphaSoft = featured ? "12" : "10";
+/** Brand-tinted surfaces — accent should be a brand blue */
+export function getAccentSurface(accent: string = BRAND_PRIMARY, featured = false): CardSurfaceStyle {
+  const alphaStrong = featured ? "40" : "32";
+  const alphaMid = featured ? "22" : "18";
+  const alphaSoft = featured ? "10" : "08";
   return {
     background: featured
-      ? `linear-gradient(155deg, ${accent}${alphaStrong} 0%, ${accent}${alphaMid} 42%, ${accent}${alphaSoft} 68%, hsl(222,47%,10%) 100%)`
-      : `linear-gradient(155deg, ${accent}${alphaStrong} 0%, ${accent}${alphaMid} 50%, hsl(222,47%,11%) 100%)`,
-    border: featured ? `${accent}55` : `${accent}42`,
-    glow: `${accent}38`,
-    wash: `${accent}26`,
+      ? `linear-gradient(155deg, ${accent}${alphaStrong} 0%, ${accent}${alphaMid} 42%, ${accent}${alphaSoft} 68%, hsl(225,47%,10%) 100%)`
+      : `linear-gradient(155deg, ${accent}${alphaStrong} 0%, ${accent}${alphaMid} 50%, hsl(225,47%,11%) 100%)`,
+    border: featured ? `${accent}44` : `${accent}36`,
+    glow: `${accent}30`,
+    wash: `${accent}1A`,
   };
 }
 
-/** Bold, fully saturated card fills — accent reads clearly (red is red, etc.) */
-export function getSolidAccentSurface(accent: string, featured = false): CardSurfaceStyle {
-  const mix = featured ? 0.82 : 0.72;
-  const mixMid = featured ? 0.62 : 0.52;
-  const mixDeep = featured ? 0.42 : 0.34;
+/** Featured card fills — brand primary only by default */
+export function getSolidAccentSurface(accent: string = BRAND_PRIMARY, featured = false): CardSurfaceStyle {
+  const mix = featured ? 0.78 : 0.68;
+  const mixMid = featured ? 0.58 : 0.48;
+  const mixDeep = featured ? 0.38 : 0.30;
   return {
     background: `linear-gradient(165deg,
-      color-mix(in srgb, ${accent} ${Math.round(mix * 100)}%, hsl(222 47% 7%)) 0%,
-      color-mix(in srgb, ${accent} ${Math.round(mixMid * 100)}%, hsl(222 47% 6%)) 48%,
-      color-mix(in srgb, ${accent} ${Math.round(mixDeep * 100)}%, hsl(222 47% 5%)) 100%)`,
-    border: `color-mix(in srgb, ${accent} 70%, white 14%)`,
-    glow: `color-mix(in srgb, ${accent} 55%, transparent)`,
-    wash: `color-mix(in srgb, ${accent} 28%, transparent)`,
+      color-mix(in srgb, ${accent} ${Math.round(mix * 100)}%, hsl(225 47% 7%)) 0%,
+      color-mix(in srgb, ${accent} ${Math.round(mixMid * 100)}%, hsl(225 47% 6%)) 48%,
+      color-mix(in srgb, ${accent} ${Math.round(mixDeep * 100)}%, hsl(225 47% 5%)) 100%)`,
+    border: `color-mix(in srgb, ${accent} 65%, white 14%)`,
+    glow: `color-mix(in srgb, ${accent} 45%, transparent)`,
+    wash: `color-mix(in srgb, ${accent} 22%, transparent)`,
   };
 }

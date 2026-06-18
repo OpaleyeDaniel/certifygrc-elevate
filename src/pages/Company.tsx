@@ -22,8 +22,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { revealUp, scrollEase, scrollViewport, staggerContainer } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { PremiumCard, PremiumCardGrid, PremiumCardStandalone } from "@/components/ui/PremiumCard";
-
-const CARD_ACCENTS = ["#6366f1", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b", "#ec4899"];
+import { BRAND_PRIMARY } from "@/lib/brandColors";
 
 const heroEase = [0.16, 1, 0.3, 1] as const;
 
@@ -251,7 +250,7 @@ export default function CompanyPage() {
                     learning with a deliberate focus on practical execution, regulatory credibility, and sustainable outcomes.
                   </p>
                 </motion.div>
-                <PremiumCardStandalone accent="#6366f1" padding="md" interactive={false}>
+                <PremiumCardStandalone padding="md" interactive={false}>
                   <div className="flex items-start gap-3">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/12 text-primary">
                       <Building2 className="h-5 w-5" aria-hidden />
@@ -274,7 +273,7 @@ export default function CompanyPage() {
                 viewport={scrollViewport}
                 transition={{ duration: 0.75, ease: scrollEase }}
               >
-                <div className="pointer-events-none absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-primary/20 via-transparent to-cyan-500/15 blur-2xl" aria-hidden />
+                <div className="pointer-events-none absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-primary/20 via-transparent to-accent/12 blur-2xl" aria-hidden />
                 <div className="relative overflow-hidden rounded-[1.75rem]" style={{ background: "linear-gradient(145deg, hsl(220,42%,9%), hsl(220,42%,7%))", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 40px -12px rgba(0,0,0,0.4)" }}>
                   <img
                     src={heroImagery.software.foreground}
@@ -302,14 +301,14 @@ export default function CompanyPage() {
             </div>
             <PremiumCardGrid className="mt-12 grid gap-4 md:grid-cols-3 md:gap-5">
               {whoWeAreBullets.map((item, i) => (
-                <PremiumCard key={item.title} accent={CARD_ACCENTS[i % CARD_ACCENTS.length]} padding="lg" interactive={false}>
+                <PremiumCard key={item.title} padding="lg" interactive={false}>
                   <div
                     className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl text-sm font-bold ring-1 transition-transform duration-300 group-hover:-translate-y-0.5"
                     style={{
-                      background: `${CARD_ACCENTS[i % CARD_ACCENTS.length]}14`,
-                      color: CARD_ACCENTS[i % CARD_ACCENTS.length],
-                      borderColor: `${CARD_ACCENTS[i % CARD_ACCENTS.length]}28`,
-                      boxShadow: `0 0 0 1px ${CARD_ACCENTS[i % CARD_ACCENTS.length]}20`,
+                      background: `${BRAND_PRIMARY}14`,
+                      color: BRAND_PRIMARY,
+                      borderColor: `${BRAND_PRIMARY}28`,
+                      boxShadow: `0 0 0 1px ${BRAND_PRIMARY}20`,
                     }}
                   >
                     {i + 1}
@@ -343,7 +342,7 @@ export default function CompanyPage() {
               </motion.div>
             </div>
             <PremiumCardGrid className="mt-12 grid gap-4 lg:grid-cols-2 lg:gap-5">
-              <PremiumCard accent="#6366f1" padding="lg" interactive={false}>
+              <PremiumCard padding="lg" interactive={false}>
                 <div className="mb-4 flex items-center gap-3">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10">
                     <mission.icon className="h-6 w-6 text-primary" />
@@ -352,7 +351,7 @@ export default function CompanyPage() {
                 </div>
                 <p className="text-sm leading-relaxed text-muted-foreground md:text-base">{mission.description}</p>
               </PremiumCard>
-              <PremiumCard accent="#8b5cf6" padding="lg" interactive={false}>
+              <PremiumCard padding="lg" interactive={false}>
                 <div className="mb-4 flex items-center gap-3">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-accent/25 bg-accent/10">
                     <vision.icon className="h-6 w-6 text-primary" />
@@ -368,9 +367,9 @@ export default function CompanyPage() {
               <h3 className="text-center font-display text-2xl font-bold text-foreground md:text-3xl">Core values</h3>
               <PremiumCardGrid className="mt-10 grid gap-4 md:grid-cols-2">
                 {coreValues.map((v, i) => {
-                  const accent = CARD_ACCENTS[i % CARD_ACCENTS.length];
+                  const accent = BRAND_PRIMARY;
                   return (
-                    <PremiumCard key={v.title} accent={accent} padding="md" interactive={false} contentClassName="flex gap-4">
+                    <PremiumCard key={v.title} padding="md" interactive={false} contentClassName="flex gap-4">
                       <div
                         className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:-translate-y-0.5"
                         style={{
@@ -421,9 +420,9 @@ export default function CompanyPage() {
               </motion.div>
               <PremiumCardGrid className="order-1 grid gap-4 sm:grid-cols-2 lg:order-2">
                 {expertise.map((item, i) => {
-                  const accent = CARD_ACCENTS[i % CARD_ACCENTS.length];
+                  const accent = BRAND_PRIMARY;
                   return (
-                    <PremiumCard key={item.title} accent={accent} padding="md" interactive={false}>
+                    <PremiumCard key={item.title} padding="md" interactive={false}>
                       <div
                         className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl transition-transform duration-300 group-hover:-translate-y-0.5"
                         style={{
@@ -469,7 +468,7 @@ export default function CompanyPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-tl from-background/25 via-transparent to-primary/10 pointer-events-none" />
               </motion.div>
-              <PremiumCardStandalone accent="#6366f1" padding="sm" interactive={false} className="order-1 lg:order-1">
+              <PremiumCardStandalone padding="sm" interactive={false} className="order-1 lg:order-1">
                 <Accordion type="single" collapsible className="w-full px-2 py-2 md:px-4 md:py-4">
                   {whyCertifyFaq.map((f, i) => (
                     <AccordionItem key={f.question} value={`faq-${i}`} className="border-border/50">

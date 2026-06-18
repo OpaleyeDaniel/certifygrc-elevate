@@ -1,6 +1,8 @@
 import type { MotionValue } from "framer-motion";
 import { useReducedMotion, motion, useScroll, useSpring, useTransform } from "framer-motion";
 
+import { BRAND_INDIGO, BRAND_LIGHT, BRAND_PALE, BRAND_PRIMARY } from "@/lib/brandColors";
+
 /**
  * FloatingGeometry — Cybersecurity & Compliance Visual Objects
  *
@@ -311,14 +313,14 @@ interface ShapeConfig {
 }
 
 const SHAPES: ShapeConfig[] = [
-  { type: "complianceMatrix", right: "3%",  top: "4%",   size: 120, color: "#818cf8", opacity: 0.14, depth: 0.08, rotation: 8,   floatDur: 18, floatAmp: 10, rotateDeg: 4 },
-  { type: "networkTopology",  left: "1.5%", top: "30%",  size: 108, color: "#22d3ee", opacity: 0.15, depth: 0.22, rotation: 0,   floatDur: 22, floatAmp: 14, rotateDeg: 8 },
-  { type: "frameworkTree",    right: "2%",  top: "60%",  size: 130, color: "#a78bfa", opacity: 0.12, depth: 0.09, rotation: 0,   floatDur: 26, floatAmp: 8,  rotateDeg: 0 },
-  { type: "riskMatrix",       right: "5%",  top: "40%",  size: 72,  color: "#818cf8", opacity: 0.16, depth: 0.34, rotation: 0,   floatDur: 14, floatAmp: 16, rotateDeg: 6 },
-  { type: "auditTrail",       left: "3%",   top: "8%",   size: 90,  color: "#a78bfa", opacity: 0.13, depth: 0.18, rotation: 0,   floatDur: 20, floatAmp: 11, rotateDeg: 0 },
-  { type: "shield",           left: "3.5%", top: "74%",  size: 70,  color: "#818cf8", opacity: 0.14, depth: 0.12, rotation: 0,   floatDur: 24, floatAmp: 9,  rotateDeg: 4 },
-  { type: "controlDomain",    right: "7%",  top: "20%",  size: 88,  color: "#22d3ee", opacity: 0.13, depth: 0.30, rotation: 18,  floatDur: 16, floatAmp: 13, rotateDeg: 30 },
-  { type: "dataFlow",         right: "20%", top: "84%",  size: 74,  color: "#a78bfa", opacity: 0.11, depth: 0.15, rotation: 0,   floatDur: 21, floatAmp: 7,  rotateDeg: -6 },
+  { type: "complianceMatrix", right: "3%",  top: "4%",   size: 120, color: BRAND_LIGHT, opacity: 0.14, depth: 0.08, rotation: 8,   floatDur: 18, floatAmp: 10, rotateDeg: 4 },
+  { type: "networkTopology",  left: "1.5%", top: "30%",  size: 108, color: BRAND_PRIMARY, opacity: 0.15, depth: 0.22, rotation: 0,   floatDur: 22, floatAmp: 14, rotateDeg: 8 },
+  { type: "frameworkTree",    right: "2%",  top: "60%",  size: 130, color: BRAND_INDIGO, opacity: 0.12, depth: 0.09, rotation: 0,   floatDur: 26, floatAmp: 8,  rotateDeg: 0 },
+  { type: "riskMatrix",       right: "5%",  top: "40%",  size: 72,  color: BRAND_LIGHT, opacity: 0.16, depth: 0.34, rotation: 0,   floatDur: 14, floatAmp: 16, rotateDeg: 6 },
+  { type: "auditTrail",       left: "3%",   top: "8%",   size: 90,  color: BRAND_INDIGO, opacity: 0.13, depth: 0.18, rotation: 0,   floatDur: 20, floatAmp: 11, rotateDeg: 0 },
+  { type: "shield",           left: "3.5%", top: "74%",  size: 70,  color: BRAND_PRIMARY, opacity: 0.14, depth: 0.12, rotation: 0,   floatDur: 24, floatAmp: 9,  rotateDeg: 4 },
+  { type: "controlDomain",    right: "7%",  top: "20%",  size: 88,  color: BRAND_PALE, opacity: 0.13, depth: 0.30, rotation: 18,  floatDur: 16, floatAmp: 13, rotateDeg: 30 },
+  { type: "dataFlow",         right: "20%", top: "84%",  size: 74,  color: BRAND_INDIGO, opacity: 0.11, depth: 0.15, rotation: 0,   floatDur: 21, floatAmp: 7,  rotateDeg: -6 },
 ];
 
 const RENDERERS: Record<ShapeType, typeof ComplianceMatrix> = {

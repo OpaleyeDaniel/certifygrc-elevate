@@ -63,7 +63,7 @@ function AnimatedRoutes() {
       <motion.div
         key={location.pathname}
         variants={prefersReducedMotion ? undefined : pageTransition}
-        initial={prefersReducedMotion ? false : "initial"}
+        initial={false}
         animate={prefersReducedMotion ? undefined : "animate"}
         exit={prefersReducedMotion ? undefined : "exit"}
       >

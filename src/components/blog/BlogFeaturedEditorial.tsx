@@ -46,10 +46,10 @@ export default function BlogFeaturedEditorial({ posts, excludeSlug }: Props) {
             <motion.article key={post._id} variants={revealUp} custom={i * 0.1} whileHover={cardHover} whileTap={cardTap}>
               <Link to={`/blog/${slug}`} className="group block h-full">
                 <div
-                  className="relative rounded-2xl overflow-hidden transition-shadow duration-400 group-hover:shadow-[0_20px_50px_-16px_rgba(99,102,241,0.28)]"
+                  className="relative rounded-2xl overflow-hidden transition-shadow duration-400 group-hover:shadow-[0_20px_50px_-16px_rgba(48,92,222,0.28)]"
                   style={{
-                    background: "linear-gradient(155deg, rgba(99,102,241,0.20) 0%, hsl(221,42%,13%) 100%)",
-                    border: "1px solid rgba(99,102,241,0.25)",
+                    background: "linear-gradient(155deg, rgba(48,92,222,0.20) 0%, hsl(221,42%,13%) 100%)",
+                    border: "1px solid rgba(48,92,222,0.25)",
                     boxShadow: "0 1px 0 rgba(255,255,255,0.05) inset, 0 4px 24px rgba(0,0,0,0.45)",
                   }}
                 >

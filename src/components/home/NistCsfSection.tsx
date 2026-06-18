@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { revealUp, scrollEase, scrollViewport, staggerContainer } from "@/lib/motion";
 import { cn } from "@/lib/utils";
+import { CSF_BRAND_VARIANTS } from "@/components/home/nistCsfBrand";
 
 /* ─── CSF 2.0 Function Data ─────────────────────────────────────────── */
 
@@ -24,10 +25,7 @@ const CSF_FUNCTIONS = [
     name: "Govern",
     tagline: "Strategy & Risk Oversight",
     icon: Building2,
-    color: "#7c3aed",
-    lightBg: "from-violet-500/8 to-purple-500/4",
-    border: "border-violet-500/20",
-    glow: "rgba(124,58,237,0.25)",
+    ...CSF_BRAND_VARIANTS[0],
     description:
       "Establish and communicate cybersecurity risk management strategy, expectations, and policy across the organization. The Govern function is new in NIST CSF 2.0 and provides the organizational context for all other functions.",
     outcomes: [
@@ -46,10 +44,7 @@ const CSF_FUNCTIONS = [
     name: "Identify",
     tagline: "Assets & Risk Assessment",
     icon: Search,
-    color: "#2563eb",
-    lightBg: "from-blue-500/8 to-indigo-500/4",
-    border: "border-blue-500/20",
-    glow: "rgba(37,99,235,0.25)",
+    ...CSF_BRAND_VARIANTS[1],
     description:
       "Develop an organizational understanding to manage cybersecurity risk to systems, people, assets, data, and capabilities. Asset management, risk assessment, and improvement planning enable informed risk decisions.",
     outcomes: [
@@ -65,10 +60,7 @@ const CSF_FUNCTIONS = [
     name: "Protect",
     tagline: "Safeguards & Controls",
     icon: ShieldCheck,
-    color: "#0891b2",
-    lightBg: "from-cyan-500/8 to-sky-500/4",
-    border: "border-cyan-500/20",
-    glow: "rgba(8,145,178,0.25)",
+    ...CSF_BRAND_VARIANTS[2],
     description:
       "Develop and implement appropriate safeguards to ensure delivery of critical infrastructure services. Controls for identity management, data security, protective technology, and platform security.",
     outcomes: [
@@ -86,10 +78,7 @@ const CSF_FUNCTIONS = [
     name: "Detect",
     tagline: "Continuous Monitoring",
     icon: Eye,
-    color: "#0d9488",
-    lightBg: "from-teal-500/8 to-emerald-500/4",
-    border: "border-teal-500/20",
-    glow: "rgba(13,148,136,0.25)",
+    ...CSF_BRAND_VARIANTS[3],
     description:
       "Develop and implement appropriate activities to identify cybersecurity events. Continuous monitoring capabilities and anomalies-and-events detection enable rapid discovery of threats.",
     outcomes: [
@@ -104,10 +93,7 @@ const CSF_FUNCTIONS = [
     name: "Respond",
     tagline: "Incident Management",
     icon: Radio,
-    color: "#d97706",
-    lightBg: "from-amber-500/8 to-orange-500/4",
-    border: "border-amber-500/20",
-    glow: "rgba(217,119,6,0.25)",
+    ...CSF_BRAND_VARIANTS[4],
     description:
       "Develop and implement appropriate activities to take action regarding a detected cybersecurity incident. Incident management, communications, and mitigation ensure controlled response.",
     outcomes: [
@@ -124,10 +110,7 @@ const CSF_FUNCTIONS = [
     name: "Recover",
     tagline: "Resilience & Improvements",
     icon: RefreshCw,
-    color: "#16a34a",
-    lightBg: "from-green-500/8 to-emerald-500/4",
-    border: "border-green-500/20",
-    glow: "rgba(22,163,74,0.25)",
+    ...CSF_BRAND_VARIANTS[5],
     description:
       "Develop and implement appropriate activities to maintain plans for resilience and to restore any capabilities or services that were impaired due to a cybersecurity incident.",
     outcomes: [
@@ -341,8 +324,8 @@ export default function NistCsfSection() {
             <span
               className="inline-flex items-center gap-2 mb-4 rounded-full px-4 py-1.5 text-xs font-bold tracking-[0.14em] uppercase"
               style={{
-                background: "rgba(99,102,241,0.08)",
-                border: "1px solid rgba(99,102,241,0.2)",
+                background: "rgba(48,92,222,0.08)",
+                border: "1px solid rgba(48,92,222,0.2)",
                 color: "hsl(var(--primary))",
               }}
             >
@@ -491,8 +474,8 @@ export default function NistCsfSection() {
           {[
             { value: "6", label: "Core functions", accent: "hsl(var(--primary))" },
             { value: "22", label: "Categories covered", accent: "hsl(var(--accent))" },
-            { value: "106+", label: "Subcategory outcomes", accent: "#7c3aed" },
-            { value: "100%", label: "Automated mapping", accent: "#16a34a" },
+            { value: "106+", label: "Subcategory outcomes", accent: "#4A6FD4" },
+            { value: "100%", label: "Automated mapping", accent: "#5B7FE8" },
           ].map(({ value, label, accent }, i) => (
             <motion.div
               key={label}

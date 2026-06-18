@@ -103,12 +103,12 @@ export default function BlogPage() {
         <div
           aria-hidden
           className="pointer-events-none absolute -top-32 left-1/4 w-[560px] h-[320px] rounded-full blur-3xl opacity-25"
-          style={{ background: "radial-gradient(ellipse, #6366f1, transparent)" }}
+          style={{ background: "radial-gradient(ellipse, #305CDE, transparent)" }}
         />
         <div
           aria-hidden
           className="pointer-events-none absolute top-10 right-0 w-[380px] h-[380px] rounded-full blur-3xl opacity-15"
-          style={{ background: "radial-gradient(ellipse, #8b5cf6, transparent)" }}
+          style={{ background: "radial-gradient(ellipse, #4A6FD4, transparent)" }}
         />
         {/* Dark blend into page — no white band */}
         <div

@@ -10,7 +10,9 @@ import {
   type CardSurfaceVariant,
 } from "@/lib/cardSurfaces";
 
-const DEFAULT_ACCENT = "#6366f1";
+import { BRAND_PRIMARY } from "@/lib/brandColors";
+
+const DEFAULT_ACCENT = BRAND_PRIMARY;
 
 export const premiumCardContainerVariants = {
   hidden: { opacity: 0 },

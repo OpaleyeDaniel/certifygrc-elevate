@@ -81,7 +81,7 @@ export default function PageHero({
       {/* Layer 3 — ambient lighting */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_-5%,rgba(99,102,241,0.14),transparent_58%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_-5%,rgba(48,92,222,0.14),transparent_58%)]"
       />
 
       {/* Layer 4 — readability scrim */}
@@ -118,10 +118,10 @@ export default function PageHero({
             >
               <div
                 className="absolute -inset-8 lg:-inset-10 rounded-[2rem] opacity-80 blur-2xl motion-safe:animate-hero-glow-pulse motion-reduce:animate-none"
-                style={{ background: "radial-gradient(ellipse at center, rgba(99,102,241,0.22), transparent 68%)" }}
+                style={{ background: "radial-gradient(ellipse at center, rgba(48,92,222,0.22), transparent 68%)" }}
               />
               <div className="absolute -top-8 -left-8 w-36 h-36 rounded-full bg-indigo-500/10 blur-2xl" aria-hidden />
-              <div className="absolute -bottom-10 -right-6 w-40 h-40 rounded-full bg-cyan-500/10 blur-2xl" aria-hidden />
+              <div className="absolute -bottom-10 -right-6 w-40 h-40 rounded-full bg-primary/10 blur-2xl" aria-hidden />
 
               <div
                 className="relative rounded-2xl overflow-hidden transition-transform duration-500 group-hover:-translate-y-1"
@@ -129,7 +129,7 @@ export default function PageHero({
                   border: "1px solid rgba(255,255,255,0.14)",
                   background: "linear-gradient(155deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)",
                   boxShadow:
-                    "0 1px 0 rgba(255,255,255,0.08) inset, 0 32px 80px -24px rgba(0,0,0,0.65), 0 0 48px rgba(99,102,241,0.12)",
+                    "0 1px 0 rgba(255,255,255,0.08) inset, 0 32px 80px -24px rgba(0,0,0,0.65), 0 0 48px rgba(48,92,222,0.12)",
                   backdropFilter: "blur(12px)",
                 }}
               >

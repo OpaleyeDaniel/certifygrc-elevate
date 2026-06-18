@@ -12,8 +12,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import GrcDashboardShowcase from "@/components/marketing/GrcDashboardShowcase";
 import WaitlistSection from "@/components/marketing/WaitlistSection";
 import { PremiumCard, PremiumCardGrid } from "@/components/ui/PremiumCard";
-
-const ACCENTS = ["#6366f1", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b", "#ec4899", "#3b82f6", "#14b8a6"];
+import { BRAND_PRIMARY } from "@/lib/brandColors";
 
 const features = [
   { icon: Monitor, title: "Unified Dashboard", description: "Single pane of glass for all your GRC metrics, compliance status, and risk indicators." },
@@ -79,7 +78,7 @@ export default function SoftwarePage() {
           <div
             aria-hidden
             className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 rounded-full opacity-30 blur-3xl"
-            style={{ width: 900, height: 400, background: "radial-gradient(ellipse, rgba(99,102,241,0.15), transparent 70%)" }}
+            style={{ width: 900, height: 400, background: "radial-gradient(ellipse, rgba(48,92,222,0.15), transparent 70%)" }}
           />
           <div className="mx-auto max-w-[min(100%,96rem)] px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-8">
@@ -103,24 +102,21 @@ export default function SoftwarePage() {
           <div className="container-wide">
             <SectionHeading badge="Features" title="Built for enterprise delivery" description="Everything your teams need to run continuous compliance programs." />
             <PremiumCardGrid className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mt-10">
-              {features.map((f, i) => {
-                const accent = ACCENTS[i % ACCENTS.length];
-                return (
-                  <PremiumCard key={f.title} accent={accent} padding="md" interactive={false}>
+              {features.map((f) => (
+                  <PremiumCard key={f.title} padding="md" interactive={false}>
                     <div
                       className="w-10 h-10 rounded-lg flex items-center justify-center mb-4 transition-transform duration-300 group-hover:-translate-y-0.5"
                       style={{
-                        background: `linear-gradient(135deg, ${accent}18, ${accent}08)`,
-                        border: `1px solid ${accent}28`,
+                        background: `linear-gradient(135deg, ${BRAND_PRIMARY}18, ${BRAND_PRIMARY}08)`,
+                        border: `1px solid ${BRAND_PRIMARY}28`,
                       }}
                     >
-                      <f.icon className="w-5 h-5" style={{ color: accent }} />
+                      <f.icon className="w-5 h-5 text-primary" />
                     </div>
                     <h3 className="font-display font-semibold text-foreground mb-2">{f.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">{f.description}</p>
                   </PremiumCard>
-                );
-              })}
+              ))}
             </PremiumCardGrid>
           </div>
         </section>
@@ -134,7 +130,7 @@ export default function SoftwarePage() {
               {integrations.map((name, i) => (
                 <PremiumCard
                   key={name}
-                  accent={ACCENTS[i % ACCENTS.length]}
+                 
                   padding="sm"
                   interactive={false}
                   className="!h-auto"

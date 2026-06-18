@@ -29,8 +29,7 @@ import PageHero from "@/components/PageHero";
 import { heroImagery } from "@/constants/heroImagery";
 import { siteCs } from "@/constants/siteImages";
 import { PremiumCard, PremiumCardGrid } from "@/components/ui/PremiumCard";
-
-const SERVICE_ACCENTS = ["#6366f1", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b", "#ec4899", "#3b82f6", "#14b8a6", "#a855f7", "#f97316"];
+import { brandAccentAt } from "@/lib/brandColors";
 
 type Service = {
   key: string;
@@ -306,11 +305,11 @@ export default function ConsultingPage() {
 
             <PremiumCardGrid className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 mt-10">
               {sortedServices.map((service, i) => {
-                const accent = SERVICE_ACCENTS[i % SERVICE_ACCENTS.length];
+                const accent = brandAccentAt(i);
                 return (
                   <PremiumCard
                     key={service.key}
-                    accent={accent}
+                   
                     padding="none"
                     role="button"
                     tabIndex={0}
@@ -399,7 +398,7 @@ export default function ConsultingPage() {
               </div>
 
               <div className="mt-6 grid gap-4 md:grid-cols-2">
-                <PremiumCard accent="#6366f1" padding="md" animate={false} interactive={false}>
+                <PremiumCard padding="md" animate={false} interactive={false}>
                   <h3 className="font-display font-semibold text-foreground mb-3">
                     Core Consulting Services
                   </h3>
@@ -409,7 +408,7 @@ export default function ConsultingPage() {
                     ))}
                   </ul>
                 </PremiumCard>
-                <PremiumCard accent="#10b981" padding="md" animate={false} interactive={false}>
+                <PremiumCard padding="md" animate={false} interactive={false}>
                   <h3 className="font-display font-semibold text-foreground mb-3">
                     Business Benefits
                   </h3>

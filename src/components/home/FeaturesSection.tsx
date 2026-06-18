@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import { PremiumCard } from "@/components/ui/PremiumCard";
+import { BRAND_PRIMARY } from "@/lib/brandColors";
 import { scrollEase, scrollViewport } from "@/lib/motion";
 
 const features = [
@@ -18,7 +19,6 @@ const features = [
     title: "Automated Compliance Workflows",
     description:
       "Streamline compliance with automated task assignments, reminders, and evidence collection across every framework simultaneously.",
-    accent: "#6366f1",
     tag: "Core",
     variant: "hero" as const,
   },
@@ -26,7 +26,6 @@ const features = [
     icon: BarChart3,
     title: "Real-Time Risk Insights",
     description: "Continuous risk monitoring with dynamic heat maps and predictive indicators.",
-    accent: "#06b6d4",
     tag: null,
     variant: "default" as const,
   },
@@ -34,7 +33,6 @@ const features = [
     icon: Sparkles,
     title: "AI-Powered Recommendations",
     description: "Intelligent suggestions for control improvements and gap remediation.",
-    accent: "#f59e0b",
     tag: "AI",
     variant: "default" as const,
   },
@@ -42,7 +40,6 @@ const features = [
     icon: ClipboardCheck,
     title: "Audit Management",
     description: "End-to-end audit lifecycle from planning to reporting with full traceability.",
-    accent: "#3b82f6",
     tag: null,
     variant: "default" as const,
   },
@@ -50,7 +47,6 @@ const features = [
     icon: FileText,
     title: "Policy & Control Management",
     description: "Centralized policy repository with version control and approval workflows.",
-    accent: "#10b981",
     tag: null,
     variant: "default" as const,
   },
@@ -58,7 +54,6 @@ const features = [
     icon: Plug,
     title: "Integration-Ready APIs",
     description: "Connect with SIEM, ITSM, HR systems, and cloud infrastructure providers.",
-    accent: "#ec4899",
     tag: null,
     variant: "default" as const,
   },
@@ -66,7 +61,6 @@ const features = [
     icon: ShieldCheck,
     title: "Role-Based Access Control",
     description: "Granular permissions ensuring the right people access the right data.",
-    accent: "#8b5cf6",
     tag: null,
     variant: "default" as const,
   },
@@ -102,9 +96,9 @@ function FeatureCard({
   return (
     <PremiumCard
       animate={false}
-      solidAccent
+      solidAccent={isHero}
       featured={isHero}
-      accent={feature.accent}
+      accent={isHero ? BRAND_PRIMARY : undefined}
       padding={isHero ? "lg" : "md"}
       className={className}
     >
@@ -112,14 +106,13 @@ function FeatureCard({
         <motion.div
           className={`flex shrink-0 items-center justify-center rounded-xl ${isHero ? "w-12 h-12" : "w-10 h-10"}`}
           style={{
-            background: "rgba(255,255,255,0.12)",
-            border: "1px solid rgba(255,255,255,0.18)",
+            background: isHero ? "rgba(255,255,255,0.12)" : `linear-gradient(135deg, ${BRAND_PRIMARY}18, ${BRAND_PRIMARY}08)`,
+            border: isHero ? "1px solid rgba(255,255,255,0.18)" : `1px solid ${BRAND_PRIMARY}28`,
           }}
           whileHover={{ rotate: [0, -4, 4, 0], transition: { duration: 0.45 } }}
         >
           <Icon
-            className={isHero ? "w-6 h-6" : "w-5 h-5"}
-            style={{ color: "#ffffff" }}
+            className={`${isHero ? "w-6 h-6 text-white" : "w-5 h-5 text-primary"}`}
             strokeWidth={1.8}
           />
         </motion.div>
@@ -127,9 +120,9 @@ function FeatureCard({
           <span
             className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider"
             style={{
-              background: "rgba(255,255,255,0.14)",
-              border: "1px solid rgba(255,255,255,0.22)",
-              color: "#ffffff",
+              background: isHero ? "rgba(255,255,255,0.14)" : `${BRAND_PRIMARY}14`,
+              border: isHero ? "1px solid rgba(255,255,255,0.22)" : `1px solid ${BRAND_PRIMARY}28`,
+              color: isHero ? "#ffffff" : undefined,
             }}
           >
             {feature.tag}
@@ -138,15 +131,15 @@ function FeatureCard({
       </div>
 
       <h3
-        className={`font-display font-bold text-white leading-snug mb-2 ${
-          isHero ? "text-xl md:text-2xl" : "text-base"
+        className={`font-display font-bold leading-snug mb-2 ${
+          isHero ? "text-xl md:text-2xl text-white" : "text-base text-foreground"
         }`}
       >
         {feature.title}
       </h3>
       <p
-        className={`leading-relaxed flex-1 text-white/78 ${
-          isHero ? "text-sm md:text-base max-w-md" : "text-sm"
+        className={`leading-relaxed flex-1 ${
+          isHero ? "text-sm md:text-base max-w-md text-white/78" : "text-sm text-muted-foreground"
         }`}
       >
         {feature.description}
@@ -173,7 +166,6 @@ export default function FeaturesSection() {
 
   return (
     <section className="section-padding relative overflow-hidden">
-      {/* Dot grid */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.16]"

@@ -41,8 +41,9 @@ export const springSoft = {
 };
 
 /** Page route transitions — fade + upward motion */
+/** Route transitions — enter from slightly below; no opacity-0 initial (avoids blank first paint). */
 export const pageTransition: Variants = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 1, y: 12 },
   animate: {
     opacity: 1,
     y: 0,
@@ -50,7 +51,7 @@ export const pageTransition: Variants = {
   },
   exit: {
     opacity: 0,
-    y: 20,
+    y: 12,
     transition: { duration: 0.38, ease: scrollEase },
   },
 };

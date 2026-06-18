@@ -15,7 +15,7 @@ export default function PrivacyPage() {
               title="Privacy Policy"
               description="How CertifyGRC collects, uses, and protects personal information."
             />
-            <PremiumCardStandalone accent="#6366f1" padding="lg" className="max-w-3xl mx-auto">
+            <PremiumCardStandalone padding="lg" className="max-w-3xl mx-auto">
               <PrivacyPolicyContent />
             </PremiumCardStandalone>
           </div>

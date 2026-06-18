@@ -43,7 +43,7 @@ const navItems: { id: NavId; label: string; icon: typeof LayoutDashboard }[] = [
 function riskBadgeClass(level: "high" | "medium" | "low") {
   if (level === "high") return "bg-red-500/15 text-red-700 border-red-500/25";
   if (level === "medium") return "bg-amber-500/15 text-amber-800 border-amber-500/25";
-  return "bg-emerald-500/15 text-emerald-800 border-emerald-500/25";
+  return "bg-primary/15 text-emerald-800 border-primary/25";
 }
 
 function CircularScore({ value }: { value: number }) {
@@ -394,7 +394,7 @@ export default function GrcWorkspaceDemo() {
                             <div className="text-muted-foreground">Pending review</div>
                           </div>
                           <div className="rounded-lg border border-border/60 bg-muted/30 py-2">
-                            <div className="font-display text-lg font-bold text-emerald-600">412</div>
+                            <div className="font-display text-lg font-bold text-primary">412</div>
                             <div className="text-muted-foreground">Approved evidence</div>
                           </div>
                         </div>
@@ -471,7 +471,7 @@ export default function GrcWorkspaceDemo() {
                             <td className="hidden px-4 py-3 text-muted-foreground sm:table-cell">{row.type}</td>
                             <td className="px-4 py-3">
                               {row.status === "approved" ? (
-                                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-semibold text-emerald-700">
+                                <span className="inline-flex items-center gap-1 rounded-full bg-primary/15 px-2 py-0.5 text-xs font-semibold text-primary">
                                   <CheckCircle2 className="h-3 w-3" /> Approved
                                 </span>
                               ) : (
@@ -595,7 +595,7 @@ export default function GrcWorkspaceDemo() {
                             </div>
                             <div className="h-2.5 overflow-hidden rounded-full bg-muted/70">
                               <div
-                                className="h-full rounded-full bg-gradient-to-r from-primary to-cyan-500/90"
+                                className="h-full rounded-full bg-gradient-to-r from-primary to-accent/90"
                                 style={{ width: `${fn.pct}%` }}
                               />
                             </div>

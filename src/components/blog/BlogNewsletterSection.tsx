@@ -26,8 +26,8 @@ export default function BlogNewsletterSection() {
         style={{ background: "linear-gradient(135deg, #0f0c29 0%, #1a1450 50%, #0c1f3f 100%)" }}
       />
       {/* Orbs */}
-      <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full opacity-20 blur-3xl" style={{ background: "#6366f1" }} />
-      <div className="absolute -bottom-8 -left-8 w-48 h-48 rounded-full opacity-15 blur-3xl" style={{ background: "#8b5cf6" }} />
+      <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full opacity-20 blur-3xl" style={{ background: "#305CDE" }} />
+      <div className="absolute -bottom-8 -left-8 w-48 h-48 rounded-full opacity-15 blur-3xl" style={{ background: "#4A6FD4" }} />
 
       <div className="relative z-10 p-8 md:p-12 text-center">
         <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-3 py-1.5 text-xs font-semibold text-white/80 mb-5">
@@ -45,7 +45,7 @@ export default function BlogNewsletterSection() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="flex items-center justify-center gap-2 text-emerald-400 font-semibold text-lg"
+            className="flex items-center justify-center gap-2 text-primary font-semibold text-lg"
           >
             <CheckCircle2 className="w-6 h-6" />
             You're subscribed! Welcome aboard.

@@ -64,7 +64,7 @@ export default function HeroSection() {
       <div
         aria-hidden
         className="pointer-events-none absolute top-[10%] right-[5%] h-[420px] w-[520px] rounded-full opacity-50 blur-[100px]"
-        style={{ background: "radial-gradient(circle, rgba(99,102,241,0.22), transparent 68%)" }}
+        style={{ background: "radial-gradient(circle, rgba(48,92,222,0.22), transparent 68%)" }}
       />
 
       <div className="relative z-10 container-wide flex min-h-[min(100svh,920px)] flex-col justify-center py-16 lg:py-20">
@@ -77,7 +77,7 @@ export default function HeroSection() {
               variants={fadeUp}
               initial={reduceMotion ? false : "hidden"}
               animate="visible"
-              className="mb-5 text-[11px] font-semibold uppercase tracking-[0.16em] text-indigo-300/90"
+              className="mb-5 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary/90"
             >
               Enterprise GRC Platform
             </motion.p>
@@ -102,7 +102,7 @@ export default function HeroSection() {
               animate="visible"
               className="mt-5 text-base md:text-lg font-medium text-white/85"
             >
-              <span className="text-cyan-400">Audit-ready</span>
+              <span className="text-primary">Audit-ready</span>
               <span className="text-white/40 mx-2">·</span>
               One platform for controls &amp; evidence
             </motion.p>

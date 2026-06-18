@@ -10,13 +10,14 @@ import { SITE_ALLIANCE_JOURNEY } from "@/constants/siteImages";
 import ScrollReveal from "@/components/ScrollReveal";
 import PartnerApplicationForm from "@/components/PartnerApplicationForm";
 import { PremiumCard, PremiumCardGrid, PremiumCardStandalone } from "@/components/ui/PremiumCard";
+import { BRAND_PRIMARY } from "@/lib/brandColors";
 
 const whyJoin = [
-  { icon: Users, title: "Expand Your Services", description: "Offer your clients a powerful, easy-to-use GRC solution that simplifies compliance and cybersecurity management.", accent: "#6366f1" },
-  { icon: TrendingUp, title: "Boost Your Revenue", description: "Earn commissions and unlock new business opportunities by integrating CertifyGRC into your service offerings.", accent: "#8b5cf6" },
-  { icon: Headphones, title: "Get Expert Support", description: "From sales materials to training and dedicated partner assistance, we've got your back every step of the way.", accent: "#06b6d4" },
-  { icon: Megaphone, title: "Co-Marketing & Visibility", description: "Gain exposure through joint marketing campaigns, case studies, and co-branded initiatives.", accent: "#10b981" },
-  { icon: Gift, title: "Exclusive Partner Perks", description: "Access partner only discounts, early feature releases, and premium resources.", accent: "#f59e0b" },
+  { icon: Users, title: "Expand Your Services", description: "Offer your clients a powerful, easy-to-use GRC solution that simplifies compliance and cybersecurity management." },
+  { icon: TrendingUp, title: "Boost Your Revenue", description: "Earn commissions and unlock new business opportunities by integrating CertifyGRC into your service offerings." },
+  { icon: Headphones, title: "Get Expert Support", description: "From sales materials to training and dedicated partner assistance, we've got your back every step of the way." },
+  { icon: Megaphone, title: "Co-Marketing & Visibility", description: "Gain exposure through joint marketing campaigns, case studies, and co-branded initiatives." },
+  { icon: Gift, title: "Exclusive Partner Perks", description: "Access partner only discounts, early feature releases, and premium resources." },
 ];
 
 export default function PartnerPage() {
@@ -68,15 +69,15 @@ export default function PartnerPage() {
                   <h3 className="font-display font-semibold text-xl text-center mb-8">Why Join the CertifyGRC Alliance?</h3>
                   <PremiumCardGrid className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
                     {whyJoin.map((item) => (
-                      <PremiumCard key={item.title} accent={item.accent} padding="md" interactive={false}>
+                      <PremiumCard key={item.title} padding="md" interactive={false}>
                         <div
                           className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:-translate-y-0.5"
                           style={{
-                            background: `linear-gradient(135deg, ${item.accent}18, ${item.accent}08)`,
-                            border: `1px solid ${item.accent}28`,
+                            background: `linear-gradient(135deg, ${BRAND_PRIMARY}18, ${BRAND_PRIMARY}08)`,
+                            border: `1px solid ${BRAND_PRIMARY}28`,
                           }}
                         >
-                          <item.icon className="w-5 h-5" style={{ color: item.accent }} />
+                          <item.icon className="w-5 h-5 text-primary" />
                         </div>
                         <h4 className="font-display font-semibold text-foreground mb-2">{item.title}</h4>
                         <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
@@ -85,7 +86,7 @@ export default function PartnerPage() {
                   </PremiumCardGrid>
                 </div>
 
-                <PremiumCardStandalone accent="#6366f1" featured padding="lg" className="text-center">
+                <PremiumCardStandalone featured padding="lg" className="text-center">
                   <h3 className="font-display font-bold text-xl md:text-2xl text-foreground">Become A Partner</h3>
                   <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">
                     Let&apos;s Make Compliance Easier Together! Ready to team up and take your business to the next level? Join the CertifyGRC Alliance today and start offering top notch compliance solutions to your clients.
@@ -108,7 +109,7 @@ export default function PartnerPage() {
 
                 <div className="container-narrow mx-auto max-w-3xl">
                   <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-                    <PremiumCardStandalone accent="#6366f1" padding="lg" className="shadow-card-hover">
+                    <PremiumCardStandalone padding="lg" className="shadow-card-hover">
                       <PartnerApplicationForm />
                     </PremiumCardStandalone>
                   </motion.div>
@@ -116,7 +117,7 @@ export default function PartnerPage() {
               </TabsContent>
 
               <TabsContent value="find" className="mt-10 animate-fade-in">
-                <PremiumCardStandalone accent="#6366f1" padding="lg" className="text-center max-w-2xl mx-auto">
+                <PremiumCardStandalone padding="lg" className="text-center max-w-2xl mx-auto">
                   <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
                     <Search className="w-7 h-7 text-primary" />
                   </div>

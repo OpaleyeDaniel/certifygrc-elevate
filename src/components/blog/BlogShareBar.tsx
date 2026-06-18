@@ -81,7 +81,7 @@ export default function BlogShareBar({ title, url, variant = "default" }: Props)
         )}
         onClick={copyLink}
       >
-        {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Link2 className="w-3.5 h-3.5" />}
+        {copied ? <Check className="w-3.5 h-3.5 text-primary" /> : <Link2 className="w-3.5 h-3.5" />}
         {copied ? "Copied!" : "Copy link"}
       </Button>
     </div>
