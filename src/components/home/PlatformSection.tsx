@@ -91,7 +91,7 @@ export default function PlatformSection() {
 
           <motion.div
             className="rounded-2xl p-6 md:p-8"
-            style={{ background: "linear-gradient(145deg, hsl(220,42%,10%), hsl(220,42%,7%))", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 40px -12px rgba(0,0,0,0.5)" }}
+            style={{ background: "linear-gradient(145deg, hsl(var(--card)), hsl(var(--background)))", border: "1px solid hsl(var(--border))", boxShadow: "0 1px 0 hsl(var(--foreground) / 0.04) inset, 0 8px 40px -12px rgba(0,0,0,0.35)" }}
             variants={slideInRight}
             initial="hidden"
             whileInView="visible"

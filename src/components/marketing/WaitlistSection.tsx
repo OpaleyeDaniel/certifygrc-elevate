@@ -24,25 +24,25 @@ const copy: Record<
   }
 > = {
   landing: {
-    badge: "Early access",
-    headline: "Ship audit ready GRC before the market catches up",
+    badge: "Get Started",
+    headline: "Your NIST CSF 2.0 program, live in days — not quarters",
     subhead:
-      "CertifyGRC is opening in controlled waves. Join the waitlist for launch timing, early access, and a first look at the workflows teams use to run controls, evidence, and framework coverage without the chaos.",
+      "CertifyGRC is live today. Tell us a bit about your team and a specialist will personally set up your workspace, walk you through the platform, and get your first assessment running.",
     bullets: [
-      "Be the first to know when we launch",
-      "Get early access and exclusive updates",
-      "Limited early access spots available",
+      "A CertifyGRC specialist reaches out within one business day",
+      "Your workspace configured for NIST CSF 2.0 from day one",
+      "A guided walkthrough — no self-serve guesswork",
     ],
   },
   application: {
-    badge: "Product waitlist",
-    headline: "Lock in priority access to the application experience",
+    badge: "Get Started",
+    headline: "Ready to run your GRC program in CertifyGRC?",
     subhead:
-      "You're already exploring the platform story, add your name and we'll reserve a spot for the private rollout, roadmap briefings, and framework coverage drops as we open the workspace.",
+      "You've seen what the platform can do — now let's get you set up. Share your details and our team will configure your workspace and walk you through onboarding.",
     bullets: [
-      "Priority notifications for the application rollout",
-      "Curated updates on dashboards, evidence, and integrations",
-      "Limited early access spots available",
+      "Fast-tracked onboarding for teams ready to start",
+      "A personal walkthrough of dashboards, evidence, and integrations",
+      "Your workspace ready before your next audit cycle",
     ],
   },
 };
@@ -102,7 +102,7 @@ export default function WaitlistSection({ source }: { source: PageSource }) {
     }
 
     setStatus("success");
-    setMessage(result.message ?? "You're on the list. Check your inbox for confirmation.");
+    setMessage(result.message ?? "We've got your details — check your inbox for confirmation.");
     setFullName("");
     setEmail("");
     setGotcha("");
@@ -158,7 +158,7 @@ export default function WaitlistSection({ source }: { source: PageSource }) {
               <div className="mt-8 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
                 <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/40 px-3 py-1.5 backdrop-blur-sm">
                   <Bell className="h-3.5 w-3.5 text-primary" aria-hidden />
-                  No spam - launch updates only
+                  No spam — onboarding updates only
                 </span>
                 <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/40 px-3 py-1.5 backdrop-blur-sm">
                   Unsubscribe anytime
@@ -179,13 +179,13 @@ export default function WaitlistSection({ source }: { source: PageSource }) {
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                        Join the waitlist
+                        Get started
                       </div>
                       <div className="mt-2 font-display text-xl font-bold text-foreground sm:text-2xl">
-                        Reserve your spot
+                        Let's get you set up
                       </div>
                       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                        Full name and work email, we’ll confirm instantly.
+                        Full name and work email — we'll reach out to set up your workspace.
                       </p>
                     </div>
                     <div className="hidden h-11 w-11 shrink-0 rounded-2xl border border-border/60 bg-background/40 sm:flex sm:items-center sm:justify-center">
@@ -257,7 +257,7 @@ export default function WaitlistSection({ source }: { source: PageSource }) {
                       >
                         <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden />
                         <div>
-                          <div className="font-semibold">You’re in.</div>
+                          <div className="font-semibold">Request received.</div>
                           <div className="mt-1 text-muted-foreground">{message}</div>
                         </div>
                       </motion.div>
@@ -281,18 +281,18 @@ export default function WaitlistSection({ source }: { source: PageSource }) {
                       {status === "loading" ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden />
-                          Joining…
+                          Sending…
                         </>
                       ) : (
                         <>
-                          Join the waitlist
+                          Get started
                           <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
                         </>
                       )}
                     </Button>
 
                     <p className="text-center text-xs leading-relaxed text-muted-foreground">
-                      By joining, you agree we may email you about CertifyGRC. See our{" "}
+                      By submitting, you agree we may contact you about CertifyGRC. See our{" "}
                       <button
                         type="button"
                         className="text-primary underline-offset-4 hover:underline"

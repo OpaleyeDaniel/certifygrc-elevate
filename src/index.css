@@ -6,28 +6,94 @@
 
 @layer base {
   :root {
-    /* ── CertifyGRC brand theme (logo blue #305CDE) ───────────────── */
+    /* ── CertifyGRC brand theme (logo blue #305CDE) — LIGHT (default) ── */
+
+    /* Soft cool-white background */
+    --background: 220 30% 98%;
+    --foreground: 225 35% 12%;
+
+    /* Elevated card surface — crisp white against the tinted page bg */
+    --card: 0 0% 100%;
+    --card-foreground: 225 35% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 225 35% 12%;
+
+    /* Brand primary — logo blue (constant across themes) */
+    --primary: 225 72% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 25% 95%;
+    --secondary-foreground: 225 30% 20%;
+
+    --muted: 220 25% 95%;
+    --muted-foreground: 225 12% 42%;
+
+    /* Secondary accent — light brand blue (not cyan) */
+    --accent: 225 70% 63%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 20% 88%;
+    --input: 220 20% 90%;
+    --ring: 225 72% 53%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 220 25% 97%;
+    --sidebar-foreground: 225 30% 20%;
+    --sidebar-primary: 225 72% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 25% 93%;
+    --sidebar-accent-foreground: 225 30% 18%;
+    --sidebar-border: 220 20% 88%;
+    --sidebar-ring: 225 72% 53%;
+
+    --glow-primary: 225 72% 53%;
+    --glow-accent: 225 70% 63%;
+    --glass-bg: 0 0% 100% / 0.75;
+    --glass-border: 220 20% 80% / 0.5;
+
+    --surface-elevated: 0 0% 100%;
+    --surface-muted: 220 25% 96%;
+    --surface-subtle: 220 22% 94%;
+    --border-subtle: 220 20% 90%;
+    --border-strong: 220 20% 78%;
+
+    /* Blueprint grid overlay — dark slate lines (not black, reads muddy at
+       low opacity) for light mode. Bumped to 0.1 so the grid is clearly
+       present at a glance rather than invisible against the near-white bg. */
+    --grid-line-color: rgba(15, 23, 42, 0.1);
+    --grid-hatch-color: rgba(15, 23, 42, 0.08);
+    --grid-tick-color: rgba(15, 23, 42, 0.22);
+  }
+
+  .dark {
+    /* ── CertifyGRC brand theme (logo blue #305CDE) — DARK (opt-in) ── */
 
     /* Deep navy background */
     --background: 225 47% 5%;
     --foreground: 220 20% 92%;
 
-    /* Elevated card surface */
-    --card: 225 42% 8%;
+    /* Elevated card surface — lifted well clear of the background so panels
+       actually read as distinct surfaces instead of flattening into it */
+    --card: 225 38% 12%;
     --card-foreground: 220 20% 92%;
 
-    --popover: 225 42% 9%;
+    --popover: 225 38% 13%;
     --popover-foreground: 220 20% 92%;
 
     /* Brand primary — logo blue */
     --primary: 225 72% 53%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 225 42% 14%;
+    --secondary: 225 38% 17%;
     --secondary-foreground: 220 18% 82%;
 
-    --muted: 225 35% 11%;
-    --muted-foreground: 225 15% 58%;
+    --muted: 225 32% 15%;
+    --muted-foreground: 225 15% 62%;
 
     /* Secondary accent — light brand blue (not cyan) */
     --accent: 225 70% 63%;
@@ -36,31 +102,34 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 225 35% 16%;
-    --input: 225 35% 13%;
+    --border: 225 30% 22%;
+    --input: 225 32% 16%;
     --ring: 225 72% 53%;
-
-    --radius: 0.75rem;
 
     --sidebar-background: 225 47% 6%;
     --sidebar-foreground: 220 18% 82%;
     --sidebar-primary: 225 72% 53%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 225 35% 11%;
+    --sidebar-accent: 225 32% 15%;
     --sidebar-accent-foreground: 220 18% 88%;
-    --sidebar-border: 225 35% 16%;
+    --sidebar-border: 225 30% 22%;
     --sidebar-ring: 225 72% 53%;
 
     --glow-primary: 225 72% 53%;
     --glow-accent: 225 70% 63%;
-    --glass-bg: 225 42% 8% / 0.80;
-    --glass-border: 225 35% 22% / 0.5;
+    --glass-bg: 225 38% 12% / 0.82;
+    --glass-border: 225 32% 26% / 0.55;
 
-    --surface-elevated: 225 42% 10%;
-    --surface-muted: 225 42% 8%;
-    --surface-subtle: 225 35% 12%;
-    --border-subtle: 225 35% 14%;
-    --border-strong: 225 35% 22%;
+    --surface-elevated: 225 38% 15%;
+    --surface-muted: 225 36% 10%;
+    --surface-subtle: 225 32% 17%;
+    --border-subtle: 225 30% 19%;
+    --border-strong: 225 30% 28%;
+
+    /* Blueprint grid overlay — faint white lines for dark mode */
+    --grid-line-color: rgba(255, 255, 255, 0.08);
+    --grid-hatch-color: rgba(255, 255, 255, 0.06);
+    --grid-tick-color: rgba(255, 255, 255, 0.18);
   }
 }
 
@@ -116,9 +185,18 @@
                 0 0 24px -8px hsl(var(--primary) / 0.18);
   }
 
-  /* Brand-aligned gradient text */
+  /* Brand-aligned gradient text — dark-ink based in light mode, bright in dark mode */
   .gradient-text {
     @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      120deg,
+      hsl(225 45% 20%) 0%,
+      hsl(225 65% 42%) 45%,
+      hsl(225 72% 53%) 100%
+    );
+  }
+
+  .dark .gradient-text {
     background-image: linear-gradient(
       120deg,
       hsl(220 60% 96%) 0%,
@@ -129,6 +207,15 @@
 
   .gradient-text-accent {
     @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      120deg,
+      hsl(225 75% 38%) 0%,
+      hsl(225 72% 48%) 50%,
+      hsl(225 70% 58%) 100%
+    );
+  }
+
+  .dark .gradient-text-accent {
     background-image: linear-gradient(
       120deg,
       hsl(225 72% 65%) 0%,
@@ -159,9 +246,9 @@
   .gradient-section-soft {
     background: linear-gradient(
       180deg,
-      hsl(225 42% 7%) 0%,
+      hsl(var(--surface-muted)) 0%,
       hsl(var(--background)) 45%,
-      hsl(225 42% 7%) 100%
+      hsl(var(--surface-muted)) 100%
     );
   }
 

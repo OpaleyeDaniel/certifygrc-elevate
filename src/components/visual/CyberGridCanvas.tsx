@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "framer-motion";
+import { useTheme } from "@/contexts/ThemeContext";
 
 /**
  * CyberGridCanvas — Security Network Infrastructure Background
@@ -30,6 +31,15 @@ const BRAND: RGB = [48, 92, 222];
 const BRAND_LIGHT_RGB: RGB = [91, 127, 232];
 const BRAND_INDIGO_RGB: RGB = [74, 111, 212];
 const PALETTE: RGB[] = [BRAND, BRAND, BRAND, BRAND, BRAND_LIGHT_RGB, BRAND_INDIGO_RGB, BRAND_LIGHT_RGB];
+
+/** Edge/node "ink" — bright silver on dark backgrounds, deep navy ink on light ones. */
+interface InkPalette {
+  edge: string;
+  node: string;
+  pulse: string;
+}
+const DARK_INK: InkPalette = { edge: "220,230,255", node: "230,235,255", pulse: "180,200,255" };
+const LIGHT_INK: InkPalette = { edge: "30,41,68", node: "22,30,54", pulse: "48,92,222" };
 
 /* ─── Types ───────────────────────────────────────────────────────── */
 interface NetworkNode {
@@ -160,6 +170,7 @@ function paintFrame(
   H: number,
   nodes: NetworkNode[],
   packets: Packet[],
+  ink: InkPalette,
 ) {
   ctx.clearRect(0, 0, W, H);
 
@@ -190,7 +201,7 @@ function paintFrame(
       ctx.beginPath();
       ctx.moveTo(n.x, n.y);
       ctx.lineTo(nb.x, nb.y);
-      ctx.strokeStyle = `rgba(220,230,255,${0.16 * fade})`;
+      ctx.strokeStyle = `rgba(${ink.edge},${0.16 * fade})`;
       ctx.lineWidth = 0.7;
       ctx.stroke();
     }
@@ -209,15 +220,15 @@ function paintFrame(
       // Activation halo
       const radius = 4 + n.pulse * 20;
       const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, radius);
-      g.addColorStop(0, `rgba(180,200,255,${n.pulse * 0.65 * fade})`);
-      g.addColorStop(1, "rgba(180,200,255,0)");
+      g.addColorStop(0, `rgba(${ink.pulse},${n.pulse * 0.65 * fade})`);
+      g.addColorStop(1, `rgba(${ink.pulse},0)`);
       ctx.beginPath();
       ctx.arc(n.x, n.y, radius, 0, Math.PI * 2);
       ctx.fillStyle = g;
       ctx.fill();
     }
 
-    // Node dot — bright white/silver, visible on dark bg
+    // Node dot — bright silver on dark bg, deep ink on light bg
     const r = n.neighbors.length > 0 ? 1.6 + n.pulse * 2.2 : 1.0;
     const a = n.neighbors.length > 0
       ? (0.32 + n.pulse * 0.45) * fade
@@ -225,7 +236,7 @@ function paintFrame(
 
     ctx.beginPath();
     ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(230,235,255,${a})`;
+    ctx.fillStyle = `rgba(${ink.node},${a})`;
     ctx.fill();
   }
 
@@ -272,6 +283,8 @@ function paintFrame(
 export default function CyberGridCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const reducedMotion = useReducedMotion();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   useEffect(() => {
     if (reducedMotion) return;
@@ -279,6 +292,8 @@ export default function CyberGridCanvas() {
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+
+    const ink = isDark ? DARK_INK : LIGHT_INK;
 
     const isMobile = window.innerWidth < 768;
     const maxPkts  = isMobile ? MAX_MOB : MAX_PKTS;
@@ -324,7 +339,7 @@ export default function CyberGridCanvas() {
       }
       packets = next;
 
-      paintFrame(ctx!, W, H, nodes, packets);
+      paintFrame(ctx!, W, H, nodes, packets, ink);
     }
 
     rafId = requestAnimationFrame(loop);
@@ -336,16 +351,17 @@ export default function CyberGridCanvas() {
       cancelAnimationFrame(rafId);
       ro.disconnect();
     };
-  }, [reducedMotion]);
+  }, [reducedMotion, isDark]);
 
   // Reduced-motion: static dot grid
   if (reducedMotion) {
+    const dotColor = isDark ? "230,235,255" : "22,30,54";
     return (
       <div
         aria-hidden
         className="pointer-events-none fixed inset-0 z-[1]"
         style={{
-          backgroundImage: "radial-gradient(circle, rgba(230,235,255,0.45) 1px, transparent 1px)",
+          backgroundImage: `radial-gradient(circle, rgba(${dotColor},0.45) 1px, transparent 1px)`,
           backgroundSize: `${CELL}px ${CELL}px`,
           maskImage: "radial-gradient(ellipse 80% 70% at 50% 40%, black 5%, transparent 90%)",
           WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 40%, black 5%, transparent 90%)",

@@ -105,7 +105,15 @@ export default function CTASection() {
               className="font-display font-bold text-display-lg text-white mb-4"
             >
               Ready to simplify your{" "}
-              <span className="gradient-text">compliance?</span>
+              <span
+                className="bg-clip-text text-transparent"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(120deg, hsl(220 60% 96%) 0%, hsl(225 70% 82%) 38%, hsl(225 72% 53%) 100%)",
+                }}
+              >
+                compliance?
+              </span>
             </motion.h2>
             <motion.p
               variants={revealUp}

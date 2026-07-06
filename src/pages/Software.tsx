@@ -4,13 +4,12 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import BookingModal from "@/components/BookingModal";
-import PageHero from "@/components/PageHero";
-import { heroImagery } from "@/constants/heroImagery";
-import { applicationDashboards } from "@/constants/applicationDashboards";
+import ApplicationPageHero from "@/components/marketing/ApplicationPageHero";
 import ApplicationFrameworksSections from "@/components/marketing/ApplicationFrameworksSections";
 import ScrollReveal from "@/components/ScrollReveal";
-import GrcDashboardShowcase from "@/components/marketing/GrcDashboardShowcase";
+import LiveDemoSection from "@/components/marketing/LiveDemoSection";
 import WaitlistSection from "@/components/marketing/WaitlistSection";
+import ApplicationClosingCTA from "@/components/marketing/ApplicationClosingCTA";
 import { PremiumCard, PremiumCardGrid } from "@/components/ui/PremiumCard";
 import { BRAND_PRIMARY } from "@/lib/brandColors";
 
@@ -33,22 +32,18 @@ const integrations = [
 
 export default function SoftwarePage() {
   const [demoOpen, setDemoOpen] = useState(false);
-  const dash = applicationDashboards;
 
   return (
     <>
-      <PageHero
-        backgroundUrl={heroImagery.software.background}
-        foregroundUrl={dash.hero}
-        foregroundAlt={heroImagery.software.foregroundAlt}
-      >
-        <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary border border-primary/20">
+      <ApplicationPageHero>
+        <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-1.5 text-xs font-semibold tracking-wide text-muted-foreground dark:border-white/10 dark:bg-white/[0.04] dark:text-white/75">
+          <span className="h-2 w-2 shrink-0 rounded-full bg-primary" aria-hidden />
           Application
         </span>
-        <h1 className="font-display font-bold text-display-lg md:text-display-xl text-foreground tracking-tight">
+        <h1 className="font-display text-display-lg font-bold tracking-tight text-foreground dark:text-white md:text-display-xl">
           GRC Command Center, <span className="gradient-text">Built for Operators</span>
         </h1>
-        <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
+        <p className="max-w-xl text-lg leading-relaxed text-muted-foreground dark:text-white/65">
           See live posture, structured assessments, auditor workflows, and evidence-backed reporting in one premium workspace designed
           for teams who need clarity from the first dashboard to the final audit readout.
         </p>
@@ -56,46 +51,22 @@ export default function SoftwarePage() {
           <Button
             size="lg"
             onClick={() => setDemoOpen(true)}
-            className="glow-primary text-base px-8 w-fit transition-transform duration-300 hover:-translate-y-0.5"
+            className="glow-primary w-fit px-8 text-base transition-transform duration-300 hover:-translate-y-0.5"
           >
-            Book a Demo <ArrowRight className="w-4 h-4 ml-1" />
+            Book a Demo <ArrowRight className="ml-1 h-4 w-4" />
           </Button>
-          <Button size="lg" variant="outline" asChild className="border-primary/30 text-base px-8">
+          <Button
+            size="lg"
+            variant="outline"
+            asChild
+            className="border-primary/30 bg-transparent px-8 text-base text-foreground hover:bg-primary/5 dark:border-white/20 dark:text-white dark:hover:bg-white/10 dark:hover:text-white"
+          >
             <Link to="/contact">Talk with an Advisor</Link>
           </Button>
         </div>
-      </PageHero>
+      </ApplicationPageHero>
 
       <ApplicationFrameworksSections showCtas={false} hideIntroBlock />
-
-      <ScrollReveal>
-        <section
-          id="live-preview"
-          className="section-padding relative overflow-hidden"
-          style={{ background: "linear-gradient(180deg, hsl(222,47%,6%) 0%, hsl(222,47%,5%) 50%, hsl(220,42%,7%) 100%)" }}
-        >
-          {/* Subtle top gradient orb */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 rounded-full opacity-30 blur-3xl"
-            style={{ width: 900, height: 400, background: "radial-gradient(ellipse, rgba(48,92,222,0.15), transparent 70%)" }}
-          />
-          <div className="mx-auto max-w-[min(100%,96rem)] px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="text-center mb-8">
-              <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
-                Live Preview
-              </span>
-              <h2 className="font-display font-bold text-3xl md:text-4xl text-foreground tracking-tight">
-                Explore every screen. No sign-up required.
-              </h2>
-              <p className="mt-3 text-muted-foreground max-w-2xl mx-auto text-base">
-                25+ real application screenshots. Hit Play Demo and watch the full product tour auto-scroll through the entire platform.
-              </p>
-            </div>
-            <GrcDashboardShowcase onBookDemo={() => setDemoOpen(true)} />
-          </div>
-        </section>
-      </ScrollReveal>
 
       <ScrollReveal>
         <section className="section-padding">
@@ -127,10 +98,9 @@ export default function SoftwarePage() {
           <div className="container-wide">
             <SectionHeading badge="Integrations" title="Connects with your stack" description="Pre-built connectors for the tools your teams already use." />
             <PremiumCardGrid className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto mt-10">
-              {integrations.map((name, i) => (
+              {integrations.map((name) => (
                 <PremiumCard
                   key={name}
-                 
                   padding="sm"
                   interactive={false}
                   className="!h-auto"
@@ -144,20 +114,12 @@ export default function SoftwarePage() {
         </section>
       </ScrollReveal>
 
+      <LiveDemoSection />
+
       <WaitlistSection source="application" />
 
       <ScrollReveal>
-        <section className="section-padding">
-          <div className="container-narrow text-center">
-            <h2 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-4">See CertifyGRC in action</h2>
-            <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-              Schedule a personalized walkthrough of the application and frameworks experience.
-            </p>
-            <Button size="lg" onClick={() => setDemoOpen(true)} className="glow-primary text-base px-8">
-              Book Your Demo <ArrowRight className="w-4 h-4 ml-1" />
-            </Button>
-          </div>
-        </section>
+        <ApplicationClosingCTA onBookDemo={() => setDemoOpen(true)} />
       </ScrollReveal>
 
       <BookingModal open={demoOpen} onOpenChange={setDemoOpen} type="demo" />

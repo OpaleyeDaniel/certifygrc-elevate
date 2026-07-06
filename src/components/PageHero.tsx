@@ -8,6 +8,8 @@ export type PageHeroProps = {
   backgroundUrl: string;
   foregroundUrl?: string;
   foregroundAlt?: string;
+  /** How the foreground image fills its frame — use contain for product/dashboard shots */
+  foregroundFit?: "cover" | "contain";
   overlay?: "default" | "strong";
   className?: string;
   /** When "none", skip the built-in CSS hero text entrance (use Framer Motion in children instead). */
@@ -22,6 +24,7 @@ export default function PageHero({
   backgroundUrl,
   foregroundUrl,
   foregroundAlt = "",
+  foregroundFit = "cover",
   overlay = "default",
   className,
   textEntrance = "css",
@@ -141,7 +144,10 @@ export default function PageHero({
                   <motion.img
                     src={foregroundUrl}
                     alt={foregroundAlt}
-                    className="absolute inset-0 h-full w-full object-cover object-center motion-safe:animate-hero-image-float motion-reduce:animate-none"
+                    className={cn(
+                      "absolute inset-0 h-full w-full object-center motion-safe:animate-hero-image-float motion-reduce:animate-none",
+                      foregroundFit === "contain" ? "object-contain p-2 sm:p-3" : "object-cover",
+                    )}
                     loading="eager"
                     decoding="async"
                     onLoad={() => setForegroundLoaded(true)}

@@ -1,14 +1,35 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, CheckCircle2, LayoutGrid, Zap, BarChart3 } from "lucide-react";
+import {
+  ArrowRight,
+  PlayCircle,
+  ShieldCheck,
+  Gauge,
+  RadioTower,
+  BadgeCheck,
+  ScanEye,
+  FileCheck2,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import HeroSupademo from "@/components/home/HeroSupademo";
+import HeroParticleRing from "@/components/home/HeroParticleRing";
 import { heroImagery } from "@/constants/heroImagery";
+import { useBooking } from "@/contexts/BookingContext";
+import { useTheme } from "@/contexts/ThemeContext";
+import { cn } from "@/lib/utils";
 
 const TRUST_PILLS = [
-  { icon: CheckCircle2, label: "ISO 27001 ready" },
-  { icon: Zap, label: "Continuous control testing" },
-  { icon: BarChart3, label: "Executive-ready reporting" },
+  { icon: BadgeCheck, label: "NIST CSF 2.0 ready" },
+  { icon: ScanEye, label: "Continuous control testing" },
+  { icon: FileCheck2, label: "Executive-ready reporting" },
+];
+
+const VALUE_PROPS = ["Build trust", "Strengthen resilience", "Accelerate growth"];
+
+const PROOF_STATS = [
+  { icon: ShieldCheck, value: "40+", label: "Frameworks mapped" },
+  { icon: Gauge, value: "70%", label: "Faster audit prep" },
+  { icon: RadioTower, value: "24/7", label: "Continuous monitoring" },
 ];
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -24,6 +45,9 @@ const fadeUp = {
 
 export default function HeroSection() {
   const reduceMotion = useReducedMotion();
+  const { openDemo } = useBooking();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   return (
     <section
@@ -31,56 +55,87 @@ export default function HeroSection() {
       style={{ minHeight: "min(100svh, 920px)" }}
       aria-labelledby="home-hero-heading"
     >
-      {/* Background photo */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-cover bg-center scale-105"
-        style={{ backgroundImage: `url(${heroImagery.home.background})` }}
-      />
+      {isDark ? (
+        <>
+          {/* Background photo */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-cover bg-center scale-105"
+            style={{ backgroundImage: `url(${heroImagery.home.background})` }}
+          />
 
-      {/* Dark scrim */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(165deg, rgba(5,8,16,0.82) 0%, rgba(8,12,22,0.9) 45%, rgba(4,6,14,0.94) 100%)",
-        }}
-      />
+          {/* Dark scrim */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(165deg, rgba(5,8,16,0.82) 0%, rgba(8,12,22,0.9) 45%, rgba(4,6,14,0.94) 100%)",
+            }}
+          />
 
-      {/* Dot grid */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.14]"
-        style={{
-          backgroundImage: "radial-gradient(circle, rgba(210,218,255,0.55) 1px, transparent 1px)",
-          backgroundSize: "52px 52px",
-          maskImage: "radial-gradient(ellipse 90% 80% at 50% 35%, black 10%, transparent 88%)",
-          WebkitMaskImage: "radial-gradient(ellipse 90% 80% at 50% 35%, black 10%, transparent 88%)",
-        }}
-      />
+          {/* Dot grid */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-[0.14]"
+            style={{
+              backgroundImage: "radial-gradient(circle, rgba(210,218,255,0.55) 1px, transparent 1px)",
+              backgroundSize: "52px 52px",
+              maskImage: "radial-gradient(ellipse 90% 80% at 50% 35%, black 10%, transparent 88%)",
+              WebkitMaskImage: "radial-gradient(ellipse 90% 80% at 50% 35%, black 10%, transparent 88%)",
+            }}
+          />
+        </>
+      ) : (
+        <>
+          {/* Light-mode wash — soft brand tint, kept translucent so the
+              ambient network canvas underneath reads clearly through it
+              instead of being washed out. */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(160deg, rgba(236,240,252,0.6) 0%, rgba(223,231,250,0.5) 45%, rgba(248,250,255,0.62) 100%)",
+            }}
+          />
+          {/* Soft top sheen so the navbar edge blends cleanly */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-40"
+            style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%)" }}
+          />
+        </>
+      )}
 
-      {/* Soft ambient glow */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-[10%] right-[5%] h-[420px] w-[520px] rounded-full opacity-50 blur-[100px]"
-        style={{ background: "radial-gradient(circle, rgba(48,92,222,0.22), transparent 68%)" }}
-      />
+      {/* Rotating particle-ring ambience — sits above the flat background wash,
+          below the copy/demo panel */}
+      <HeroParticleRing />
 
-      <div className="relative z-10 container-wide flex min-h-[min(100svh,920px)] flex-col justify-center py-16 lg:py-20">
-        <div className="grid w-full grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-14 xl:gap-16">
+      <div className="relative z-10 container-wide flex min-h-[min(100svh,920px)] flex-col justify-center pt-10 pb-24 lg:pt-14 lg:pb-32 xl:max-w-[78rem]">
+        <div className="grid w-full grid-cols-1 items-center gap-12 lg:grid-cols-[0.92fr_1.18fr] lg:gap-10 xl:gap-6">
 
           {/* Copy */}
           <div className="max-w-xl text-center lg:text-left mx-auto lg:mx-0">
-            <motion.p
+            <motion.div
               custom={0}
               variants={fadeUp}
               initial={reduceMotion ? false : "hidden"}
               animate="visible"
-              className="mb-5 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary/90"
+              className="mb-5 flex justify-center lg:justify-start"
             >
-              Enterprise GRC Platform
-            </motion.p>
+              <span
+                className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em]"
+                style={{
+                  background: "linear-gradient(135deg, hsl(var(--primary) / 0.14), hsl(var(--accent) / 0.08))",
+                  border: "1px solid hsl(var(--primary) / 0.32)",
+                  color: "hsl(var(--primary))",
+                }}
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" aria-hidden />
+                Enterprise GRC Platform
+              </span>
+            </motion.div>
 
             <motion.h1
               id="home-hero-heading"
@@ -88,34 +143,48 @@ export default function HeroSection() {
               variants={fadeUp}
               initial={reduceMotion ? false : "hidden"}
               animate="visible"
-              className="font-display font-bold leading-[1.06] tracking-[-0.03em] text-white"
+              className="font-display font-bold leading-[1.06] tracking-[-0.03em] text-foreground"
               style={{ fontSize: "clamp(2.125rem, 4.5vw, 3.35rem)" }}
             >
               Operationalize trust{" "}
               <span className="gradient-text block sm:inline">without the chaos</span>
             </motion.h1>
 
-            <motion.p
+            <motion.div
               custom={2}
               variants={fadeUp}
               initial={reduceMotion ? false : "hidden"}
               animate="visible"
-              className="mt-5 text-base md:text-lg font-medium text-white/85"
+              className="mt-4 flex flex-wrap justify-center gap-1.5 lg:justify-start"
             >
-              <span className="text-primary">Audit-ready</span>
-              <span className="text-white/40 mx-2">·</span>
-              One platform for controls &amp; evidence
-            </motion.p>
+              {VALUE_PROPS.map((phrase, i) => (
+                <span
+                  key={phrase}
+                  className={cn(
+                    "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[12px] font-bold tracking-[-0.01em] sm:text-[13px]",
+                    i === 0
+                      ? "bg-primary/12 text-primary"
+                      : "bg-foreground/[0.04] text-foreground/70",
+                  )}
+                >
+                  <span
+                    className={cn("h-1 w-1 rounded-full", i === 0 ? "bg-primary" : "bg-foreground/30")}
+                    aria-hidden
+                  />
+                  {phrase}
+                </span>
+              ))}
+            </motion.div>
 
             <motion.p
               custom={3}
               variants={fadeUp}
               initial={reduceMotion ? false : "hidden"}
               animate="visible"
-              className="mt-4 text-base md:text-[1.05rem] leading-relaxed text-white/55 max-w-[26rem] mx-auto lg:mx-0"
+              className="mt-5 text-base md:text-[1.05rem] leading-relaxed text-muted-foreground max-w-[28rem] mx-auto lg:mx-0"
             >
-              Unify frameworks, workflows, and audit-ready proof in a single system so compliance
-              keeps pace with how your business actually runs.
+              Cyber Resilience and Compliance Operations Center helps organizations implement,
+              validate, and sustain cybersecurity and compliance programs.
             </motion.p>
 
             <motion.div
@@ -123,63 +192,74 @@ export default function HeroSection() {
               variants={fadeUp}
               initial={reduceMotion ? false : "hidden"}
               animate="visible"
-              className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start"
+              className="mt-9 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start"
             >
               <Button
-                asChild
                 size="lg"
                 className="h-12 px-7 text-sm font-semibold group glow-primary"
+                onClick={openDemo}
               >
-                <Link to="/consulting">
-                  Start assessment
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
+                Book a demo
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Button>
               <Button
                 asChild
                 size="lg"
                 variant="outline"
-                className="h-12 px-7 text-sm font-semibold border-white/15 bg-white/[0.04] text-white/90 hover:bg-white/[0.08] hover:text-white"
+                className="h-12 px-7 text-sm font-semibold group"
               >
-                <Link to="/software">
-                  <LayoutGrid className="mr-2 h-4 w-4 opacity-80" />
-                  Explore platform
+                <Link to="/cyber-aware">
+                  <PlayCircle className="mr-2 h-4 w-4 opacity-80 transition-transform group-hover:scale-110" />
+                  See Cyber Aware in action
                 </Link>
               </Button>
             </motion.div>
 
-            <motion.p
+            <motion.div
               custom={5}
               variants={fadeUp}
               initial={reduceMotion ? false : "hidden"}
               animate="visible"
-              className="mt-5 text-xs text-white/35"
+              className="mt-10 flex items-center justify-center gap-5 border-t border-foreground/[0.08] pt-6 sm:gap-7 lg:justify-start"
             >
-              No credit card required · Built for regulated teams shipping under scrutiny
-            </motion.p>
+              {PROOF_STATS.map(({ icon: Icon, value, label }, i) => (
+                <div key={label} className="flex items-center gap-5 sm:gap-7">
+                  {i > 0 && <span className="h-8 w-px shrink-0 bg-foreground/[0.08]" aria-hidden />}
+                  <div className="flex items-center gap-2">
+                    <Icon className="hidden h-4 w-4 shrink-0 text-primary/70 sm:block" aria-hidden />
+                    <div className="text-left">
+                      <div className="font-display text-base font-bold leading-none text-foreground sm:text-lg">
+                        {value}
+                      </div>
+                      <div className="mt-1 text-[11px] leading-tight text-muted-foreground">{label}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
 
-            <motion.ul
+            <motion.div
               custom={6}
               variants={fadeUp}
               initial={reduceMotion ? false : "hidden"}
               animate="visible"
-              className="mt-8 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:justify-center lg:justify-start"
+              className="mt-5 flex justify-center gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] lg:justify-start [&::-webkit-scrollbar]:hidden"
             >
               {TRUST_PILLS.map(({ icon: Icon, label }) => (
-                <li
+                <span
                   key={label}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-3.5 py-2 text-xs font-medium text-white/65"
+                  className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-foreground/10 bg-foreground/[0.03] px-2.5 py-1.5 text-[10.5px] font-semibold tracking-[-0.01em] text-foreground/70 backdrop-blur-sm sm:text-[11px]"
                 >
-                  <Icon className="h-3.5 w-3.5 text-indigo-400/80 shrink-0" aria-hidden />
+                  <Icon className="h-3 w-3 shrink-0 text-primary/80" aria-hidden />
                   {label}
-                </li>
+                </span>
               ))}
-            </motion.ul>
+            </motion.div>
           </div>
 
-          {/* SupaDemo — standalone product preview */}
+          {/* SupaDemo — standalone product preview, staged as a panel emerging from the backdrop */}
           <motion.div
-            className="relative w-full min-w-0 mx-auto max-w-[640px] lg:max-w-none"
+            className="relative w-full min-w-0 mx-auto max-w-[640px] lg:max-w-none lg:justify-self-end xl:mr-[-2rem] 2xl:mr-[-4rem]"
             initial={reduceMotion ? false : { opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease, delay: 0.18 }}

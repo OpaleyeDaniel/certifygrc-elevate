@@ -9,6 +9,7 @@ import {
   getSolidAccentSurface,
   type CardSurfaceVariant,
 } from "@/lib/cardSurfaces";
+import DotGridTexture from "@/components/visual/DotGridTexture";
 
 import { BRAND_PRIMARY } from "@/lib/brandColors";
 
@@ -120,33 +121,12 @@ export function PremiumCardShell({
 
   const inner = (
     <>
-      {/* Internal highlight — top-left surface sheen */}
-      {!solidAccent && (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background: `radial-gradient(ellipse 90% 65% at 0% 0%, ${material.wash}, transparent 58%)`,
-          }}
-        />
-      )}
-      {solidAccent && (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background: `linear-gradient(180deg, rgba(255,255,255,0.07) 0%, transparent 22%, transparent 100%)`,
-          }}
-        />
-      )}
-      {/* Secondary depth layer */}
-      <div
-        aria-hidden
-        className={cn("pointer-events-none absolute inset-0", solidAccent ? "opacity-35" : "opacity-60")}
-        style={{
-          background: "linear-gradient(180deg, rgba(255,255,255,0.04) 0%, transparent 28%, rgba(0,0,0,0.08) 100%)",
-        }}
-      />
+      {/* Experiment: internal highlight + secondary depth gradients removed
+          for a plain flat card. Not permanent — restore the two divs below
+          to bring the gradient sheen/depth layers back. */}
+      {/* Dot-grid texture — sits at the very back; the card's own
+          overflow-hidden + rounded-2xl clip it to the card shape. */}
+      <DotGridTexture />
       {/* Mouse-tracking radial glow */}
       <div
         aria-hidden

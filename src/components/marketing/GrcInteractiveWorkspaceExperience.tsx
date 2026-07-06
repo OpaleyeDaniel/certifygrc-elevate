@@ -149,7 +149,7 @@ export default function GrcInteractiveWorkspaceExperience({ onBookDemo }: Props)
   }, [prev, next, togglePlay]);
 
   return (
-    <div id="interactive-grc-workspace" ref={sectionRef} className="mt-10 select-none">
+    <div id="interactive-grc-workspace" ref={sectionRef} className="mt-6 select-none md:mt-8">
       <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
 
         {/* ── LEFT: narrative + controls ─────────────── */}

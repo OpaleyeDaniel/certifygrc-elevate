@@ -9,13 +9,15 @@ export type PublicFormRoute =
   | "send-waitlist"
   | "send-contact"
   | "send-consultation"
-  | "send-partner";
+  | "send-partner"
+  | "send-assessment-lead";
 
 const RATE: Record<PublicFormRoute, { limit: number; windowMs: number }> = {
   "send-waitlist": { limit: 12, windowMs: 15 * 60 * 1000 },
   "send-contact": { limit: 10, windowMs: 15 * 60 * 1000 },
   "send-consultation": { limit: 8, windowMs: 15 * 60 * 1000 },
   "send-partner": { limit: 8, windowMs: 15 * 60 * 1000 },
+  "send-assessment-lead": { limit: 12, windowMs: 15 * 60 * 1000 },
 };
 
 /**

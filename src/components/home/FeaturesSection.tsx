@@ -1,218 +1,323 @@
-import { motion } from "framer-motion";
-import {
-  Workflow,
-  BarChart3,
-  ClipboardCheck,
-  FileText,
-  Sparkles,
-  Plug,
-  ShieldCheck,
-} from "lucide-react";
-import SectionHeading from "@/components/SectionHeading";
-import { PremiumCard } from "@/components/ui/PremiumCard";
-import { BRAND_PRIMARY } from "@/lib/brandColors";
+import { motion, useReducedMotion } from "framer-motion";
+import { BRAND_PRIMARY, brandAccentAt } from "@/lib/brandColors";
+import { cn } from "@/lib/utils";
 import { scrollEase, scrollViewport } from "@/lib/motion";
 
-const features = [
+const FEATURES = [
   {
-    icon: Workflow,
-    title: "Automated Compliance Workflows",
+    title: "Automated compliance workflows",
     description:
-      "Streamline compliance with automated task assignments, reminders, and evidence collection across every framework simultaneously.",
-    tag: "Core",
-    variant: "hero" as const,
+      "Assign controls by framework, collect evidence automatically, and run structured assessments — so teams stop chasing spreadsheets and start operating.",
+    image: "/home-features/workflow-mockup.png",
+    imageAlt: "Structured compliance workflow — controls, eLearning, and certification steps",
   },
   {
-    icon: BarChart3,
-    title: "Real-Time Risk Insights",
-    description: "Continuous risk monitoring with dynamic heat maps and predictive indicators.",
-    tag: null,
-    variant: "default" as const,
+    title: "Real-time command center",
+    description:
+      "Monitor posture, control status, and program progress from desktop or mobile. Your GRC metrics stay visible wherever your team works.",
+    image: "/home-features/mobile-mockup.png",
+    imageAlt: "Mobile and desktop GRC dashboard with training progress and course tracking",
   },
   {
-    icon: Sparkles,
-    title: "AI-Powered Recommendations",
-    description: "Intelligent suggestions for control improvements and gap remediation.",
-    tag: "AI",
-    variant: "default" as const,
+    title: "Continuous audit readiness",
+    description:
+      "Expiry alerts, evidence trails, and export-ready audit packs keep you ahead of every review — with a clear record of who did what, and when.",
+    image: "/home-features/compliance-mockup.png",
+    imageAlt: "Compliance dashboard with training completion, activity timeline, and audit status",
   },
-  {
-    icon: ClipboardCheck,
-    title: "Audit Management",
-    description: "End-to-end audit lifecycle from planning to reporting with full traceability.",
-    tag: null,
-    variant: "default" as const,
-  },
-  {
-    icon: FileText,
-    title: "Policy & Control Management",
-    description: "Centralized policy repository with version control and approval workflows.",
-    tag: null,
-    variant: "default" as const,
-  },
-  {
-    icon: Plug,
-    title: "Integration-Ready APIs",
-    description: "Connect with SIEM, ITSM, HR systems, and cloud infrastructure providers.",
-    tag: null,
-    variant: "default" as const,
-  },
-  {
-    icon: ShieldCheck,
-    title: "Role-Based Access Control",
-    description: "Granular permissions ensuring the right people access the right data.",
-    tag: null,
-    variant: "default" as const,
-  },
-];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.14, delayChildren: 0.1 },
-  },
-};
+] as const;
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 32 },
-  visible: {
+  hidden: { opacity: 0, y: 28 },
+  visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: scrollEase },
-  },
+    transition: { duration: 0.65, ease: scrollEase, delay: i * 0.1 },
+  }),
 };
 
 function FeatureCard({
   feature,
-  className = "",
+  index,
 }: {
-  feature: (typeof features)[number];
-  className?: string;
+  feature: (typeof FEATURES)[number];
+  index: number;
 }) {
-  const isHero = feature.variant === "hero";
-  const Icon = feature.icon;
-
   return (
-    <PremiumCard
-      animate={false}
-      solidAccent={isHero}
-      featured={isHero}
-      accent={isHero ? BRAND_PRIMARY : undefined}
-      padding={isHero ? "lg" : "md"}
-      className={className}
+    <motion.article
+      custom={index}
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={scrollViewport}
+      className={cn(
+        "group flex h-full flex-col overflow-hidden rounded-[1.35rem] bg-white transition-shadow duration-300",
+        "hover:shadow-[0_28px_56px_-24px_rgba(48,92,222,0.35)]",
+        "dark:bg-[hsl(225,42%,9%)] dark:hover:shadow-[0_28px_56px_-24px_rgba(48,92,222,0.45)]",
+      )}
+      style={{
+        border: `2px solid ${BRAND_PRIMARY}`,
+        boxShadow: `0 16px 40px -20px rgba(48, 92, 222, 0.22), inset 0 -3px 0 ${BRAND_PRIMARY}`,
+      }}
     >
-      <div className="flex items-start justify-between gap-3 mb-4">
-        <motion.div
-          className={`flex shrink-0 items-center justify-center rounded-xl ${isHero ? "w-12 h-12" : "w-10 h-10"}`}
-          style={{
-            background: isHero ? "rgba(255,255,255,0.12)" : `linear-gradient(135deg, ${BRAND_PRIMARY}18, ${BRAND_PRIMARY}08)`,
-            border: isHero ? "1px solid rgba(255,255,255,0.18)" : `1px solid ${BRAND_PRIMARY}28`,
-          }}
-          whileHover={{ rotate: [0, -4, 4, 0], transition: { duration: 0.45 } }}
-        >
-          <Icon
-            className={`${isHero ? "w-6 h-6 text-white" : "w-5 h-5 text-primary"}`}
-            strokeWidth={1.8}
-          />
-        </motion.div>
-        {feature.tag && (
-          <span
-            className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider"
-            style={{
-              background: isHero ? "rgba(255,255,255,0.14)" : `${BRAND_PRIMARY}14`,
-              border: isHero ? "1px solid rgba(255,255,255,0.22)" : `1px solid ${BRAND_PRIMARY}28`,
-              color: isHero ? "#ffffff" : undefined,
-            }}
-          >
-            {feature.tag}
-          </span>
+      {/* Mockup area — flush to top edge */}
+      <div
+        className={cn(
+          "relative overflow-hidden",
+          "bg-[linear-gradient(180deg,#f4f8ff_0%,#ffffff_100%)]",
+          "dark:bg-[linear-gradient(180deg,hsl(225,38%,13%)_0%,hsl(225,42%,9%)_100%)]",
         )}
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.35] dark:opacity-[0.2]"
+          style={{
+            backgroundImage: "radial-gradient(circle, rgba(48,92,222,0.12) 1px, transparent 1px)",
+            backgroundSize: "20px 20px",
+          }}
+        />
+        <div className="relative overflow-hidden border-b border-slate-200/80 bg-white dark:border-white/10 dark:bg-[hsl(225,40%,11%)]">
+          <img
+            src={feature.image}
+            alt={feature.imageAlt}
+            className="h-auto w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
+            loading="lazy"
+            draggable={false}
+          />
+        </div>
       </div>
 
-      <h3
-        className={`font-display font-bold leading-snug mb-2 ${
-          isHero ? "text-xl md:text-2xl text-white" : "text-base text-foreground"
-        }`}
-      >
-        {feature.title}
-      </h3>
-      <p
-        className={`leading-relaxed flex-1 ${
-          isHero ? "text-sm md:text-base max-w-md text-white/78" : "text-sm text-muted-foreground"
-        }`}
-      >
-        {feature.description}
-      </p>
+      {/* Copy */}
+      <div className="flex flex-1 flex-col px-6 pb-8 pt-5 text-center sm:px-7">
+        <h3 className="font-display text-lg font-bold leading-snug text-slate-900 sm:text-xl dark:text-white">
+          {feature.title}
+        </h3>
+        <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600 sm:text-[15px] dark:text-white/65">
+          {feature.description}
+        </p>
+      </div>
+    </motion.article>
+  );
+}
 
-      {isHero && (
-        <div className="mt-6 flex flex-wrap gap-2">
-          {["NIST CSF 2.0", "SOC 2", "ISO 27001"].map((label) => (
-            <span
-              key={label}
-              className="rounded-lg border border-white/20 bg-white/10 px-2.5 py-1 text-[11px] font-medium text-white/85"
-            >
-              {label}
-            </span>
-          ))}
-        </div>
-      )}
-    </PremiumCard>
+function StepNode({ index }: { index: number }) {
+  const accent = brandAccentAt(index);
+  return (
+    <div className="relative z-10 flex flex-col items-center">
+      <span
+        className={cn(
+          "flex h-9 w-9 items-center justify-center rounded-full border-2 font-display text-xs font-extrabold sm:h-10 sm:w-10 sm:text-sm",
+          "bg-white shadow-[0_6px_16px_-6px_rgba(0,0,0,0.25)]",
+          "dark:bg-[hsl(225,42%,10%)] dark:shadow-[0_6px_20px_-6px_rgba(48,92,222,0.55)]",
+        )}
+        style={{ borderColor: accent, color: accent }}
+      >
+        0{index + 1}
+      </span>
+      <span className="h-2.5 w-px" style={{ background: accent }} aria-hidden />
+    </div>
+  );
+}
+
+/** Serpentine flow path with animated swimmers between step nodes */
+function SwimmingFlowConnectors({ count }: { count: number }) {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-x-0 -top-[22px] hidden h-[52px] md:block"
+    >
+      <svg
+        viewBox="0 0 1000 52"
+        className="absolute inset-0 h-full w-full"
+        preserveAspectRatio="none"
+        fill="none"
+      >
+        <defs>
+          <linearGradient id="flowStroke1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor={brandAccentAt(0)} />
+            <stop offset="100%" stopColor={brandAccentAt(1)} />
+          </linearGradient>
+          <linearGradient id="flowStroke2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor={brandAccentAt(1)} />
+            <stop offset="100%" stopColor={brandAccentAt(2)} />
+          </linearGradient>
+          <filter id="flowGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="2" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* Swooping path: node 1 → dips up → node 2 → dips down → node 3 */}
+        <path
+          id="swimPath1"
+          d="M 166 30 C 280 30, 320 6, 500 30"
+          stroke="url(#flowStroke1)"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeDasharray="6 10"
+          filter="url(#flowGlow)"
+          className="opacity-80 dark:opacity-90"
+        />
+        <path
+          id="swimPath2"
+          d="M 500 30 C 680 54, 720 30, 834 30"
+          stroke="url(#flowStroke2)"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeDasharray="6 10"
+          filter="url(#flowGlow)"
+          className="opacity-80 dark:opacity-90"
+        />
+
+        {!reduceMotion && (
+          <>
+            <motion.path
+              d="M 166 30 C 280 30, 320 6, 500 30"
+              stroke={brandAccentAt(0)}
+              strokeWidth="1"
+              strokeLinecap="round"
+              strokeDasharray="4 14"
+              className="opacity-40"
+              animate={{ strokeDashoffset: [0, -36] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "linear" }}
+            />
+            <motion.path
+              d="M 500 30 C 680 54, 720 30, 834 30"
+              stroke={brandAccentAt(2)}
+              strokeWidth="1"
+              strokeLinecap="round"
+              strokeDasharray="4 14"
+              className="opacity-40"
+              animate={{ strokeDashoffset: [0, -36] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "linear", delay: 0.4 }}
+            />
+          </>
+        )}
+
+        {/* Arrow chevrons along the curves */}
+        <path
+          d="M 318 14 L 328 22 L 318 30"
+          stroke={brandAccentAt(0)}
+          strokeWidth="1.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="opacity-70"
+        />
+        <path
+          d="M 682 46 L 692 38 L 682 30"
+          stroke={brandAccentAt(1)}
+          strokeWidth="1.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="opacity-70"
+        />
+
+        {!reduceMotion && (
+          <>
+            <motion.circle
+              r="4"
+              fill={brandAccentAt(0)}
+              filter="url(#flowGlow)"
+              animate={{ offsetDistance: ["0%", "100%"] }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+              style={{ offsetPath: 'path("M 166 30 C 280 30, 320 6, 500 30")' }}
+            />
+            <motion.circle
+              r="3.5"
+              fill={brandAccentAt(1)}
+              filter="url(#flowGlow)"
+              animate={{ offsetDistance: ["0%", "100%"] }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut", delay: 0.35 }}
+              style={{ offsetPath: 'path("M 166 30 C 280 30, 320 6, 500 30")' }}
+            />
+            <motion.circle
+              r="4"
+              fill={brandAccentAt(1)}
+              filter="url(#flowGlow)"
+              animate={{ offsetDistance: ["0%", "100%"] }}
+              transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", delay: 0.15 }}
+              style={{ offsetPath: 'path("M 500 30 C 680 54, 720 30, 834 30")' }}
+            />
+            <motion.circle
+              r="3"
+              fill={brandAccentAt(2)}
+              filter="url(#flowGlow)"
+              animate={{ offsetDistance: ["0%", "100%"] }}
+              transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", delay: 0.55 }}
+              style={{ offsetPath: 'path("M 500 30 C 680 54, 720 30, 834 30")' }}
+            />
+          </>
+        )}
+      </svg>
+
+      <div className="relative grid h-full grid-cols-3 gap-5 lg:gap-7">
+        {Array.from({ length: count }).map((_, i) => (
+          <div key={i} className="flex justify-center">
+            <StepNode index={i} />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
 export default function FeaturesSection() {
-  const [hero, sideA, sideB, ...bottomRow] = features;
-
   return (
-    <section className="section-padding relative overflow-hidden">
+    <section className="section-padding relative overflow-hidden bg-transparent">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.16]"
+        className="pointer-events-none absolute inset-0 opacity-60 dark:opacity-40"
         style={{
-          backgroundImage: "radial-gradient(circle, rgba(210,218,255,0.65) 1px, transparent 1px)",
-          backgroundSize: "52px 52px",
-          maskImage: "radial-gradient(ellipse 95% 90% at 50% 45%, black 12%, transparent 92%)",
-          WebkitMaskImage: "radial-gradient(ellipse 95% 90% at 50% 45%, black 12%, transparent 92%)",
+          background: "radial-gradient(ellipse 70% 55% at 50% 0%, rgba(48,92,222,0.07), transparent 70%)",
         }}
       />
 
       <div className="container-wide relative z-10">
-        <SectionHeading
-          badge="Platform Features"
-          title="Built for enterprise compliance"
-          description="Every feature designed to reduce manual effort and accelerate your path to compliance."
-        />
+        <div className="mb-12 text-center md:mb-14">
+          <motion.p
+            className="text-sm font-semibold md:text-base"
+            style={{ color: BRAND_PRIMARY }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={scrollViewport}
+            transition={{ duration: 0.55, ease: scrollEase }}
+          >
+            Platform Features
+          </motion.p>
+          <motion.h2
+            className="mt-3 font-display text-[clamp(1.75rem,4vw,2.75rem)] font-extrabold leading-[1.12] tracking-[-0.02em] text-slate-900 dark:text-white"
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={scrollViewport}
+            transition={{ duration: 0.6, ease: scrollEase, delay: 0.05 }}
+          >
+            Built for enterprise{" "}
+            <span className="text-primary">compliance</span>
+          </motion.h2>
+          <motion.p
+            className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg dark:text-white/65"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={scrollViewport}
+            transition={{ duration: 0.6, ease: scrollEase, delay: 0.1 }}
+          >
+            Every feature designed to reduce manual effort and accelerate your path to compliance.
+          </motion.p>
+        </div>
 
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 md:gap-3.5"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={scrollViewport}
-        >
-          <motion.div variants={cardVariants} className="sm:col-span-2 lg:col-span-7 lg:row-span-2 min-h-[260px]">
-            <FeatureCard feature={hero} className="min-h-[260px] lg:min-h-full" />
-          </motion.div>
-
-          <motion.div variants={cardVariants} className="lg:col-span-5 min-h-[140px]">
-            <FeatureCard feature={sideA} />
-          </motion.div>
-
-          <motion.div variants={cardVariants} className="lg:col-span-5 min-h-[140px]">
-            <FeatureCard feature={sideB} />
-          </motion.div>
-
-          {bottomRow.map((feature) => (
-            <motion.div
-              key={feature.title}
-              variants={cardVariants}
-              className="sm:col-span-1 lg:col-span-3 min-h-[150px]"
-            >
-              <FeatureCard feature={feature} />
-            </motion.div>
-          ))}
-        </motion.div>
+        <div className="relative mt-7 sm:mt-8">
+          <SwimmingFlowConnectors count={FEATURES.length} />
+          <div className="relative z-10 grid gap-6 md:grid-cols-3 md:gap-5 lg:gap-7">
+            {FEATURES.map((feature, index) => (
+              <FeatureCard key={feature.title} feature={feature} index={index} />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

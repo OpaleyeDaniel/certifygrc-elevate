@@ -38,6 +38,7 @@ export default function CyberAwarePage() {
         backgroundUrl={heroImagery.eLearning.background}
         foregroundUrl={heroImagery.eLearning.foreground}
         foregroundAlt={heroImagery.eLearning.foregroundAlt}
+        foregroundFit="contain"
       >
         <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary border border-primary/20">
           E-Learning

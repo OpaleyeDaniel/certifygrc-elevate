@@ -32,7 +32,7 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="relative z-10 border-t border-white/[0.07]" style={{ background: "linear-gradient(180deg, hsl(220,42%,7%) 0%, hsl(222,47%,5%) 100%)" }}>
+    <footer className="relative z-10 border-t border-border" style={{ background: "linear-gradient(180deg, hsl(var(--card)) 0%, hsl(var(--background)) 100%)" }}>
       <div className="container-wide py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand */}
