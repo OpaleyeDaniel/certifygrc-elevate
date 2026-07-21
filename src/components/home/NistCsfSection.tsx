@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, animate, motion, useInView, useReducedMotion } from "framer-motion";
-import { Building2, Search, ShieldCheck, Eye, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { Building2, Search, ShieldCheck, Eye } from "lucide-react";
+import { motion, useInView, useReducedMotion, AnimatePresence, animate } from "framer-motion";
 import { revealUp, scrollEase, scrollViewport, staggerContainer } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { CSF_BRAND_VARIANTS } from "@/components/home/nistCsfBrand";
@@ -242,15 +240,6 @@ export default function NistCsfSection() {
               The NIST Cybersecurity Framework 2.0 is the gold standard for enterprise risk management.
               CertifyGRC automates every function — from governance strategy to recovery planning.
             </motion.p>
-
-            <motion.div variants={revealUp}>
-              <Button asChild size="lg" className="group mt-6">
-                <Link to="/frameworks">
-                  See all frameworks
-                  <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
-                </Link>
-              </Button>
-            </motion.div>
 
             <div className="mt-9">
               {CSF_FUNCTIONS.map((fn, i) => (

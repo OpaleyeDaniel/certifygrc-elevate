@@ -7,7 +7,7 @@ const footerLinks = {
     { label: "Application", path: "/software" },
     { label: "Frameworks", path: "/frameworks" },
     { label: "Consulting Services", path: "/consulting" },
-    { label: "Cyber Aware", path: "/cyber-aware" },
+    { label: "CyberDrill", path: "/cyber-aware" },
     { label: "Alliance", path: "/partner" },
   ],
   Company: [

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Monitor, Radar, Compass, ArrowRight } from "lucide-react";
+import { Monitor, Radar, Compass, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import SectionHeading from "@/components/SectionHeading";
 import { cn } from "@/lib/utils";
@@ -13,9 +13,13 @@ interface Pillar {
   description: string;
   descriptionExtra: string;
   features: string[];
+  highlights?: string[];
   link: string;
+  ctaLabel: string;
   label: string;
   image: string;
+  transparentImage?: boolean;
+  showFrameworksLink?: boolean;
 }
 
 const pillars: Pillar[] = [
@@ -28,30 +32,35 @@ const pillars: Pillar[] = [
       "CertifyGRC brings frameworks, controls, and evidence into one system so compliance teams standardize governance, strengthen accountability, and cut duplicate audit work across every regulation you're mapped to.",
     features: ["Framework automation", "Evidence mapping", "Executive reporting"],
     link: "/software",
+    ctaLabel: "Learn more",
     label: "Core Product",
     image: "/ecosystem/compliance-os.png",
+    transparentImage: true,
+    showFrameworksLink: true,
   },
   {
     icon: Radar,
-    title: "Cyber Drill",
-    description:
-      "Strengthen security culture, reduce human risk, and equip teams with real-world defensive skills.",
+    title: "CyberDrill",
+    description: "Validate your team's readiness before attackers do.",
     descriptionExtra:
-      "From phishing simulations to tabletop exercises, Cyber Drill turns security awareness into muscle memory — so your team recognizes and reports real threats before they become incidents.",
-    features: ["Security awareness", "Phishing simulation", "Human risk management"],
+      "Strengthen your security culture, reduce human risk, and prepare employees to respond confidently to real-world cyber threats. From phishing simulations and tabletop exercises to interactive security drills, CyberDrill transforms awareness into measurable readiness—helping your organization detect, report, and respond to threats before they become incidents.",
+    features: ["Build Security Culture", "Validate Readiness", "Reduce Human Risk"],
     link: "/cyber-aware",
-    label: "Training",
+    ctaLabel: "Learn more",
+    label: "Simulation and Training",
     image: "/ecosystem/cyber-drill.png",
+    transparentImage: true,
   },
   {
     icon: Compass,
-    title: "Compliance Advisory",
-    description:
-      "Operational resilience and regulatory programs delivered with practical execution and audit-ready outcomes.",
+    title: "Cybersecurity & Compliance Consulting",
+    description: "Build resilient security and compliance programs with confidence.",
     descriptionExtra:
-      "Our advisors work alongside your team to close gaps in BCM, cyber, privacy, and AI governance — translating regulatory requirements like OSFI guidelines into practical, audit-ready programs.",
-    features: ["OSFI & Canada focus", "BCM & cyber", "Privacy & AI governance"],
+      "Our experts help organizations assess, implement, and optimize cybersecurity and compliance programs across information security, business continuity, PCI DSS, privacy, and other globally recognized frameworks. From gap assessments and governance to implementation and audit readiness, we deliver practical solutions that strengthen resilience and accelerate compliance.",
+    features: [],
+    highlights: ["Information & Cybersecurity", "Business Continuity", "PCI DSS & Compliance"],
     link: "/consulting",
+    ctaLabel: "Speak to an advisor today",
     label: "Advisory",
     image: "/ecosystem/compliance-advisory.png",
   },
@@ -60,10 +69,6 @@ const pillars: Pillar[] = [
 const IMAGE_SIDES: ImageSide[] = ["right", "left", "right"];
 const ease = [0.22, 1, 0.36, 1] as const;
 
-/**
- * "Our Ecosystem" — Drata-style alternating feature rows: copy on one side,
- * a floating product mockup with brand glow on the other.
- */
 export default function PillarsSection() {
   return (
     <section className="section-padding bg-transparent">
@@ -71,7 +76,7 @@ export default function PillarsSection() {
         <SectionHeading
           badge="Our Ecosystem"
           title="One platform, three ways to operationalize trust"
-          description="Technology enabled GRC with advisory depth and professional development under one roof."
+          description="Technology-enabled GRC with advisory depth and professional development under one roof."
         />
 
         <div className="mt-12 flex flex-col gap-8 md:mt-16 md:gap-10">
@@ -128,24 +133,45 @@ function EcosystemRow({ pillar, imageSide }: { pillar: Pillar; imageSide: ImageS
             {pillar.descriptionExtra}
           </p>
 
-          <div className="mt-5 flex flex-wrap gap-1.5">
-            {pillar.features.map((feature) => (
-              <span
-                key={feature}
-                className="rounded-full border border-primary/20 bg-primary/8 px-2.5 py-1 text-[11px] font-medium text-primary"
-              >
-                {feature}
-              </span>
-            ))}
-          </div>
+          {pillar.highlights && pillar.highlights.length > 0 ? (
+            <ul className="mt-5 space-y-2.5">
+              {pillar.highlights.map((item) => (
+                <li key={item} className="flex items-center gap-2.5 text-sm text-foreground/90">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-primary" aria-hidden />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="mt-5 flex flex-wrap gap-1.5">
+              {pillar.features.map((feature) => (
+                <span
+                  key={feature}
+                  className="rounded-full border border-primary/20 bg-primary/8 px-2.5 py-1 text-[11px] font-medium text-primary"
+                >
+                  {feature}
+                </span>
+              ))}
+            </div>
+          )}
 
           <Link
             to={pillar.link}
             className="group mt-7 inline-flex items-center gap-2 text-base font-bold text-foreground transition-all duration-200 hover:gap-3 hover:text-primary"
           >
-            {pillar.title}
+            {pillar.ctaLabel}
             <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
+
+          {pillar.showFrameworksLink && (
+            <Link
+              to="/frameworks"
+              className="group mt-3 inline-flex w-fit items-center gap-2 text-sm font-semibold text-primary transition-all duration-200 hover:gap-2.5"
+            >
+              See all frameworks
+              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+            </Link>
+          )}
         </motion.div>
 
         <motion.div
@@ -167,15 +193,29 @@ function EcosystemRow({ pillar, imageSide }: { pillar: Pillar; imageSide: ImageS
           />
 
           <div
-            className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-2xl border border-border/50 bg-background/40 p-3 sm:p-4 lg:rounded-[1.35rem] lg:p-5 xl:p-6"
-            style={{
-              boxShadow: `0 28px 56px -24px rgba(0,0,0,0.45), 0 16px 40px -20px ${BRAND_PRIMARY}30`,
-            }}
+            className={cn(
+              "relative flex h-full w-full items-center justify-center overflow-hidden",
+              pillar.transparentImage
+                ? "rounded-2xl bg-transparent p-1 sm:p-2 lg:rounded-[1.35rem] lg:p-3"
+                : "rounded-2xl border border-border/50 bg-background/40 p-3 sm:p-4 lg:rounded-[1.35rem] lg:p-5 xl:p-6",
+            )}
+            style={
+              pillar.transparentImage
+                ? { boxShadow: `0 24px 48px -28px ${BRAND_PRIMARY}55` }
+                : {
+                    boxShadow: `0 28px 56px -24px rgba(0,0,0,0.45), 0 16px 40px -20px ${BRAND_PRIMARY}30`,
+                  }
+            }
           >
             <img
               src={pillar.image}
               alt={`${pillar.title} product preview`}
-              className="block h-auto max-h-[min(420px,72vw)] w-full max-w-none object-contain lg:max-h-none lg:scale-[1.08] lg:object-center xl:scale-[1.12]"
+              className={cn(
+                "block h-auto w-full object-contain",
+                pillar.transparentImage
+                  ? "max-h-[min(440px,74vw)] drop-shadow-[0_28px_48px_rgba(48,92,222,0.28)] lg:max-h-none lg:scale-[1.06] xl:scale-[1.1]"
+                  : "max-h-[min(420px,72vw)] max-w-none lg:max-h-none lg:scale-[1.08] lg:object-center xl:scale-[1.12]",
+              )}
               loading="lazy"
               draggable={false}
             />

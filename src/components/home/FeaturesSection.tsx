@@ -7,7 +7,7 @@ const FEATURES = [
   {
     title: "Automated compliance workflows",
     description:
-      "Assign controls by framework, collect evidence automatically, and run structured assessments — so teams stop chasing spreadsheets and start operating.",
+      "Evidence validation, automated control checks, and structured assessments — assign by framework, collect proof automatically, and stop chasing spreadsheets.",
     image: "/home-features/workflow-mockup.png",
     imageAlt: "Structured compliance workflow — controls, eLearning, and certification steps",
   },
@@ -25,6 +25,16 @@ const FEATURES = [
     image: "/home-features/compliance-mockup.png",
     imageAlt: "Compliance dashboard with training completion, activity timeline, and audit status",
   },
+] as const;
+
+/** Rounded-rect orbit — clockwise: top-left → top → right → bottom → left */
+const ORBIT_PATH =
+  "M 64 36 C 64 36 64 20 80 20 H 920 C 936 20 936 36 936 36 V 364 C 936 380 920 380 920 380 H 80 C 64 380 64 364 64 364 V 36 Z";
+
+const STEP_POSITIONS = [
+  { left: "2.5%", top: "5%", align: "items-start" },
+  { left: "97.5%", top: "5%", align: "items-end -translate-x-full" },
+  { left: "50%", top: "95%", align: "items-center -translate-x-1/2" },
 ] as const;
 
 const cardVariants = {
@@ -60,7 +70,6 @@ function FeatureCard({
         boxShadow: `0 16px 40px -20px rgba(48, 92, 222, 0.22), inset 0 -3px 0 ${BRAND_PRIMARY}`,
       }}
     >
-      {/* Mockup area — flush to top edge */}
       <div
         className={cn(
           "relative overflow-hidden",
@@ -87,7 +96,6 @@ function FeatureCard({
         </div>
       </div>
 
-      {/* Copy */}
       <div className="flex flex-1 flex-col px-6 pb-8 pt-5 text-center sm:px-7">
         <h3 className="font-display text-lg font-bold leading-snug text-slate-900 sm:text-xl dark:text-white">
           {feature.title}
@@ -103,165 +111,197 @@ function FeatureCard({
 function StepNode({ index }: { index: number }) {
   const accent = brandAccentAt(index);
   return (
-    <div className="relative z-10 flex flex-col items-center">
+    <div className="relative z-20 flex flex-col items-center">
       <span
         className={cn(
-          "flex h-9 w-9 items-center justify-center rounded-full border-2 font-display text-xs font-extrabold sm:h-10 sm:w-10 sm:text-sm",
-          "bg-white shadow-[0_6px_16px_-6px_rgba(0,0,0,0.25)]",
-          "dark:bg-[hsl(225,42%,10%)] dark:shadow-[0_6px_20px_-6px_rgba(48,92,222,0.55)]",
+          "flex h-10 w-10 items-center justify-center rounded-full border-2 font-display text-sm font-extrabold sm:h-11 sm:w-11",
+          "bg-white shadow-[0_8px_20px_-6px_rgba(48,92,222,0.45)]",
+          "dark:bg-[hsl(225,42%,10%)] dark:shadow-[0_8px_24px_-6px_rgba(48,92,222,0.6)]",
         )}
         style={{ borderColor: accent, color: accent }}
       >
         0{index + 1}
       </span>
-      <span className="h-2.5 w-px" style={{ background: accent }} aria-hidden />
     </div>
   );
 }
 
-/** Serpentine flow path with animated swimmers between step nodes */
-function SwimmingFlowConnectors({ count }: { count: number }) {
+/** Circular orbit connector wrapping the card grid */
+function OrbitalFlowConnectors() {
   const reduceMotion = useReducedMotion();
 
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-x-0 -top-[22px] hidden h-[52px] md:block"
+      className="pointer-events-none absolute inset-0 hidden md:block"
     >
       <svg
-        viewBox="0 0 1000 52"
-        className="absolute inset-0 h-full w-full"
+        viewBox="0 0 1000 400"
+        className="absolute inset-0 h-full w-full overflow-visible"
         preserveAspectRatio="none"
         fill="none"
       >
         <defs>
-          <linearGradient id="flowStroke1" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient id="orbitGradient" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor={brandAccentAt(0)} />
-            <stop offset="100%" stopColor={brandAccentAt(1)} />
-          </linearGradient>
-          <linearGradient id="flowStroke2" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor={brandAccentAt(1)} />
+            <stop offset="50%" stopColor={brandAccentAt(1)} />
             <stop offset="100%" stopColor={brandAccentAt(2)} />
           </linearGradient>
-          <filter id="flowGlow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="2" result="blur" />
+          <filter id="orbitGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="3" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
+          <marker
+            id="orbitArrow"
+            markerWidth="8"
+            markerHeight="8"
+            refX="6"
+            refY="4"
+            orient="auto"
+            markerUnits="strokeWidth"
+          >
+            <path d="M0,0 L8,4 L0,8 Z" fill={brandAccentAt(1)} />
+          </marker>
         </defs>
 
-        {/* Swooping path: node 1 → dips up → node 2 → dips down → node 3 */}
+        {/* Soft outer glow ring */}
         <path
-          id="swimPath1"
-          d="M 166 30 C 280 30, 320 6, 500 30"
-          stroke="url(#flowStroke1)"
-          strokeWidth="2"
+          d={ORBIT_PATH}
+          stroke={BRAND_PRIMARY}
+          strokeWidth="14"
           strokeLinecap="round"
-          strokeDasharray="6 10"
-          filter="url(#flowGlow)"
-          className="opacity-80 dark:opacity-90"
+          strokeLinejoin="round"
+          className="opacity-[0.08] dark:opacity-[0.14]"
         />
+
+        {/* Main dashed orbit track */}
         <path
-          id="swimPath2"
-          d="M 500 30 C 680 54, 720 30, 834 30"
-          stroke="url(#flowStroke2)"
-          strokeWidth="2"
+          id="orbitTrack"
+          d={ORBIT_PATH}
+          stroke="url(#orbitGradient)"
+          strokeWidth="2.5"
           strokeLinecap="round"
-          strokeDasharray="6 10"
-          filter="url(#flowGlow)"
-          className="opacity-80 dark:opacity-90"
+          strokeLinejoin="round"
+          strokeDasharray="10 14"
+          filter="url(#orbitGlow)"
+          className="opacity-90"
+        />
+
+        {/* Inner echo track for depth */}
+        <path
+          d="M 88 52 C 88 52 88 40 100 40 H 900 C 912 40 912 52 912 52 V 348 C 912 360 900 360 900 360 H 100 C 88 360 88 348 88 348 V 52 Z"
+          stroke={BRAND_PRIMARY}
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeDasharray="4 18"
+          className="opacity-25"
         />
 
         {!reduceMotion && (
           <>
+            {/* Flowing dash animation along the orbit */}
             <motion.path
-              d="M 166 30 C 280 30, 320 6, 500 30"
+              d={ORBIT_PATH}
               stroke={brandAccentAt(0)}
-              strokeWidth="1"
+              strokeWidth="2"
               strokeLinecap="round"
-              strokeDasharray="4 14"
-              className="opacity-40"
-              animate={{ strokeDashoffset: [0, -36] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "linear" }}
+              strokeLinejoin="round"
+              strokeDasharray="6 20"
+              className="opacity-60"
+              animate={{ strokeDashoffset: [0, -104] }}
+              transition={{ duration: 2.2, repeat: Infinity, ease: "linear" }}
             />
-            <motion.path
-              d="M 500 30 C 680 54, 720 30, 834 30"
-              stroke={brandAccentAt(2)}
-              strokeWidth="1"
-              strokeLinecap="round"
-              strokeDasharray="4 14"
-              className="opacity-40"
-              animate={{ strokeDashoffset: [0, -36] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "linear", delay: 0.4 }}
-            />
-          </>
-        )}
 
-        {/* Arrow chevrons along the curves */}
-        <path
-          d="M 318 14 L 328 22 L 318 30"
-          stroke={brandAccentAt(0)}
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="opacity-70"
-        />
-        <path
-          d="M 682 46 L 692 38 L 682 30"
-          stroke={brandAccentAt(1)}
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="opacity-70"
-        />
-
-        {!reduceMotion && (
-          <>
+            {/* Primary traveling dot */}
             <motion.circle
-              r="4"
+              r="6"
               fill={brandAccentAt(0)}
-              filter="url(#flowGlow)"
+              filter="url(#orbitGlow)"
               animate={{ offsetDistance: ["0%", "100%"] }}
-              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-              style={{ offsetPath: 'path("M 166 30 C 280 30, 320 6, 500 30")' }}
+              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+              style={{ offsetPath: `path("${ORBIT_PATH}")` }}
             />
-            <motion.circle
-              r="3.5"
-              fill={brandAccentAt(1)}
-              filter="url(#flowGlow)"
-              animate={{ offsetDistance: ["0%", "100%"] }}
-              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut", delay: 0.35 }}
-              style={{ offsetPath: 'path("M 166 30 C 280 30, 320 6, 500 30")' }}
-            />
+
+            {/* Trailing dot */}
             <motion.circle
               r="4"
               fill={brandAccentAt(1)}
-              filter="url(#flowGlow)"
+              className="opacity-80"
               animate={{ offsetDistance: ["0%", "100%"] }}
-              transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", delay: 0.15 }}
-              style={{ offsetPath: 'path("M 500 30 C 680 54, 720 30, 834 30")' }}
+              transition={{ duration: 8, repeat: Infinity, ease: "linear", delay: -0.35 }}
+              style={{ offsetPath: `path("${ORBIT_PATH}")` }}
             />
+
+            {/* Small sparkle dot */}
             <motion.circle
               r="3"
               fill={brandAccentAt(2)}
-              filter="url(#flowGlow)"
+              className="opacity-70"
               animate={{ offsetDistance: ["0%", "100%"] }}
-              transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", delay: 0.55 }}
-              style={{ offsetPath: 'path("M 500 30 C 680 54, 720 30, 834 30")' }}
+              transition={{ duration: 8, repeat: Infinity, ease: "linear", delay: -1.2 }}
+              style={{ offsetPath: `path("${ORBIT_PATH}")` }}
             />
+
+            {/* Animated arrow head riding the path */}
+            <motion.g
+              animate={{ offsetDistance: ["0%", "100%"] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "linear", delay: -0.6 }}
+              style={{ offsetPath: `path("${ORBIT_PATH}")`, offsetRotate: "auto" }}
+            >
+              <path
+                d="M -10 -5 L 6 0 L -10 5 Z"
+                fill={brandAccentAt(1)}
+                filter="url(#orbitGlow)"
+              />
+            </motion.g>
           </>
         )}
+
+        {/* Direction chevrons along the orbit */}
+        <path d="M 488 18 L 512 18 L 500 34 Z" fill={brandAccentAt(0)} className="opacity-80" />
+        <path d="M 948 188 L 948 212 L 932 200 Z" fill={brandAccentAt(1)} className="opacity-80" />
+        <path d="M 512 382 L 488 382 L 500 366 Z" fill={brandAccentAt(2)} className="opacity-80" />
+        <path d="M 52 212 L 52 188 L 68 200 Z" fill={brandAccentAt(0)} className="opacity-80" />
       </svg>
 
-      <div className="relative grid h-full grid-cols-3 gap-5 lg:gap-7">
-        {Array.from({ length: count }).map((_, i) => (
-          <div key={i} className="flex justify-center">
-            <StepNode index={i} />
-          </div>
-        ))}
-      </div>
+      {/* Step nodes pinned to orbit corners */}
+      {STEP_POSITIONS.map((pos, i) => (
+        <div
+          key={i}
+          className={cn("absolute z-20 flex", pos.align)}
+          style={{ left: pos.left, top: pos.top }}
+        >
+          <StepNode index={i} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** Mobile: vertical step rail beside cards */
+function MobileStepRail() {
+  return (
+    <div aria-hidden className="mb-6 flex items-center justify-center gap-3 md:hidden">
+      {FEATURES.map((_, i) => (
+        <div key={i} className="flex items-center gap-3">
+          <StepNode index={i} />
+          {i < FEATURES.length - 1 && (
+            <svg width="32" height="12" viewBox="0 0 32 12" fill="none" aria-hidden>
+              <path
+                d="M0 6 C8 6 8 2 16 6 C24 10 24 6 32 6"
+                stroke={brandAccentAt(i)}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeDasharray="4 6"
+              />
+            </svg>
+          )}
+        </div>
+      ))}
     </div>
   );
 }
@@ -310,8 +350,10 @@ export default function FeaturesSection() {
           </motion.p>
         </div>
 
-        <div className="relative mt-7 sm:mt-8">
-          <SwimmingFlowConnectors count={FEATURES.length} />
+        <MobileStepRail />
+
+        <div className="relative px-2 pb-8 pt-12 sm:px-4 md:px-10 md:pb-10 md:pt-16">
+          <OrbitalFlowConnectors />
           <div className="relative z-10 grid gap-6 md:grid-cols-3 md:gap-5 lg:gap-7">
             {FEATURES.map((feature, index) => (
               <FeatureCard key={feature.title} feature={feature} index={index} />

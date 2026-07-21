@@ -2,14 +2,14 @@ import HeroSection from "@/components/home/HeroSection";
 import FrameworkCrossBanner from "@/components/home/FrameworkCrossBanner";
 import PillarsSection from "@/components/home/PillarsSection";
 import NistCsfSection from "@/components/home/NistCsfSection";
-import LiveDemoSection from "@/components/marketing/LiveDemoSection";
-import FeaturesSection from "@/components/home/FeaturesSection";
 import SecurityPostureQuizSection from "@/components/home/SecurityPostureQuizSection";
+import LiveDemoSection from "@/components/marketing/LiveDemoSection";
+import WhyCertifyGrcSection from "@/components/home/WhyCertifyGrcSection";
+import FeaturesSection from "@/components/home/FeaturesSection";
 import ServicesPreview from "@/components/home/ServicesPreview";
 import FrameworksSection from "@/components/home/FrameworksSection";
 import IndustriesSection from "@/components/home/IndustriesSection";
-import CTASection from "@/components/home/CTASection";
-import WhyCertifyGrcSection from "@/components/home/WhyCertifyGrcSection";
+import ClientTestimonialsSection from "@/components/home/ClientTestimonialsSection";
 import WaitlistSection from "@/components/marketing/WaitlistSection";
 
 /**
@@ -23,15 +23,15 @@ const Index = () => (
     <FrameworkCrossBanner />
     <PillarsSection />
     <NistCsfSection />
-    <LiveDemoSection />
+    <SecurityPostureQuizSection />
     <WhyCertifyGrcSection />
     <FeaturesSection />
-    <SecurityPostureQuizSection />
+    <LiveDemoSection />
     <ServicesPreview />
     <FrameworksSection />
     <IndustriesSection />
+    <ClientTestimonialsSection />
     <WaitlistSection source="landing" />
-    <CTASection />
   </>
 );
 

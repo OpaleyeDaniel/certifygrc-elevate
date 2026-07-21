@@ -19,7 +19,7 @@ const navLinks = [
   { label: "About", path: "/company" },
   { label: "Application", path: "/software" },
   { label: "Consulting Services", path: "/consulting" },
-  { label: "Cyber Aware", path: "/cyber-aware" },
+  { label: "CyberDrill", path: "/cyber-aware" },
   { label: "Blog", path: "/blog" },
   { label: "Alliance", path: "/partner" },
   { label: "Contact Us", path: "/contact" },

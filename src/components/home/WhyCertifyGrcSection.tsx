@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import {
   Target,
-  Workflow,
   Sparkles,
   Gauge,
   Users,
@@ -13,7 +12,7 @@ import { Link } from "react-router-dom";
 import SectionHeading from "@/components/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { revealUp, scrollEase, scrollViewport, staggerContainer } from "@/lib/motion";
-import { BRAND_PRIMARY } from "@/lib/brandColors";
+import { BRAND_PRIMARY, brandAccentAt } from "@/lib/brandColors";
 import { CSF_BRAND_VARIANTS } from "@/components/home/nistCsfBrand";
 import { useBooking } from "@/contexts/BookingContext";
 import { cn } from "@/lib/utils";
@@ -30,15 +29,9 @@ const CSF_FUNCTIONS = [
 const FEATURES = [
   {
     icon: Target,
-    title: 'NIST CSF 2.0, not "everything for everyone"',
+    title: "NIST CSF 2.0 Made Practical",
     description:
-      "One framework — Govern through Recover — so your team isn't lost in a maze of overlapping tools.",
-  },
-  {
-    icon: Workflow,
-    title: "A workflow your team can follow",
-    description:
-      "Assessment, gap analysis, risk tracking, evidence, auditor review, and improvement — connected end to end.",
+      "A clear roadmap to assess, improve, and strengthen your cybersecurity program — without juggling overlapping frameworks.",
   },
   {
     icon: Sparkles,
@@ -67,12 +60,12 @@ const FEATURES = [
 ] as const;
 
 const WORKFLOW_STEPS = [
-  "Assess",
-  "Gap analysis",
-  "Risk track",
-  "Evidence",
-  "Auditor review",
-  "Improve",
+  { label: "Assess", detail: "Structured baseline" },
+  { label: "Gap analysis", detail: "Prioritized findings" },
+  { label: "Risk track", detail: "Owned remediation" },
+  { label: "Evidence", detail: "Linked artifacts" },
+  { label: "Auditor review", detail: "Verified controls" },
+  { label: "Improve", detail: "Continuous maturity" },
 ] as const;
 
 function FeatureItem({
@@ -113,7 +106,6 @@ export default function WhyCertifyGrcSection() {
           description="No bloat, no busywork. Just the structure, workflow, and evidence trail a real NIST CSF 2.0 program needs."
         />
 
-        {/* Primary showcase — copy left, one product visual right */}
         <div className="mx-auto mt-4 grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -123,10 +115,10 @@ export default function WhyCertifyGrcSection() {
             className="space-y-6"
           >
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-              Focused on NIST CSF 2.0
+              NIST CSF 2.0 Made Practical
             </p>
             <h3 className="font-display text-2xl font-extrabold leading-tight tracking-tight text-foreground sm:text-3xl">
-              Structure where it matters — without complexity you&apos;ll never use
+              A clear roadmap to assess, improve, and strengthen your cybersecurity program
             </h3>
             <p className="max-w-md text-base leading-relaxed text-muted-foreground">
               CertifyGRC maps your program to Govern, Identify, Protect, Detect, Respond, and Recover — with
@@ -191,30 +183,44 @@ export default function WhyCertifyGrcSection() {
           </motion.div>
         </div>
 
-        {/* Workflow — single restrained strip */}
+        {/* Workflow — prominent, standalone */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={scrollViewport}
-          transition={{ duration: 0.6, ease: scrollEase, delay: 0.05 }}
-          className="mx-auto mt-14 max-w-4xl rounded-2xl border border-border/40 bg-muted/15 px-5 py-4 sm:px-8 sm:py-5"
+          transition={{ duration: 0.65, ease: scrollEase }}
+          className="mx-auto mt-16 max-w-6xl overflow-hidden rounded-[1.5rem] border border-primary/20 bg-gradient-to-br from-primary/[0.08] via-card to-card px-5 py-8 sm:px-8 sm:py-10"
+          style={{ boxShadow: "0 24px 60px -32px rgba(48,92,222,0.28)" }}
         >
-          <p className="mb-3 text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-            End-to-end workflow
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-sm">
+          <div className="mb-8 text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">End-to-end workflow</p>
+            <h3 className="mt-2 font-display text-xl font-extrabold text-foreground sm:text-2xl">
+              A workflow your team can follow
+            </h3>
+            <p className="mx-auto mt-2 max-w-xl text-sm text-muted-foreground">
+              Every step connects — from first assessment to auditor review and continuous improvement.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
             {WORKFLOW_STEPS.map((step, i) => (
-              <span key={step} className="inline-flex items-center gap-2">
-                <span className="font-medium text-foreground/90">{step}</span>
-                {i < WORKFLOW_STEPS.length - 1 && (
-                  <ArrowRight className="h-3.5 w-3.5 text-primary/40" aria-hidden />
-                )}
-              </span>
+              <div
+                key={step.label}
+                className="relative rounded-xl border border-border/50 bg-background/80 p-4 text-center"
+              >
+                <span
+                  className="mx-auto mb-3 flex h-9 w-9 items-center justify-center rounded-full border-2 bg-card font-display text-xs font-bold"
+                  style={{ borderColor: brandAccentAt(i), color: brandAccentAt(i) }}
+                >
+                  {i + 1}
+                </span>
+                <p className="font-display text-sm font-bold text-foreground">{step.label}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{step.detail}</p>
+              </div>
             ))}
           </div>
         </motion.div>
 
-        {/* Feature grid — text & icons only */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -227,7 +233,6 @@ export default function WhyCertifyGrcSection() {
           ))}
         </motion.div>
 
-        {/* CTA */}
         <motion.div
           variants={revealUp}
           initial="hidden"

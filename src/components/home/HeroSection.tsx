@@ -183,8 +183,8 @@ export default function HeroSection() {
               animate="visible"
               className="mt-5 text-base md:text-[1.05rem] leading-relaxed text-muted-foreground max-w-[28rem] mx-auto lg:mx-0"
             >
-              Cyber Resilience and Compliance Operations Center helps organizations implement,
-              validate, and sustain cybersecurity and compliance programs.
+              The AI-Powered Cyber Resilience &amp; Compliance Platform that helps organizations
+              implement, validate, and sustain cybersecurity and compliance programs.
             </motion.p>
 
             <motion.div
@@ -205,12 +205,11 @@ export default function HeroSection() {
               <Button
                 asChild
                 size="lg"
-                variant="outline"
-                className="h-12 px-7 text-sm font-semibold group"
+                className="h-12 px-7 text-sm font-semibold group border-transparent bg-primary text-primary-foreground hover:bg-primary/90 dark:bg-[hsl(222,47%,12%)] dark:text-white dark:hover:bg-[hsl(222,47%,16%)]"
               >
                 <Link to="/cyber-aware">
-                  <PlayCircle className="mr-2 h-4 w-4 opacity-80 transition-transform group-hover:scale-110" />
-                  See Cyber Aware in action
+                  <PlayCircle className="mr-2 h-4 w-4 opacity-90 transition-transform group-hover:scale-110" />
+                  See CyberDrill in action
                 </Link>
               </Button>
             </motion.div>

@@ -17,7 +17,7 @@ export const heroImagery = {
   eLearning: {
     background: "/hero-background-elearning.png",
     foreground: "/ecosystem/cyber-drill.png",
-    foregroundAlt: "Cyber Drill security operations dashboard with incident tracking, automation, and live threat feed",
+    foregroundAlt: "CyberDrill security operations dashboard with incident tracking, automation, and live threat feed",
   },
   partner: {
     background: "/hero-background-partner.png",
