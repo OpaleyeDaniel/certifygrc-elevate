@@ -108,13 +108,16 @@ function FeatureCard({
   );
 }
 
-function StepNode({ index }: { index: number }) {
+function StepNode({ index, compact = false }: { index: number; compact?: boolean }) {
   const accent = brandAccentAt(index);
   return (
     <div className="relative z-20 flex flex-col items-center">
       <span
         className={cn(
-          "flex h-10 w-10 items-center justify-center rounded-full border-2 font-display text-sm font-extrabold sm:h-11 sm:w-11",
+          "flex items-center justify-center rounded-full border-2 font-display font-extrabold",
+          compact
+            ? "h-8 w-8 text-xs sm:h-10 sm:w-10 sm:text-sm"
+            : "h-10 w-10 text-sm sm:h-11 sm:w-11",
           "bg-white shadow-[0_8px_20px_-6px_rgba(48,92,222,0.45)]",
           "dark:bg-[hsl(225,42%,10%)] dark:shadow-[0_8px_24px_-6px_rgba(48,92,222,0.6)]",
         )}
@@ -282,15 +285,15 @@ function OrbitalFlowConnectors() {
   );
 }
 
-/** Mobile: vertical step rail beside cards */
+/** Mobile: compact step rail above cards */
 function MobileStepRail() {
   return (
-    <div aria-hidden className="mb-6 flex items-center justify-center gap-3 md:hidden">
+    <div aria-hidden className="mb-5 flex flex-wrap items-center justify-center gap-2 px-1 md:hidden">
       {FEATURES.map((_, i) => (
-        <div key={i} className="flex items-center gap-3">
-          <StepNode index={i} />
+        <div key={i} className="flex items-center gap-2">
+          <StepNode index={i} compact />
           {i < FEATURES.length - 1 && (
-            <svg width="32" height="12" viewBox="0 0 32 12" fill="none" aria-hidden>
+            <svg width="24" height="10" viewBox="0 0 32 12" fill="none" aria-hidden className="shrink-0">
               <path
                 d="M0 6 C8 6 8 2 16 6 C24 10 24 6 32 6"
                 stroke={brandAccentAt(i)}
@@ -352,7 +355,7 @@ export default function FeaturesSection() {
 
         <MobileStepRail />
 
-        <div className="relative px-2 pb-8 pt-12 sm:px-4 md:px-10 md:pb-10 md:pt-16">
+        <div className="relative px-0 pb-6 pt-4 sm:px-2 md:px-10 md:pb-10 md:pt-16">
           <OrbitalFlowConnectors />
           <div className="relative z-10 grid gap-6 md:grid-cols-3 md:gap-5 lg:gap-7">
             {FEATURES.map((feature, index) => (

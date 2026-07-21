@@ -44,8 +44,8 @@ export default function HeroSupademo() {
     window.open(openUrl, "_blank", "noopener,noreferrer");
   }, [openUrl]);
 
-  /* ── 3D tilt: base "emerging from the wall" angle + live pointer tilt ── */
-  const baseRotateY = useMotionValue(reduceMotion ? -8 : -26);
+  /* ── 3D tilt: gentler on phones; full tilt on desktop ── */
+  const baseRotateY = useMotionValue(reduceMotion ? -4 : -10);
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
   const springX = useSpring(pointerX, { stiffness: 150, damping: 22, mass: 0.5 });
@@ -53,9 +53,9 @@ export default function HeroSupademo() {
 
   const rotateY = useTransform([baseRotateY, springX], (latest) => {
     const [base, px] = latest as number[];
-    return base + px * 9;
+    return base + px * 5;
   });
-  const rotateX = useTransform(springY, (py: number) => 3 - py * 8);
+  const rotateX = useTransform(springY, (py: number) => 2 - py * 5);
 
   // Entrance: fade + tilt in from a steeper angle, then settle into a slow,
   // perpetual drift between a few resting angles — reads as a product that's
@@ -63,12 +63,12 @@ export default function HeroSupademo() {
   useEffect(() => {
     if (reduceMotion) return;
     let idle: AnimationPlaybackControls | undefined;
-    const entrance = animate(baseRotateY, -8, {
+    const entrance = animate(baseRotateY, -4, {
       duration: 1.3,
       ease: [0.22, 1, 0.36, 1],
       delay: 0.25,
       onComplete: () => {
-        idle = animate(baseRotateY, [-8, -10.5, -6, -9, -8], {
+        idle = animate(baseRotateY, [-4, -6, -3, -5, -4], {
           duration: 14,
           ease: "easeInOut",
           repeat: Infinity,
@@ -218,7 +218,7 @@ export default function HeroSupademo() {
           style={{
             rotateX,
             rotateY,
-            transformPerspective: 1800,
+            transformPerspective: 1200,
             transformStyle: "preserve-3d",
           }}
           initial={reduceMotion ? false : { opacity: 0, scale: 0.96 }}

@@ -99,11 +99,11 @@ function EcosystemRow({ pillar, imageSide }: { pillar: Pillar; imageSide: ImageS
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.7, ease }}
-      className="overflow-hidden rounded-[2rem] border border-border/60 bg-card"
+      className="overflow-hidden rounded-[1.35rem] border border-border/60 bg-card sm:rounded-[2rem]"
     >
       <div
         className={cn(
-          "grid items-center gap-8 p-6 sm:p-8 md:gap-8 lg:gap-10 lg:p-8 xl:p-10",
+          "grid items-center gap-6 p-5 sm:gap-8 sm:p-8 md:gap-8 lg:gap-10 lg:p-8 xl:p-10",
           isImageRight ? "lg:grid-cols-[2fr_3fr]" : "lg:grid-cols-[3fr_2fr]",
         )}
       >

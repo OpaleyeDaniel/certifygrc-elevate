@@ -112,8 +112,8 @@ export default function HeroSection() {
           below the copy/demo panel */}
       <HeroParticleRing />
 
-      <div className="relative z-10 container-wide flex min-h-[min(100svh,920px)] flex-col justify-center pt-10 pb-24 lg:pt-14 lg:pb-32 xl:max-w-[78rem]">
-        <div className="grid w-full grid-cols-1 items-center gap-12 lg:grid-cols-[0.92fr_1.18fr] lg:gap-10 xl:gap-6">
+      <div className="relative z-10 container-wide flex min-h-[min(100svh,920px)] flex-col justify-center pt-8 pb-16 sm:pt-10 sm:pb-20 lg:pt-14 lg:pb-32 xl:max-w-[78rem]">
+        <div className="grid w-full min-w-0 grid-cols-1 items-center gap-10 sm:gap-12 lg:grid-cols-[0.92fr_1.18fr] lg:gap-10 xl:gap-6">
 
           {/* Copy */}
           <div className="max-w-xl text-center lg:text-left mx-auto lg:mx-0">
@@ -219,18 +219,23 @@ export default function HeroSection() {
               variants={fadeUp}
               initial={reduceMotion ? false : "hidden"}
               animate="visible"
-              className="mt-10 flex items-center justify-center gap-5 border-t border-foreground/[0.08] pt-6 sm:gap-7 lg:justify-start"
+              className="mt-10 grid grid-cols-3 gap-1 border-t border-foreground/[0.08] pt-6 sm:flex sm:items-center sm:justify-center sm:gap-7 lg:justify-start"
             >
               {PROOF_STATS.map(({ icon: Icon, value, label }, i) => (
-                <div key={label} className="flex items-center gap-5 sm:gap-7">
-                  {i > 0 && <span className="h-8 w-px shrink-0 bg-foreground/[0.08]" aria-hidden />}
-                  <div className="flex items-center gap-2">
-                    <Icon className="hidden h-4 w-4 shrink-0 text-primary/70 sm:block" aria-hidden />
-                    <div className="text-left">
-                      <div className="font-display text-base font-bold leading-none text-foreground sm:text-lg">
-                        {value}
-                      </div>
-                      <div className="mt-1 text-[11px] leading-tight text-muted-foreground">{label}</div>
+                <div
+                  key={label}
+                  className={cn(
+                    "flex min-w-0 flex-col items-center px-1 text-center sm:flex-row sm:gap-2 sm:px-0 sm:text-left",
+                    i > 0 && "border-l border-foreground/[0.08] sm:border-l-0",
+                  )}
+                >
+                  <Icon className="mb-0.5 h-3.5 w-3.5 shrink-0 text-primary/70 sm:mb-0 sm:h-4 sm:w-4" aria-hidden />
+                  <div className="min-w-0">
+                    <div className="font-display text-sm font-bold leading-none text-foreground sm:text-lg">
+                      {value}
+                    </div>
+                    <div className="mt-1 text-[9px] leading-tight text-muted-foreground sm:text-[11px]">
+                      {label}
                     </div>
                   </div>
                 </div>
@@ -242,7 +247,7 @@ export default function HeroSection() {
               variants={fadeUp}
               initial={reduceMotion ? false : "hidden"}
               animate="visible"
-              className="mt-5 flex justify-center gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] lg:justify-start [&::-webkit-scrollbar]:hidden"
+              className="mt-5 flex flex-wrap justify-center gap-2 lg:justify-start"
             >
               {TRUST_PILLS.map(({ icon: Icon, label }) => (
                 <span

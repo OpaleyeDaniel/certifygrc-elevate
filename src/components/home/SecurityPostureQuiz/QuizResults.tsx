@@ -162,8 +162,8 @@ export default function QuizResults({ summary, onRestart }: QuizResultsProps) {
           <ul className="mt-3 space-y-2.5">
             {summary.topGaps.map((g) => (
               <li key={g.nistId} className="rounded-xl border border-border/60 bg-card p-3">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-bold text-foreground">
+                <div className="flex items-start justify-between gap-2">
+                  <span className="min-w-0 flex-1 break-words text-xs font-bold leading-snug text-foreground">
                     {g.nistId} · {g.question}
                   </span>
                   <span

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,22 +18,29 @@
   
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Always dark — applied before paint to avoid a flash of light mode -->
+    <!-- Default dark on first visit; respect saved light/dark before paint -->
     <script>
       (function () {
-        document.documentElement.classList.add("dark");
-        document.documentElement.style.colorScheme = "dark";
         try {
-          localStorage.setItem("certifygrc-theme", "dark");
+          var stored = localStorage.getItem("certifygrc-theme");
+          var theme = stored === "light" || stored === "dark" ? stored : "dark";
+          if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+          }
+          document.documentElement.style.colorScheme = theme;
         } catch (e) {
-          /* localStorage unavailable */
+          document.documentElement.classList.add("dark");
+          document.documentElement.style.colorScheme = "dark";
         }
       })();
     </script>
     <style>
       body {
-        background-color: #05070d;
+        background-color: #f7f8fb;
         margin: 0;
+      }
+      html.dark body {
+        background-color: #05070d;
       }
     </style>
   </head>

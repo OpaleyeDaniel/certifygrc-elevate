@@ -25,7 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <BookingProvider value={booking}>
-      <div className="min-h-screen flex flex-col relative">
+      <div className="min-h-screen flex min-w-0 flex-col relative overflow-x-clip">
         {/* ── Experiment: animated ambient background layers disabled ───
             Trying a plain background (white in light mode, dark in dark
             mode) instead of the animated cyber-grid/orbs/geometry. Not

@@ -182,8 +182,8 @@ export default function IndustriesSection() {
           description="See how CertifyGRC applies to your industry — pick a sector below."
         />
 
-        {/* Tab row */}
-        <div className="mb-10 flex flex-wrap justify-center gap-2.5 sm:gap-3 md:mb-12">
+        {/* Tab row — horizontal scroll on phones */}
+        <div className="-mx-4 mb-10 flex gap-2 overflow-x-auto px-4 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:-mx-6 sm:px-6 md:mx-0 md:mb-12 md:flex-wrap md:justify-center md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
           {INDUSTRIES.map((industry) => (
             <TabButton
               key={industry.id}

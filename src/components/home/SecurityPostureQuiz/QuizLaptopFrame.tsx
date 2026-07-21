@@ -60,7 +60,7 @@ export default function QuizLaptopFrame({ children }: { children: ReactNode }) {
         {/* Camera notch */}
         <span className="absolute left-1/2 top-1 h-1 w-1 -translate-x-1/2 rounded-full bg-white/15 sm:top-1.5" aria-hidden />
 
-        <div className="relative min-h-[560px] w-full overflow-hidden rounded-[4px] bg-background sm:min-h-[600px]">
+        <div className="relative min-h-[min(480px,78svh)] w-full overflow-hidden rounded-[4px] bg-background sm:min-h-[560px] md:min-h-[600px]">
           {children}
         </div>
       </div>

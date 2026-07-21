@@ -262,7 +262,7 @@ export default function NistCsfSection() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="lg:sticky lg:top-28"
           >
-            <div className="relative w-full overflow-hidden rounded-[1.75rem] aspect-[908/1024] sm:aspect-[4/3] lg:aspect-[908/1024]">
+            <div className="relative w-full overflow-hidden rounded-[1.75rem] aspect-[4/3] lg:aspect-[908/1024]">
               <AnimatePresence mode="wait">
                 <motion.img
                   key={activeFn.id}
