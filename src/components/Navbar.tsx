@@ -11,8 +11,6 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/BrandLogo";
-import ThemeToggle from "@/components/ThemeToggle";
-import { useTheme } from "@/contexts/ThemeContext";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -68,8 +66,6 @@ function NavLinkItem({
 export default function Navbar({ onTalkWithAdvisor, onBookDemo }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
 
   const { scrollY } = useScroll();
   const smoothScroll = useSpring(scrollY, { stiffness: 120, damping: 28, mass: 0.4 });
@@ -79,9 +75,7 @@ export default function Navbar({ onTalkWithAdvisor, onBookDemo }: NavbarProps) {
   const navShadow = useTransform(
     shadowOpacity,
     (o) =>
-      isDark
-        ? `0 1px 0 rgba(255,255,255,0.05) inset, 0 12px 32px -14px rgba(0,0,0,${o + 0.5})`
-        : `0 1px 0 rgba(255,255,255,0.7) inset, 0 12px 32px -14px rgba(15,23,42,${o})`,
+      `0 1px 0 rgba(255,255,255,0.05) inset, 0 12px 32px -14px rgba(0,0,0,${o + 0.5})`,
   );
 
   /* Premium "auto-hide" scroll behavior: glide the pill off the top when the
@@ -127,8 +121,8 @@ export default function Navbar({ onTalkWithAdvisor, onBookDemo }: NavbarProps) {
         <motion.div
           className="relative mx-auto flex h-16 max-w-[1320px] items-center justify-between gap-6 rounded-[1.5rem] border px-4 backdrop-blur-xl backdrop-saturate-150 sm:h-[4.25rem] sm:rounded-[1.75rem] sm:px-6 lg:px-7"
           style={{
-            background: isDark ? "rgba(11,15,26,0.55)" : "rgba(255,255,255,0.58)",
-            borderColor: isDark ? "rgba(255,255,255,0.09)" : "rgba(255,255,255,0.65)",
+            background: "rgba(11,15,26,0.55)",
+            borderColor: "rgba(255,255,255,0.09)",
             boxShadow: navShadow,
           }}
         >
@@ -151,11 +145,7 @@ export default function Navbar({ onTalkWithAdvisor, onBookDemo }: NavbarProps) {
             </nav>
           </div>
 
-          {/* Desktop CTA — a wider gap before the toggle keeps it from hugging
-              the Book a Demo button, so it sits centered in the space after
-              the nav links instead of reading as glued to the CTA button. */}
-          <div className="hidden shrink-0 items-center gap-5 lg:flex">
-            <ThemeToggle />
+          <div className="hidden shrink-0 items-center lg:flex">
             <Button
               size="sm"
               onClick={onBookDemo}
@@ -169,8 +159,7 @@ export default function Navbar({ onTalkWithAdvisor, onBookDemo }: NavbarProps) {
           </div>
 
           {/* Mobile toggle */}
-          <div className="flex items-center gap-2 lg:hidden">
-            <ThemeToggle />
+          <div className="flex items-center lg:hidden">
             <button
               type="button"
               onClick={() => setMobileOpen(!mobileOpen)}

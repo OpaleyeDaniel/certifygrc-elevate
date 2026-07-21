@@ -3,12 +3,12 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useState,
   type ReactNode,
 } from "react";
 
 export type Theme = "light" | "dark";
 
+const FORCED_THEME: Theme = "dark";
 const STORAGE_KEY = "certifygrc-theme";
 
 type ThemeContextValue = {
@@ -19,50 +19,34 @@ type ThemeContextValue = {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-function getInitialTheme(): Theme {
-  if (typeof window === "undefined") return "light";
-  const stored = window.localStorage.getItem(STORAGE_KEY);
-  if (stored === "light" || stored === "dark") return stored;
-  // Default is light regardless of system preference — dark is opt-in.
-  return "light";
-}
-
-function applyThemeClass(theme: Theme) {
+function applyThemeClass() {
   const root = document.documentElement;
-  root.classList.toggle("dark", theme === "dark");
-  root.style.colorScheme = theme;
+  root.classList.add("dark");
+  root.style.colorScheme = "dark";
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(getInitialTheme);
-
   useEffect(() => {
-    applyThemeClass(theme);
-  }, [theme]);
-
-  const setTheme = useCallback((next: Theme) => {
-    setThemeState(next);
+    applyThemeClass();
     try {
-      window.localStorage.setItem(STORAGE_KEY, next);
+      window.localStorage.setItem(STORAGE_KEY, FORCED_THEME);
     } catch {
-      // localStorage unavailable (private browsing, etc.) — theme just won't persist.
+      // localStorage unavailable — dark mode still applies for this session.
     }
   }, []);
 
+  const setTheme = useCallback((_next: Theme) => {
+    applyThemeClass();
+  }, []);
+
   const toggleTheme = useCallback(() => {
-    setThemeState((prev) => {
-      const next = prev === "dark" ? "light" : "dark";
-      try {
-        window.localStorage.setItem(STORAGE_KEY, next);
-      } catch {
-        // ignore
-      }
-      return next;
-    });
+    applyThemeClass();
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
+    <ThemeContext.Provider
+      value={{ theme: FORCED_THEME, setTheme, toggleTheme }}
+    >
       {children}
     </ThemeContext.Provider>
   );
@@ -71,8 +55,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 export function useTheme(): ThemeContextValue {
   const ctx = useContext(ThemeContext);
   if (!ctx) {
-    // Safe fallback for components rendered outside the provider (e.g. tests).
-    return { theme: "light", setTheme: () => {}, toggleTheme: () => {} };
+    return { theme: FORCED_THEME, setTheme: () => {}, toggleTheme: () => {} };
   }
   return ctx;
 }
