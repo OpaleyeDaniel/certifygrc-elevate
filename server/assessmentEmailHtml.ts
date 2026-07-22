@@ -1,3 +1,5 @@
+import { emailLogoBlock } from "./emailHtmlShared.js";
+
 function escapeHtml(s: string): string {
   return s
     .replace(/&/g, "&amp;")
@@ -83,6 +85,7 @@ export function buildAssessmentInternalHtml(input: AssessmentLeadForEmail): stri
 </head>
 <body>
   <div class="wrapper">
+    <div style="padding:28px 36px 12px;background:#fff;">${emailLogoBlock({ centered: true, height: 40 })}</div>
     <div class="header">
       <h1>New Security Posture Quiz lead</h1>
       <p>CertifyGRC landing page · ${headerWhen}</p>
@@ -144,6 +147,7 @@ export function buildAssessmentConfirmationHtml(input: {
 </head>
 <body>
   <div class="wrapper">
+    <div style="padding:28px 36px 12px;background:#fff;">${emailLogoBlock({ centered: true, height: 40 })}</div>
     <div class="header">
       <h1>Your NIST CSF maturity report</h1>
       <p>CertifyGRC Security Posture Quiz</p>

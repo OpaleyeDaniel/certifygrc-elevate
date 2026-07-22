@@ -1,4 +1,6 @@
 import type { PartnerFormValues } from "../src/lib/partnerFormSchema.js";
+import { emailLogoBlock } from "./emailHtmlShared.js";
+import { PRODUCTION_SITE_ORIGIN } from "./siteOrigin.js";
 
 function escapeHtml(s: string): string {
   return s
@@ -97,6 +99,7 @@ export function buildPartnerInternalHtml(data: PartnerFormValues): string {
 </head>
 <body>
   <div class="wrapper">
+    <div style="padding:28px 32px 12px;background:#fff;">${emailLogoBlock({ centered: true, height: 40 })}</div>
     <div class="header">
       <h1>${escapeHtml(headerTitle)}</h1>
       <p>Submitted via certifygrc.com — ${escapeHtml(ts)}</p>
@@ -137,6 +140,7 @@ export function buildPartnerConfirmationHtml(data: PartnerFormValues): string {
 </head>
 <body>
   <div class="wrapper">
+    <div style="padding:28px 36px 12px;background:#fff;">${emailLogoBlock({ centered: true, height: 40 })}</div>
     <div class="header">
       <h1>${escapeHtml(title)}</h1>
       <p>Thank you, ${escapeHtml(first)}!</p>
@@ -144,7 +148,7 @@ export function buildPartnerConfirmationHtml(data: PartnerFormValues): string {
     <div class="body">
       ${bodyP}
       <p>If you have questions in the meantime, reply to this email or contact us at <a href="mailto:info@certifygrc.com" style="color:#305CDE;">info@certifygrc.com</a>.</p>
-      <a href="https://certifygrc.vercel.app" class="cta">Visit CertifyGRC</a>
+      <a href="${PRODUCTION_SITE_ORIGIN}" class="cta">Visit CertifyGRC</a>
     </div>
     <div class="footer">
       © ${new Date().getFullYear()} CertifyGRC · certifygrc.com<br />

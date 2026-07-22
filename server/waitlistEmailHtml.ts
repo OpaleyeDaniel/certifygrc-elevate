@@ -1,3 +1,5 @@
+import { emailLogoBlock } from "./emailHtmlShared.js";
+
 function escapeHtml(s: string): string {
   return s
     .replace(/&/g, "&amp;")
@@ -49,6 +51,7 @@ export function buildWaitlistInternalHtml(input: {
 </head>
 <body>
   <div class="wrapper">
+    <div style="padding:28px 36px 12px;background:#fff;">${emailLogoBlock({ centered: true, height: 40 })}</div>
     <div class="header">
       <h1>New waitlist signup</h1>
       <p>CertifyGRC · ${headerWhen}</p>
@@ -105,6 +108,7 @@ export function buildWaitlistConfirmationHtml(input: {
 </head>
 <body>
   <div class="wrapper">
+    <div style="padding:28px 36px 12px;background:#fff;">${emailLogoBlock({ centered: true, height: 40 })}</div>
     <div class="header">
       <h1>You're on the list</h1>
       <p>Welcome, ${first}</p>

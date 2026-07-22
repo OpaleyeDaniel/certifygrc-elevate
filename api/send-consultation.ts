@@ -18,6 +18,7 @@ import {
   emailTagGroup,
   escapeHtml,
 } from "../server/emailHtmlShared.js";
+import { PRODUCTION_SITE_ORIGIN } from "../server/siteOrigin.js";
 
 export const config = { maxDuration: 60 };
 
@@ -81,7 +82,7 @@ ${emailHighlightCard(`Request summary: ${preview}`)}
     heroSubtitle: `Thank you, ${first}!`,
     heroCentered: true,
     bodyHtml: body,
-    primaryCta: { href: "https://certifygrc.com", label: "Explore CertifyGRC" },
+    primaryCta: { href: PRODUCTION_SITE_ORIGIN, label: "Explore CertifyGRC" },
     footerExtraHtml: `<p style="margin:14px 0 0;font-size:11px;line-height:1.55;color:#94a3b8;text-align:center;">You received this email because you submitted a consultation request.</p>`,
   });
 }

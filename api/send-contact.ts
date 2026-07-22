@@ -18,6 +18,7 @@ import {
   emailSoftBadge,
   escapeHtml,
 } from "../server/emailHtmlShared.js";
+import { PRODUCTION_SITE_ORIGIN } from "../server/siteOrigin.js";
 
 /** Allow enough time for two sequential SMTP sends (internal + confirmation). */
 export const config = { maxDuration: 60 };
@@ -72,7 +73,7 @@ ${emailSoftBadge(`Your subject: <span style="font-weight:700;color:#0c4a6e;">${s
     heroSubtitle: `Thank you, ${first}!`,
     heroCentered: true,
     bodyHtml: body,
-    primaryCta: { href: "https://certifygrc.com", label: "Visit CertifyGRC" },
+    primaryCta: { href: PRODUCTION_SITE_ORIGIN, label: "Visit CertifyGRC" },
     footerExtraHtml: `<p style="margin:14px 0 0;font-size:11px;line-height:1.55;color:#94a3b8;text-align:center;">You received this because you submitted a contact form on our website.</p>`,
   });
 }
