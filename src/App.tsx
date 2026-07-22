@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Layout from "@/components/Layout";
 import ScrollToTop from "@/components/ScrollToTop";
+import { resolveSectionIdFromLocation, scrollToSection } from "@/lib/scrollToSection";
 import { pageTransition } from "@/lib/motion";
 import Index from "./pages/Index";
 import Software from "./pages/Software";
@@ -39,6 +40,12 @@ function useLenis() {
       smoothWheel: true,
       touchMultiplier: 1.8,
     });
+    window.__certifygrcLenis = lenis;
+
+    const sectionId = resolveSectionIdFromLocation(window.location.pathname, window.location.hash);
+    if (sectionId) {
+      scrollToSection(sectionId);
+    }
 
     let rafId: number;
     function raf(time: number) {
@@ -50,6 +57,7 @@ function useLenis() {
     return () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      delete window.__certifygrcLenis;
     };
   }, [reduceMotion]);
 }
@@ -69,7 +77,7 @@ function AnimatedRoutes() {
       >
         <Routes location={location}>
           <Route path="/" element={<Index />} />
-          <Route path="/free-assessment" element={<Navigate to="/#free-assessment" replace />} />
+          <Route path="/free-assessment" element={<Index />} />
           <Route path="/software" element={<Software />} />
           <Route path="/consulting" element={<Consulting />} />
           <Route path="/cyber-aware" element={<CyberAwarePage />} />

@@ -1,27 +1,11 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
 import { useLocation, useNavigationType } from "react-router-dom";
-
-function scrollToHashTarget(hash: string): boolean {
-  const id = hash.slice(1);
-  if (!id) return false;
-  const el = document.getElementById(id);
-  if (!el) return false;
-  el.scrollIntoView({ block: "start", behavior: "auto" });
-  return true;
-}
-
-function scrollToHashWithRetry(hash: string) {
-  if (scrollToHashTarget(hash)) return;
-  requestAnimationFrame(() => {
-    if (!scrollToHashTarget(hash)) requestAnimationFrame(() => scrollToHashTarget(hash));
-  });
-}
+import { resolveSectionIdFromLocation, scrollToSection } from "@/lib/scrollToSection";
 
 /**
  * Resets window scroll to the top of the new route on every PUSH/REPLACE navigation.
  * - POP (back/forward) is left alone so the browser's native scroll restoration works.
- * - When the URL carries a `#hash`, we scroll to that element instead of the top.
- * - Hash links also work on the first paint (e.g. /#free-assessment, /free-assessment redirect).
+ * - When the URL carries a `#hash` or section alias path, scroll to that section.
  *
  * Place ONCE, inside <BrowserRouter>, above any route-rendering UI.
  */
@@ -42,8 +26,10 @@ export default function ScrollToTop() {
   useLayoutEffect(() => {
     if (typeof window === "undefined") return;
 
-    if (hash) {
-      scrollToHashWithRetry(hash);
+    const sectionId = resolveSectionIdFromLocation(pathname, hash);
+
+    if (sectionId) {
+      scrollToSection(sectionId);
       isFirstRender.current = false;
       return;
     }
@@ -60,6 +46,8 @@ export default function ScrollToTop() {
     if (document.scrollingElement) {
       document.scrollingElement.scrollTop = 0;
     }
+
+    window.__certifygrcLenis?.scrollTo(0, { immediate: true, force: true });
   }, [pathname, search, hash, navigationType]);
 
   return null;

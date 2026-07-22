@@ -11,13 +11,17 @@ import FrameworksSection from "@/components/home/FrameworksSection";
 import IndustriesSection from "@/components/home/IndustriesSection";
 import ClientTestimonialsSection from "@/components/home/ClientTestimonialsSection";
 import WaitlistSection from "@/components/marketing/WaitlistSection";
+import { useSectionScroll } from "@/hooks/useSectionScroll";
 
 /**
  * Each section manages its own scroll-reveal via framer-motion `whileInView`.
  * No outer ScrollReveal wrapper — that caused all sections to fade as one unit,
  * masking the internal stagger animations.
  */
-const Index = () => (
+const Index = () => {
+  useSectionScroll();
+
+  return (
   <>
     <HeroSection />
     <FrameworkCrossBanner />
@@ -33,6 +37,7 @@ const Index = () => (
     <ClientTestimonialsSection />
     <WaitlistSection source="landing" />
   </>
-);
+  );
+};
 
 export default Index;
