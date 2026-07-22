@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { getMissingOutboundMailKeys } from "../server/mailConfig.js";
+import { getMissingOutboundMailKeys, resolveInternalTo, resolveMailFrom } from "../server/mailConfig.js";
 import {
   jsonBadRequest,
   respondMailNotConfigured,
@@ -7,7 +7,6 @@ import {
   respondUnexpectedError,
 } from "../server/mailApiResponse.js";
 import { enforcePublicFormApiGuards } from "../server/formApiGuards.js";
-import { sanitizeEnvValue } from "../server/mailTransport.js";
 import { sendMailUnified } from "../server/sendMailUnified.js";
 import { getJsonBody } from "../server/vercelRequestBody.js";
 import {
@@ -107,8 +106,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const data = body as ContactBody;
 
     try {
-      const from = sanitizeEnvValue(process.env.CONTACT_EMAIL_FROM) ?? "";
-      const to = sanitizeEnvValue(process.env.CONTACT_EMAIL_TO) ?? "";
+      const from = resolveMailFrom(process.env);
+      const to = resolveInternalTo(process.env);
 
       await sendMailUnified(process.env, "send-contact internal", {
         from: `"CertifyGRC Website" <${from}>`,

@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { getMissingOutboundMailKeys } from "../server/mailConfig.js";
+import { getMissingOutboundMailKeys, resolveInternalTo, resolveMailFrom } from "../server/mailConfig.js";
 import {
   jsonBadRequest,
   respondMailNotConfigured,
@@ -7,7 +7,6 @@ import {
   respondUnexpectedError,
 } from "../server/mailApiResponse.js";
 import { enforcePublicFormApiGuards } from "../server/formApiGuards.js";
-import { sanitizeEnvValue } from "../server/mailTransport.js";
 import { sendPartnerSubmissionEmails } from "../server/partnerMailDispatch.js";
 import { partnerFormSchema } from "../src/lib/partnerFormSchema.js";
 import { getJsonBody } from "../server/vercelRequestBody.js";
@@ -34,8 +33,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const data = parsed.data;
 
     try {
-      const from = sanitizeEnvValue(process.env.CONTACT_EMAIL_FROM) ?? "";
-      const to = sanitizeEnvValue(process.env.CONTACT_EMAIL_TO) ?? "";
+      const from = resolveMailFrom(process.env);
+      const to = resolveInternalTo(process.env);
 
       const result = await sendPartnerSubmissionEmails(process.env, from, to, data);
       if (!result.internalOk) {

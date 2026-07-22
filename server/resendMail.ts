@@ -1,10 +1,13 @@
 import { sanitizeEnvValue, type MailEnv } from "./mailTransport.js";
+import type { EmailInlineAttachment } from "./emailInlineAssets.js";
 
 export type ResendHtmlMail = {
   from: string;
   to: string;
   subject: string;
   html: string;
+  replyTo?: string;
+  attachments?: EmailInlineAttachment[];
 };
 
 /**
@@ -17,6 +20,13 @@ export async function sendResendHtml(env: MailEnv, mail: ResendHtmlMail): Promis
     throw new Error("[mail] RESEND_API_KEY is empty");
   }
 
+  const attachments = mail.attachments?.map((a) => ({
+    filename: a.filename,
+    content: a.content,
+    content_type: a.contentType,
+    content_id: a.contentId,
+  }));
+
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -28,6 +38,8 @@ export async function sendResendHtml(env: MailEnv, mail: ResendHtmlMail): Promis
       to: [mail.to],
       subject: mail.subject,
       html: mail.html,
+      ...(mail.replyTo ? { reply_to: mail.replyTo } : {}),
+      ...(attachments?.length ? { attachments } : {}),
     }),
   });
 

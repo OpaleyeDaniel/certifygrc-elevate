@@ -1,11 +1,23 @@
-import { emailLogoBlock } from "./emailHtmlShared.js";
+import {
+  assemblePremiumEmail,
+  assembleSaasEmail,
+  emailDivider,
+  emailFieldRow,
+  escapeHtml,
+} from "./emailHtmlShared.js";
 
-function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+const FONT = "Roboto, 'Google Sans', Helvetica, Arial, sans-serif";
+const TEXT = "#334155";
+const MUTED = "#64748b";
+const BORDER = "#e2e8f0";
+const BRAND = "#305CDE";
+
+function roundScore(value: number): number {
+  return Math.round(value);
+}
+
+function formatScore(value: number, max: number): string {
+  return `${roundScore(value)} / ${max}`;
 }
 
 export interface AssessmentLeadResultsForEmail {
@@ -26,93 +38,137 @@ export interface AssessmentLeadForEmail {
   results: AssessmentLeadResultsForEmail;
 }
 
-function functionBreakdownRows(breakdown: Record<string, number>): string {
-  return Object.entries(breakdown)
-    .map(
-      ([fn, score]) =>
-        `<tr><td style="padding:6px 10px;color:#374151;font-size:13px;">${escapeHtml(fn)}</td><td style="padding:6px 10px;color:#111827;font-size:13px;font-weight:600;">${score.toFixed(1)} / 3.0</td></tr>`,
-    )
-    .join("");
+function scoreHero(score: number): string {
+  const pct = Math.round((score / 5) * 100);
+  return `
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:linear-gradient(135deg,#f8fafc 0%,#eef2ff 100%);border:1px solid ${BORDER};border-radius:14px;overflow:hidden;">
+  <tr>
+    <td style="padding:28px 24px;text-align:center;">
+      <p style="margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:${MUTED};font-family:${FONT};">Overall maturity</p>
+      <p style="margin:0 0 20px;font-size:52px;line-height:1;font-weight:800;color:#0f172a;font-family:${FONT};">${score}<span style="font-size:22px;font-weight:600;color:${MUTED};">/5</span></p>
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+          <td style="background:#e2e8f0;border-radius:999px;height:8px;padding:0;">
+            <div style="width:${pct}%;max-width:100%;background:linear-gradient(90deg,${BRAND},#5B7FE8);border-radius:999px;height:8px;line-height:8px;font-size:0;">&nbsp;</div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>`;
 }
 
-function topGapRows(gaps: AssessmentLeadForEmail["results"]["topGaps"]): string {
+function metricTiles(gaps: number, gapRate: number, readiness: number): string {
+  const tile = (label: string, value: string, accent: string) => `
+<td width="33%" style="padding:0 6px;vertical-align:top;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#ffffff;border:1px solid ${BORDER};border-radius:12px;">
+    <tr>
+      <td style="padding:16px 12px;text-align:center;">
+        <p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:${MUTED};font-family:${FONT};">${label}</p>
+        <p style="margin:0;font-size:24px;line-height:1.2;font-weight:800;color:${accent};font-family:${FONT};">${value}</p>
+      </td>
+    </tr>
+  </table>
+</td>`;
+
+  return `
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin:24px 0 0;">
+  <tr>
+    ${tile("Gaps found", String(gaps), "#dc2626")}
+    ${tile("Gap rate", `${gapRate}%`, "#d97706")}
+    ${tile("Audit readiness", `${readiness}%`, BRAND)}
+  </tr>
+</table>`;
+}
+
+function functionBreakdownBars(breakdown: Record<string, number>): string {
+  const rows = Object.entries(breakdown)
+    .map(([fn, score]) => {
+      const rounded = roundScore(score);
+      const pct = Math.round((rounded / 3) * 100);
+      return `
+<tr>
+  <td colspan="2" style="padding:0 0 14px;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tr>
+        <td style="padding:0 0 6px;font-size:13px;font-weight:600;color:#0f172a;font-family:${FONT};">${escapeHtml(fn)}</td>
+        <td align="right" style="padding:0 0 6px;font-size:13px;font-weight:600;color:${MUTED};font-family:${FONT};">${formatScore(score, 3)}</td>
+      </tr>
+      <tr>
+        <td colspan="2" style="background:#e2e8f0;border-radius:999px;height:6px;padding:0;">
+          <div style="width:${pct}%;max-width:100%;background:${BRAND};border-radius:999px;height:6px;line-height:6px;font-size:0;">&nbsp;</div>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>`;
+    })
+    .join("");
+
+  return `
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin:0;">
+  ${rows}
+</table>`;
+}
+
+function topGapsCards(gaps: AssessmentLeadForEmail["results"]["topGaps"]): string {
   if (gaps.length === 0) {
-    return `<tr><td style="padding:6px 10px;color:#6b7280;font-size:13px;">No significant gaps flagged.</td></tr>`;
+    return `<p style="margin:0;font-size:14px;line-height:1.6;color:${MUTED};font-family:${FONT};">No significant gaps were flagged in this sample.</p>`;
   }
+
   return gaps
     .map(
-      (g) =>
-        `<tr><td style="padding:6px 10px;color:#374151;font-size:13px;">${escapeHtml(g.nistId)} — ${escapeHtml(g.question)}</td><td style="padding:6px 10px;color:#b91c1c;font-size:13px;font-weight:600;">${escapeHtml(g.answer)}</td></tr>`,
+      (g, i) => `
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin:${i === 0 ? "0" : "12px 0 0"};background:#fef2f2;border:1px solid #fecaca;border-radius:12px;">
+  <tr>
+    <td style="padding:14px 16px;">
+      <p style="margin:0 0 4px;font-size:12px;font-weight:700;color:#991b1b;font-family:${FONT};">${escapeHtml(g.nistId)}</p>
+      <p style="margin:0 0 6px;font-size:14px;line-height:1.5;color:${TEXT};font-family:${FONT};">${escapeHtml(g.question)}</p>
+      <p style="margin:0;font-size:13px;line-height:1.45;color:#b91c1c;font-family:${FONT};">${escapeHtml(g.answer)}</p>
+    </td>
+  </tr>
+</table>`,
     )
     .join("");
 }
 
-/** Internal notification — sent to the CertifyGRC team when a visitor
- *  unlocks their Security Posture Quiz results (a marketing lead magnet). */
+function sectionHeading(title: string): string {
+  return `<p style="margin:28px 0 14px;font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#0f172a;font-family:${FONT};">${escapeHtml(title)}</p>`;
+}
+
+/** Internal notification — sent to the CertifyGRC team when a visitor completes the quiz. */
 export function buildAssessmentInternalHtml(input: AssessmentLeadForEmail): string {
-  const email = escapeHtml(input.email);
-  const companyName = escapeHtml(input.companyName ?? "—");
-  const jobTitle = escapeHtml(input.jobTitle ?? "—");
-  let headerWhen = escapeHtml(input.submittedAtUtc);
+  const r = input.results;
+  let headerWhen = input.submittedAtUtc;
   try {
-    headerWhen = escapeHtml(new Date(input.submittedAtUtc).toUTCString());
+    headerWhen = new Date(input.submittedAtUtc).toUTCString();
   } catch {
     /* keep ISO */
   }
-  const r = input.results;
 
-  return `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8" />
-  <style>
-    body { font-family: 'Inter', Arial, sans-serif; background: #f5f7fa; margin: 0; padding: 0; }
-    .wrapper { max-width: 640px; margin: 40px auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
-    .header { background: linear-gradient(135deg, #305CDE 0%, #5B7FE8 100%); padding: 32px 36px; }
-    .header h1 { color: #fff; margin: 0; font-size: 22px; font-weight: 700; }
-    .header p { color: rgba(255,255,255,0.85); margin: 6px 0 0; font-size: 14px; }
-    .body { padding: 32px 36px; }
-    .field { margin-bottom: 18px; }
-    .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #6b7280; margin-bottom: 4px; }
-    .value { font-size: 15px; color: #111827; font-weight: 500; }
-    .divider { border: none; border-top: 1px solid #e5e7eb; margin: 22px 0; }
-    .stat-grid { display: table; width: 100%; margin: 10px 0 20px; }
-    .stat { display: table-cell; padding: 10px 14px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; }
-    table { border-collapse: collapse; width: 100%; }
-    .footer { padding: 20px 36px; background: #f9fafb; text-align: center; font-size: 12px; color: #9ca3af; }
-  </style>
-</head>
-<body>
-  <div class="wrapper">
-    <div style="padding:28px 36px 12px;background:#fff;">${emailLogoBlock({ centered: true, height: 40 })}</div>
-    <div class="header">
-      <h1>New Security Posture Quiz lead</h1>
-      <p>CertifyGRC landing page · ${headerWhen}</p>
-    </div>
-    <div class="body">
-      <div class="field"><div class="label">Email</div><div class="value">${email}</div></div>
-      <div class="field"><div class="label">Company</div><div class="value">${companyName}</div></div>
-      <div class="field"><div class="label">Job title</div><div class="value">${jobTitle}</div></div>
-      <hr class="divider" />
-      <div class="field">
-        <div class="label">Overall maturity</div>
-        <div class="value">${r.overallMaturity.toFixed(1)} / 5.0 — ${escapeHtml(r.postureProfile)}</div>
-      </div>
-      <div class="field"><div class="label">Gaps found</div><div class="value">${r.totalGaps} (${r.gapRate}% gap rate)</div></div>
-      <div class="field"><div class="label">Estimated readiness</div><div class="value">${r.estimatedReadiness}%</div></div>
-      <hr class="divider" />
-      <div class="label" style="margin-bottom:8px;">Function breakdown</div>
-      <table>${functionBreakdownRows(r.functionBreakdown)}</table>
-      <hr class="divider" />
-      <div class="label" style="margin-bottom:8px;">Top gaps</div>
-      <table>${topGapRows(r.topGaps)}</table>
-    </div>
-    <div class="footer">CertifyGRC · certifygrc.com · Landing page lead magnet</div>
-  </div>
-</body>
-</html>
-  `.trim();
+  const body = [
+    emailFieldRow("Email", escapeHtml(input.email)),
+    emailFieldRow("Company", escapeHtml(input.companyName ?? "—")),
+    emailFieldRow("Job title", escapeHtml(input.jobTitle ?? "—")),
+    emailDivider(),
+    emailFieldRow("Overall maturity", `${formatScore(r.overallMaturity, 5)} (${escapeHtml(r.postureProfile)})`),
+    emailFieldRow("Gaps found", `${r.totalGaps} (${r.gapRate}% gap rate)`),
+    emailFieldRow("Estimated readiness", `${r.estimatedReadiness}%`),
+    emailDivider(),
+    sectionHeading("NIST CSF function breakdown"),
+    functionBreakdownBars(r.functionBreakdown),
+    sectionHeading("Top gaps"),
+    topGapsCards(r.topGaps),
+  ].join("");
+
+  return assemblePremiumEmail({
+    preheader: `New quiz lead — ${input.email}`,
+    heroTitle: "New Security Posture Quiz lead",
+    heroSubtitle: `CertifyGRC landing page · ${escapeHtml(headerWhen)}`,
+    heroCentered: false,
+    bodyHtml: body,
+    footerExtraHtml: `<p style="margin:14px 0 0;font-size:11px;line-height:1.5;color:#94a3b8;text-align:center;">Internal notification · certifygrc.com</p>`,
+  });
 }
 
 /** Confirmation / results email — sent to the person who completed the quiz. */
@@ -122,58 +178,24 @@ export function buildAssessmentConfirmationHtml(input: {
 }): string {
   const r = input.results;
   const softwareUrl = escapeHtml(input.softwareUrl);
+  const score = roundScore(r.overallMaturity);
 
-  return `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8" />
-  <style>
-    body { font-family: 'Inter', Arial, sans-serif; background: #f5f7fa; margin: 0; padding: 0; }
-    .wrapper { max-width: 600px; margin: 40px auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
-    .header { background: linear-gradient(135deg, #305CDE 0%, #5B7FE8 100%); padding: 36px; text-align: center; }
-    .header h1 { color: #fff; margin: 0; font-size: 24px; font-weight: 700; }
-    .header p { color: rgba(255,255,255,0.9); margin: 8px 0 0; font-size: 15px; }
-    .body { padding: 36px; }
-    .body p { color: #374151; font-size: 15px; line-height: 1.7; margin: 0 0 16px; }
-    .score { text-align: center; margin: 8px 0 24px; }
-    .score .big { font-size: 40px; font-weight: 800; color: #305CDE; }
-    .score .label { font-size: 13px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.08em; }
-    .box { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px 18px; font-size: 14px; color: #374151; line-height: 1.65; margin: 18px 0; }
-    .cta { display: inline-block; background: linear-gradient(135deg, #305CDE, #5B7FE8); color: #fff !important; text-decoration: none; border-radius: 10px; padding: 14px 28px; font-size: 15px; font-weight: 600; margin-top: 8px; }
-    .disclaimer { font-size: 11px; color: #9ca3af; line-height: 1.6; margin-top: 20px; }
-    .footer { padding: 20px 36px; background: #f9fafb; text-align: center; font-size: 12px; color: #9ca3af; border-top: 1px solid #e5e7eb; }
-  </style>
-</head>
-<body>
-  <div class="wrapper">
-    <div style="padding:28px 36px 12px;background:#fff;">${emailLogoBlock({ centered: true, height: 40 })}</div>
-    <div class="header">
-      <h1>Your NIST CSF maturity report</h1>
-      <p>CertifyGRC Security Posture Quiz</p>
-    </div>
-    <div class="body">
-      <div class="score">
-        <div class="big">${r.overallMaturity.toFixed(1)} / 5.0</div>
-        <div class="label">${escapeHtml(r.postureProfile)}</div>
-      </div>
-      <p>Thanks for taking the Security Posture Quiz. Based on your answers, here's a snapshot of where your organization stands against NIST CSF 2.0:</p>
-      <div class="box">
-        <strong>${r.totalGaps} compliance gaps</strong> found (${r.gapRate}% of sample controls) · Estimated audit readiness: <strong>${r.estimatedReadiness}%</strong>
-      </div>
-      <p style="text-align:center; margin: 24px 0 8px;">
-        <a href="${softwareUrl}" class="cta">Start your full NIST CSF assessment</a>
-      </p>
-      <p class="disclaimer">
-        This is an indicative self-assessment based on 16 sample controls aligned to NIST CSF 2.0. It is not a formal audit, certification, or legal compliance determination. CertifyGRC's full platform assesses all 106 subcategory controls with evidence, gap remediation, risk scoring, and auditor review.
-      </p>
-    </div>
-    <div class="footer">
-      © ${new Date().getFullYear()} CertifyGRC · certifygrc.com<br />
-      You received this because you completed our Security Posture Quiz.
-    </div>
-  </div>
-</body>
-</html>
-  `.trim();
+  const body = [
+    metricTiles(r.totalGaps, r.gapRate, r.estimatedReadiness),
+    sectionHeading("Function breakdown"),
+    functionBreakdownBars(r.functionBreakdown),
+    sectionHeading("Top gaps to address"),
+    topGapsCards(r.topGaps),
+    `<p style="margin:28px 0 0;font-size:12px;line-height:1.65;color:${MUTED};font-family:${FONT};">This is an indicative self-assessment based on 16 sample controls aligned to NIST CSF. It is not a formal audit or certification. CertifyGRC&apos;s platform covers all 106 subcategory controls with evidence, remediation, and auditor review.</p>`,
+  ].join("");
+
+  return assembleSaasEmail({
+    preheader: `Your NIST CSF maturity score is ${score} out of 5`,
+    title: "Your NIST CSF maturity report",
+    subtitle: "Thanks for completing the Security Posture Quiz. Here is where your organization stands based on your responses.",
+    heroHtml: scoreHero(score),
+    bodyHtml: body,
+    primaryCta: { href: softwareUrl, label: "Start your full NIST CSF assessment" },
+    footerNote: "You received this email because you completed the Security Posture Quiz on certifygrc.com.",
+  });
 }

@@ -4,13 +4,14 @@ import { rateLimitFixedWindow } from "./inMemoryRateLimit.js";
 import { clientIpFromIncomingMessage } from "./requestIdentity.js";
 import { applyApiSecurityHeadersNode } from "./securityHeaders.js";
 import { applyCorsHeadersNode, getAllowedApiOrigins } from "./publicApiCors.js";
-type NodePublicFormRoute = "send-waitlist" | "send-contact" | "send-consultation" | "send-partner";
+type NodePublicFormRoute = "send-waitlist" | "send-contact" | "send-consultation" | "send-partner" | "send-assessment-lead";
 
 const RATE: Record<NodePublicFormRoute, { limit: number; windowMs: number }> = {
   "send-waitlist": { limit: 12, windowMs: 15 * 60 * 1000 },
   "send-contact": { limit: 10, windowMs: 15 * 60 * 1000 },
   "send-consultation": { limit: 8, windowMs: 15 * 60 * 1000 },
   "send-partner": { limit: 8, windowMs: 15 * 60 * 1000 },
+  "send-assessment-lead": { limit: 12, windowMs: 15 * 60 * 1000 },
 };
 
 function jsonResponse(res: ServerResponse, status: number, body: object) {

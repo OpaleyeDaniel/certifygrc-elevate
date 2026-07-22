@@ -1,10 +1,11 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Bell, CheckCircle2, Loader2, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import PrivacyPolicyDialog from "@/components/legal/PrivacyPolicyDialog";
+import { HoneypotField, readHoneypotValue } from "@/components/forms/HoneypotField";
 import { cn } from "@/lib/utils";
 import { revealUp, scrollViewport, staggerContainer } from "@/lib/motion";
 import type { WaitlistRequestBody } from "@/lib/waitlistFormSchema";
@@ -52,7 +53,7 @@ export default function WaitlistSection({ source }: { source: PageSource }) {
   const c = copy[source];
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [gotcha, setGotcha] = useState("");
+  const honeypotRef = useRef<HTMLInputElement>(null);
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [message, setMessage] = useState("");
   const [privacyOpen, setPrivacyOpen] = useState(false);
@@ -90,7 +91,7 @@ export default function WaitlistSection({ source }: { source: PageSource }) {
       fullName: trimmedName,
       email: trimmedEmail,
       source,
-      _gotcha: gotcha,
+      _gotcha: readHoneypotValue(honeypotRef),
     };
 
     const result = await submitWaitlistRequest(payload);
@@ -105,7 +106,6 @@ export default function WaitlistSection({ source }: { source: PageSource }) {
     setMessage(result.message ?? "We've got your details — check your inbox for confirmation.");
     setFullName("");
     setEmail("");
-    setGotcha("");
     resetLater();
   };
 
@@ -199,18 +199,7 @@ export default function WaitlistSection({ source }: { source: PageSource }) {
                     noValidate
                     aria-busy={status === "loading"}
                   >
-                    <div className="pointer-events-none absolute -left-[9999px] top-0 h-px w-px overflow-hidden opacity-0" aria-hidden>
-                      <input
-                        id={`waitlist-hp-${source}`}
-                        tabIndex={-1}
-                        autoComplete="new-password"
-                        data-lpignore="true"
-                        data-1p-ignore="true"
-                        data-bwignore
-                        value={gotcha}
-                        onChange={(e) => setGotcha(e.target.value)}
-                      />
-                    </div>
+                    <HoneypotField ref={honeypotRef} />
                     <div className="space-y-2">
                       <Label htmlFor={`waitlist-name-${source}`} className="text-foreground">
                         Full name

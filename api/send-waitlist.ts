@@ -1,12 +1,11 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { getMissingOutboundMailKeys, shouldSkipMailSend, useResendApi } from "../server/mailConfig.js";
+import { getMissingOutboundMailKeys, resolveInternalTo, resolveMailFrom, shouldSkipMailSend, useResendApi } from "../server/mailConfig.js";
 import {
   jsonBadRequest,
   respondMailNotConfigured,
   respondMailTransportFailure,
   respondUnexpectedError,
 } from "../server/mailApiResponse.js";
-import { sanitizeEnvValue } from "../server/mailTransport.js";
 import { sendWaitlistEmails } from "../server/waitlistMailDispatch.js";
 import { waitlistFormSchema } from "../src/lib/waitlistFormSchema.js";
 import { getJsonBody } from "../server/vercelRequestBody.js";
@@ -52,8 +51,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     try {
-      const from = sanitizeEnvValue(process.env.CONTACT_EMAIL_FROM) ?? "";
-      const to = sanitizeEnvValue(process.env.CONTACT_EMAIL_TO) ?? "";
+      const from = resolveMailFrom(process.env);
+      const to = resolveInternalTo(process.env);
 
       await sendWaitlistEmails(process.env, from, to, data);
       markDedupe(`waitlist:${data.email}`);

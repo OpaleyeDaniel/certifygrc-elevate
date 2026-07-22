@@ -1,5 +1,5 @@
 import type { PartnerFormValues } from "../src/lib/partnerFormSchema.js";
-import { emailLogoBlock } from "./emailHtmlShared.js";
+import { emailLogoMarkBlock } from "./emailHtmlShared.js";
 import { PRODUCTION_SITE_ORIGIN } from "./siteOrigin.js";
 
 function escapeHtml(s: string): string {
@@ -99,7 +99,7 @@ export function buildPartnerInternalHtml(data: PartnerFormValues): string {
 </head>
 <body>
   <div class="wrapper">
-    <div style="padding:28px 32px 12px;background:#fff;">${emailLogoBlock({ centered: true, height: 40 })}</div>
+    <div style="padding:28px 32px 12px;background:#fff;">${emailLogoMarkBlock({ centered: true, size: 56 })}</div>
     <div class="header">
       <h1>${escapeHtml(headerTitle)}</h1>
       <p>Submitted via certifygrc.com — ${escapeHtml(ts)}</p>
@@ -140,7 +140,7 @@ export function buildPartnerConfirmationHtml(data: PartnerFormValues): string {
 </head>
 <body>
   <div class="wrapper">
-    <div style="padding:28px 36px 12px;background:#fff;">${emailLogoBlock({ centered: true, height: 40 })}</div>
+    <div style="padding:28px 36px 12px;background:#fff;">${emailLogoMarkBlock({ centered: true, size: 56 })}</div>
     <div class="header">
       <h1>${escapeHtml(title)}</h1>
       <p>Thank you, ${escapeHtml(first)}!</p>

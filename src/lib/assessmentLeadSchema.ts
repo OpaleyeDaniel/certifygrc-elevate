@@ -27,31 +27,38 @@ const assessmentResultsSchema = z.object({
   answers: z.array(assessmentAnswerSchema).max(32),
 });
 
+/** Shared lead fields (honeypot validated separately on the server). */
+export const assessmentLeadCoreSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .min(1, "Enter your work email address")
+    .email("Enter a valid work email address")
+    .max(254, "Email is too long")
+    .transform((s) => s.toLowerCase()),
+  companyName: z
+    .string()
+    .trim()
+    .max(160, "Company name is too long")
+    .optional()
+    .transform((s) => (s && s.length > 0 ? s : undefined)),
+  jobTitle: z.enum(JOB_TITLE_OPTIONS).optional(),
+  source: z.literal("landing-security-quiz"),
+  completedAt: z.string().min(1),
+  results: assessmentResultsSchema,
+  consentMarketing: z
+    .boolean()
+    .refine((v) => v === true, { message: "Please agree to receive your results to continue." }),
+});
+
+/** Browser validation before POST — does not block on honeypot autofill false positives. */
+export const assessmentLeadClientSchema = assessmentLeadCoreSchema;
+
 /** Lead capture payload posted from the landing-page Security Posture Quiz
  *  ("gate" step) — a marketing lead magnet, not a real CertifyGRC platform
  *  assessment. See `securityQuizScoring.ts` for how `results` is computed. */
-export const assessmentLeadSchema = z
-  .object({
-    email: z
-      .string()
-      .trim()
-      .min(1, "Enter your work email address")
-      .email("Enter a valid work email address")
-      .max(254, "Email is too long")
-      .transform((s) => s.toLowerCase()),
-    companyName: z
-      .string()
-      .trim()
-      .max(160, "Company name is too long")
-      .optional()
-      .transform((s) => (s && s.length > 0 ? s : undefined)),
-    jobTitle: z.enum(JOB_TITLE_OPTIONS).optional(),
-    source: z.literal("landing-security-quiz"),
-    completedAt: z.string().min(1),
-    results: assessmentResultsSchema,
-    consentMarketing: z
-      .boolean()
-      .refine((v) => v === true, { message: "Please agree to receive your results to continue." }),
+export const assessmentLeadSchema = assessmentLeadCoreSchema
+  .extend({
     /** Honeypot — must stay empty (bots often fill hidden fields). */
     _gotcha: z.string().max(200).optional(),
   })

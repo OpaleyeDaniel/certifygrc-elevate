@@ -6,6 +6,12 @@ export const PRODUCTION_SITE_ORIGIN = "https://certifygrc.com";
 
 export const PRODUCTION_LOGO_URL = `${PRODUCTION_SITE_ORIGIN}/certifygrc-logo.png`;
 
+/** Full wordmark readable on white backgrounds (email header). */
+export const PRODUCTION_LOGO_EMAIL_URL = `${PRODUCTION_SITE_ORIGIN}/certifygrc-logo-email.png`;
+
+/** Round brand mark — favicon and email avatar */
+export const PRODUCTION_MARK_URL = `${PRODUCTION_SITE_ORIGIN}/certifygrc-mark.png`;
+
 const PRODUCTION_HOSTS = new Set([
   "certifygrc.com",
   "www.certifygrc.com",

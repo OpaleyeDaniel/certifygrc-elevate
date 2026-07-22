@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="CertifyGRC">
+  <!-- CertifyGRC mark: partial ring + integrated check (transparent background) -->
+  <g fill="none" stroke="#305CDE" stroke-width="9.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- C-shaped ring — gap opens upper-right for the check tail -->
+    <path d="M 67.5 26 A 33 33 0 1 0 67.5 74" />
+    <!-- Checkmark -->
+    <path d="M 25 56 L 39.5 70.5 L 79 28" />
+  </g>
+</svg>

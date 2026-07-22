@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 56" role="img" aria-label="CertifyGRC">
+  <g fill="none" stroke="#305CDE" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 40 13 A 21 21 0 1 0 40 43" />
+    <path d="M 15 30 L 23 38 L 38 19" />
+  </g>
+  <text x="54" y="38" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#202124">Certify</text>
+  <text x="152" y="38" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#305CDE">GRC</text>
+</svg>

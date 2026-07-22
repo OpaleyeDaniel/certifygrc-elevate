@@ -1,13 +1,14 @@
 import type { IncomingMessage, ServerResponse } from "http";
 import type { Connect } from "vite";
 import { jsonBadRequest, mailNotConfiguredPayload, mailTransportFailurePayload } from "./mailApiResponse.js";
-import { getMissingOutboundMailKeys, shouldSkipMailSend } from "./mailConfig.js";
-import { sanitizeEnvValue } from "./mailTransport.js";
+import { getMissingOutboundMailKeys, resolveInternalTo, resolveMailFrom, shouldSkipMailSend } from "./mailConfig.js";
 import { sendMailUnified } from "./sendMailUnified.js";
 import { sendPartnerSubmissionEmails } from "./partnerMailDispatch.js";
 import { sendWaitlistEmails } from "./waitlistMailDispatch.js";
+import { sendAssessmentLeadEmails } from "./assessmentMailDispatch.js";
 import { partnerFormSchema } from "../src/lib/partnerFormSchema.js";
 import { waitlistFormSchema } from "../src/lib/waitlistFormSchema.js";
+import { assessmentLeadSchema } from "../src/lib/assessmentLeadSchema.js";
 import { enforceNodeFormApiGuards, jsonResponseWithHeaders } from "./nodeFormApiGuards.js";
 import { markDedupe, peekDedupe } from "./inMemoryRateLimit.js";
 
@@ -27,11 +28,12 @@ function apiPathname(url: string | undefined): string {
   return url.split("?")[0] ?? "";
 }
 
-function routeForApiPath(path: string): "send-waitlist" | "send-contact" | "send-consultation" | "send-partner" | null {
+function routeForApiPath(path: string): "send-waitlist" | "send-contact" | "send-consultation" | "send-partner" | "send-assessment-lead" | null {
   if (path === "/api/send-waitlist") return "send-waitlist";
   if (path === "/api/send-contact") return "send-contact";
   if (path === "/api/send-consultation") return "send-consultation";
   if (path === "/api/send-partner") return "send-partner";
+  if (path === "/api/send-assessment-lead") return "send-assessment-lead";
   return null;
 }
 
@@ -132,6 +134,9 @@ function contactConfirmHtml(d: Record<string, unknown>): string {
 </div><div class="ft">© ${new Date().getFullYear()} CertifyGRC · certifygrc.com</div></div></body></html>`;
 }
 
+const ASSESSMENT_UNLOCK_MESSAGE = "Your full report is on its way to your inbox.";
+const ASSESSMENT_DEDUPE_MS = 5 * 60 * 1000;
+
 /**
  * Dev + `vite preview` middleware — serves `/api/send-*` locally so forms work without Cloudflare or a separate origin proxy.
  */
@@ -155,17 +160,27 @@ export function createViteFormApiMiddleware(env: Record<string, string>): Connec
       return jsonResponseWithHeaders(res, 400, jsonBadRequest("Invalid JSON body"));
     }
 
-    if (shouldSkipMailSend(env) && path === "/api/send-waitlist") {
-      const parsed = waitlistFormSchema.safeParse(body);
+    if (shouldSkipMailSend(env) && (path === "/api/send-waitlist" || path === "/api/send-assessment-lead")) {
+      if (path === "/api/send-waitlist") {
+        const parsed = waitlistFormSchema.safeParse(body);
+        if (!parsed.success) {
+          const msg = parsed.error.issues[0]?.message ?? "Invalid request";
+          return jsonResponseWithHeaders(res, 400, jsonBadRequest(msg));
+        }
+        console.info("[vite-api] MAIL_SKIP_SEND=true — send-waitlist skipped (no email)");
+        return jsonResponseWithHeaders(res, 200, {
+          success: true,
+          message: "You're on the list. Check your inbox for a confirmation email.",
+        });
+      }
+
+      const parsed = assessmentLeadSchema.safeParse(body);
       if (!parsed.success) {
         const msg = parsed.error.issues[0]?.message ?? "Invalid request";
         return jsonResponseWithHeaders(res, 400, jsonBadRequest(msg));
       }
-      console.info("[vite-api] MAIL_SKIP_SEND=true — send-waitlist skipped (no email)");
-      return jsonResponseWithHeaders(res, 200, {
-        success: true,
-        message: "You're on the list. Check your inbox for a confirmation email.",
-      });
+      console.info("[vite-api] MAIL_SKIP_SEND=true — send-assessment-lead skipped (no email)");
+      return jsonResponseWithHeaders(res, 200, { success: true, message: ASSESSMENT_UNLOCK_MESSAGE });
     }
 
     const missing = getMissingOutboundMailKeys(env);
@@ -174,8 +189,8 @@ export function createViteFormApiMiddleware(env: Record<string, string>): Connec
       return jsonResponseWithHeaders(res, 503, mailNotConfiguredPayload());
     }
 
-    const FROM = sanitizeEnvValue(env.CONTACT_EMAIL_FROM) ?? "";
-    const TO = sanitizeEnvValue(env.CONTACT_EMAIL_TO) ?? "";
+    const FROM = resolveMailFrom(env);
+    const TO = resolveInternalTo(env);
 
     try {
       if (path === "/api/send-consultation") {
@@ -274,6 +289,21 @@ export function createViteFormApiMiddleware(env: Record<string, string>): Connec
           success: true,
           message: "You're on the list. Check your inbox for a confirmation email.",
         });
+      }
+
+      if (path === "/api/send-assessment-lead") {
+        const parsed = assessmentLeadSchema.safeParse(body);
+        if (!parsed.success) {
+          const msg = parsed.error.issues[0]?.message ?? "Invalid request";
+          return jsonResponseWithHeaders(res, 400, jsonBadRequest(msg));
+        }
+        const d = parsed.data;
+        if (peekDedupe(`assessment-lead:${d.email}`, ASSESSMENT_DEDUPE_MS)) {
+          return jsonResponseWithHeaders(res, 200, { success: true, message: ASSESSMENT_UNLOCK_MESSAGE });
+        }
+        await sendAssessmentLeadEmails(env, FROM, TO, d);
+        markDedupe(`assessment-lead:${d.email}`);
+        return jsonResponseWithHeaders(res, 200, { success: true, message: ASSESSMENT_UNLOCK_MESSAGE });
       }
 
       return jsonResponseWithHeaders(res, 404, jsonBadRequest("API endpoint not found"));

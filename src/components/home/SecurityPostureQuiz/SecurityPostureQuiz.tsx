@@ -8,7 +8,7 @@ import EmailGate, { type EmailGateSubmitValues } from "./EmailGate";
 import QuizResults from "./QuizResults";
 import { QUIZ_QUESTIONS, QUIZ_TOTAL_QUESTIONS, type QuizAnswerValue } from "@/data/securityQuizQuestions";
 import { summarizeAssessment, type AssessmentAnswer } from "@/lib/securityQuizScoring";
-import { assessmentLeadSchema } from "@/lib/assessmentLeadSchema";
+import { assessmentLeadClientSchema } from "@/lib/assessmentLeadSchema";
 import { submitAssessmentLead } from "@/lib/assessmentSubmit";
 
 /**
@@ -163,7 +163,7 @@ export default function SecurityPostureQuiz() {
         _gotcha: values._gotcha,
       };
 
-      const parsed = assessmentLeadSchema.safeParse(payload);
+      const parsed = assessmentLeadClientSchema.safeParse(payload);
       if (!parsed.success) {
         dispatch({
           type: "SUBMIT_ERROR",
@@ -174,9 +174,11 @@ export default function SecurityPostureQuiz() {
 
       const result = await submitAssessmentLead(payload);
       if (!result.ok) {
-        // Never block the UX on a mail/webhook failure — still reveal results,
-        // just log it so it's visible in dev tools / server logs.
-        console.warn("[security-posture-quiz] lead submission failed, revealing results anyway:", result.error);
+        dispatch({
+          type: "SUBMIT_ERROR",
+          error: result.error ?? "We couldn't send your report. Please try again.",
+        });
+        return;
       }
       dispatch({ type: "SUBMIT_SUCCESS" });
     },

@@ -6,7 +6,6 @@ import SecurityPostureQuizSection from "@/components/home/SecurityPostureQuizSec
 import LiveDemoSection from "@/components/marketing/LiveDemoSection";
 import WhyCertifyGrcSection from "@/components/home/WhyCertifyGrcSection";
 import FeaturesSection from "@/components/home/FeaturesSection";
-import ServicesPreview from "@/components/home/ServicesPreview";
 import FrameworksSection from "@/components/home/FrameworksSection";
 import IndustriesSection from "@/components/home/IndustriesSection";
 import ClientTestimonialsSection from "@/components/home/ClientTestimonialsSection";
@@ -31,7 +30,6 @@ const Index = () => {
     <WhyCertifyGrcSection />
     <FeaturesSection />
     <LiveDemoSection />
-    <ServicesPreview />
     <FrameworksSection />
     <IndustriesSection />
     <ClientTestimonialsSection />

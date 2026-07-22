@@ -10,6 +10,7 @@
     "dev": "vite",
     "build": "vite build",
     "typecheck": "tsc -p tsconfig.node.json --noEmit",
+    "generate:email-assets": "node scripts/generate-email-assets.mjs",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",

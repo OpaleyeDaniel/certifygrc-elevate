@@ -1,5 +1,46 @@
 import { sanitizeEnvValue, type MailEnv } from "./mailTransport.js";
 
+/** Default outbound sender when CONTACT_EMAIL_FROM is unset. Must be verified in Resend/SMTP. */
+export const DEFAULT_OUTBOUND_FROM = "info@certifygrc.ca";
+
+/** Default internal inbox when CONTACT_EMAIL_TO is unset. */
+export const DEFAULT_INTERNAL_TO = "info@certifygrc.ca";
+
+/** Public reply / display address for CertifyGRC transactional mail. */
+export const PUBLIC_REPLY_EMAIL = "info@certifygrc.ca";
+
+const CERTIFYGRC_FROM_RE = /@certifygrc\.(ca|com)$/i;
+
+/** Public CertifyGRC From address (Resend / verified domain). */
+export function resolveOutboundFrom(env: MailEnv): string {
+  const configured = sanitizeEnvValue(env.CONTACT_EMAIL_FROM as string | undefined);
+  if (configured && CERTIFYGRC_FROM_RE.test(configured)) {
+    return configured.toLowerCase();
+  }
+  return DEFAULT_OUTBOUND_FROM;
+}
+
+/**
+ * From address for the active transport.
+ * - Resend: info@certifygrc.ca (or CONTACT_EMAIL_FROM when @certifygrc.ca/.com)
+ * - SMTP: authenticated SMTP_USER (hosting relays may reject certifygrc.* in From)
+ */
+export function resolveMailFrom(env: MailEnv): string {
+  if (useResendApi(env)) {
+    return resolveOutboundFrom(env);
+  }
+  const smtpUser = sanitizeEnvValue(env.SMTP_USER as string | undefined);
+  if (smtpUser?.includes("@")) {
+    return smtpUser.toLowerCase();
+  }
+  return resolveOutboundFrom(env);
+}
+
+/** Inbox for internal form/quiz notifications. */
+export function resolveInternalTo(env: MailEnv): string {
+  return sanitizeEnvValue(env.CONTACT_EMAIL_TO as string | undefined) ?? DEFAULT_INTERNAL_TO;
+}
+
 /** When set, outbound mail uses Resend's HTTPS API (works reliably on Vercel; no SMTP egress). */
 export function useResendApi(env: MailEnv): boolean {
   return Boolean(sanitizeEnvValue(env.RESEND_API_KEY as string | undefined));
@@ -19,16 +60,13 @@ export function shouldSkipMailSend(env: MailEnv): boolean {
 
 /**
  * Required env for sending:
- * - Always: CONTACT_EMAIL_FROM, CONTACT_EMAIL_TO
+ * - CONTACT_EMAIL_TO optional — defaults to info@certifygrc.ca
+ * - CONTACT_EMAIL_FROM optional — defaults to info@certifygrc.ca
  * - Either: RESEND_API_KEY (Resend) or SMTP_HOST + SMTP_USER + SMTP_PASS (SMTP)
  */
 export function getMissingOutboundMailKeys(env: MailEnv): string[] {
   const missing: string[] = [];
-  const from = sanitizeEnvValue(env.CONTACT_EMAIL_FROM as string | undefined);
-  const to = sanitizeEnvValue(env.CONTACT_EMAIL_TO as string | undefined);
-  if (!from) missing.push("CONTACT_EMAIL_FROM");
-  if (!to) missing.push("CONTACT_EMAIL_TO");
-  if (missing.length) return missing;
+  resolveInternalTo(env);
 
   if (useResendApi(env)) return [];
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Loader2, Lock, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import PrivacyPolicyDialog from "@/components/legal/PrivacyPolicyDialog";
+import { HoneypotField, readHoneypotValue } from "@/components/forms/HoneypotField";
 import { JOB_TITLE_OPTIONS, type JobTitleOption } from "@/lib/assessmentLeadSchema";
 import type { AssessmentSummary } from "@/lib/securityQuizScoring";
 import { BRAND_PRIMARY } from "@/lib/brandColors";
@@ -31,7 +32,7 @@ export default function EmailGate({ summary, status, error, onSubmit }: EmailGat
   const [companyName, setCompanyName] = useState("");
   const [jobTitle, setJobTitle] = useState<JobTitleOption | undefined>(undefined);
   const [consent, setConsent] = useState(false);
-  const [gotcha, setGotcha] = useState("");
+  const honeypotRef = useRef<HTMLInputElement>(null);
   const [touched, setTouched] = useState(false);
   const [privacyOpen, setPrivacyOpen] = useState(false);
 
@@ -42,7 +43,7 @@ export default function EmailGate({ summary, status, error, onSubmit }: EmailGat
     e.preventDefault();
     setTouched(true);
     if (!emailValid || !consent || disabled) return;
-    onSubmit({ email: email.trim(), companyName: companyName.trim(), jobTitle, consentMarketing: consent, _gotcha: gotcha });
+    onSubmit({ email: email.trim(), companyName: companyName.trim(), jobTitle, consentMarketing: consent, _gotcha: readHoneypotValue(honeypotRef) });
   };
 
   return (
@@ -87,17 +88,7 @@ export default function EmailGate({ summary, status, error, onSubmit }: EmailGat
           </p>
 
           <form className="mt-5 space-y-3.5" onSubmit={handleSubmit} noValidate aria-busy={disabled}>
-            {/* Honeypot */}
-            <div className="pointer-events-none absolute -left-[9999px] top-0 h-px w-px overflow-hidden opacity-0" aria-hidden>
-              <input
-                tabIndex={-1}
-                autoComplete="new-password"
-                data-lpignore="true"
-                data-1p-ignore="true"
-                value={gotcha}
-                onChange={(e) => setGotcha(e.target.value)}
-              />
-            </div>
+            <HoneypotField ref={honeypotRef} />
 
             <div className="space-y-1.5">
               <Label htmlFor="quiz-gate-email" className="text-xs text-foreground">

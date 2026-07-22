@@ -48,9 +48,7 @@ async function fetchAssessmentLeadOnce(
 
 /**
  * POST /api/send-assessment-lead — unlocks the Security Posture Quiz results
- * screen. Errors are surfaced to the caller but never block the UX: the quiz
- * still reveals results locally even if the lead email fails to send (see
- * `SecurityPostureQuiz.tsx`), matching the "handle errors gracefully" spec.
+ * screen after the confirmation email is sent successfully.
  */
 export async function submitAssessmentLead(
   data: AssessmentLeadRequestBody,

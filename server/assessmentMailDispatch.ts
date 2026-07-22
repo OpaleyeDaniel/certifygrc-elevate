@@ -1,4 +1,5 @@
 import type { MailEnv } from "./mailTransport.js";
+import { resolveInternalTo, resolveMailFrom, PUBLIC_REPLY_EMAIL } from "./mailConfig.js";
 import { buildAssessmentConfirmationHtml, buildAssessmentInternalHtml } from "./assessmentEmailHtml.js";
 import { getPublicSiteOrigin } from "./waitlistSiteUrl.js";
 import { sendMailUnified } from "./sendMailUnified.js";
@@ -6,34 +7,46 @@ import type { AssessmentLeadInput } from "../src/lib/assessmentLeadSchema.js";
 
 export async function sendAssessmentLeadEmails(
   env: MailEnv,
-  from: string,
-  toInternal: string,
+  _fromLegacy: string,
+  _toLegacy: string,
   data: AssessmentLeadInput,
 ): Promise<void> {
   const submittedAtUtc = new Date().toISOString();
   const origin = getPublicSiteOrigin(env);
   const softwareUrl = `${origin}/software`;
+  const fromAddress = resolveMailFrom(env);
+  const toInternal = resolveInternalTo(env);
+  const maturity = Math.round(data.results.overallMaturity);
 
-  await sendMailUnified(env, "assessment lead internal", {
-    from: `"CertifyGRC Website" <${from}>`,
-    to: toInternal,
-    subject: `[Security Quiz] ${data.email} — ${data.results.postureProfile} (${data.results.overallMaturity.toFixed(1)}/5.0)`,
-    html: buildAssessmentInternalHtml({
-      email: data.email,
-      companyName: data.companyName,
-      jobTitle: data.jobTitle,
-      submittedAtUtc,
-      results: data.results,
-    }),
-  });
-
+  // User confirmation first — must succeed before unlocking quiz results.
   await sendMailUnified(env, "assessment lead confirmation", {
-    from: `"CertifyGRC" <${from}>`,
+    from: `"CertifyGRC" <${fromAddress}>`,
     to: data.email,
-    subject: "Your NIST CSF maturity report - CertifyGRC",
+    replyTo: PUBLIC_REPLY_EMAIL,
+    subject: `Your NIST CSF maturity report (${maturity}/5)`,
     html: buildAssessmentConfirmationHtml({
       results: data.results,
       softwareUrl,
     }),
   });
+
+  // Internal team copy — best effort; never block the visitor if this fails.
+  if (toInternal) {
+    try {
+      await sendMailUnified(env, "assessment lead internal", {
+        from: `"CertifyGRC Website" <${fromAddress}>`,
+        to: toInternal,
+        subject: `[Security Quiz] ${data.email} — ${maturity}/5 · ${data.results.totalGaps} gaps`,
+        html: buildAssessmentInternalHtml({
+          email: data.email,
+          companyName: data.companyName,
+          jobTitle: data.jobTitle,
+          submittedAtUtc,
+          results: data.results,
+        }),
+      });
+    } catch (err) {
+      console.error("[assessment-mail] internal notification failed (visitor email was sent):", err);
+    }
+  }
 }

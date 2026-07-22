@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import PrivacyPolicyDialog from "@/components/legal/PrivacyPolicyDialog";
+import { HoneypotField, readHoneypotValue } from "@/components/forms/HoneypotField";
 import { scrollEase } from "@/lib/motion";
 import { submitWaitlistRequest } from "@/lib/waitlistSubmit";
 import type { WaitlistRequestBody } from "@/lib/waitlistFormSchema";
@@ -350,7 +351,7 @@ export default function WaitlistPopupModal({ open, onOpenChange }: Props) {
   const reduce = useReducedMotion();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [gotcha, setGotcha] = useState("");
+  const honeypotRef = useRef<HTMLInputElement>(null);
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [message, setMessage] = useState("");
   const [privacyOpen, setPrivacyOpen] = useState(false);
@@ -365,7 +366,6 @@ export default function WaitlistPopupModal({ open, onOpenChange }: Props) {
         setMessage("");
         setFullName("");
         setEmail("");
-        setGotcha("");
       }
       onOpenChange(next);
     },
@@ -399,7 +399,7 @@ export default function WaitlistPopupModal({ open, onOpenChange }: Props) {
         fullName: trimmedName,
         email: trimmedEmail,
         source: SOURCE,
-        _gotcha: gotcha,
+        _gotcha: readHoneypotValue(honeypotRef),
       });
 
       if (result.ok === false) {
@@ -412,7 +412,6 @@ export default function WaitlistPopupModal({ open, onOpenChange }: Props) {
       setMessage(result.message ?? copy.successFallback);
       setFullName("");
       setEmail("");
-      setGotcha("");
       window.setTimeout(() => handleClose(false), 2600);
     } catch (err) {
       console.error("[waitlist-popup] submit", err);
@@ -579,25 +578,7 @@ export default function WaitlistPopupModal({ open, onOpenChange }: Props) {
                     noValidate
                     aria-busy={status === "loading"}
                   >
-                    <div
-                      className="pointer-events-none absolute -left-[9999px] top-auto h-px w-px overflow-hidden opacity-0"
-                      aria-hidden
-                    >
-                      {/*
-                        Honeypot: no “website”/company label — that triggers password managers to fill this field
-                        and the API rejects non-empty _gotcha (“Invalid request”).
-                      */}
-                      <input
-                        id={`${baseId}-gotcha`}
-                        tabIndex={-1}
-                        autoComplete="new-password"
-                        data-lpignore="true"
-                        data-1p-ignore="true"
-                        data-bwignore
-                        value={gotcha}
-                        onChange={(e) => setGotcha(e.target.value)}
-                      />
-                    </div>
+                    <HoneypotField ref={honeypotRef} />
                     <motion.div variants={itemVariants} className="space-y-2">
                       <Label
                         htmlFor={nameId}
