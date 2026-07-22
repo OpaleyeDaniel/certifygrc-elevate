@@ -55,7 +55,10 @@ function TryItNudge() {
  */
 export default function SecurityPostureQuizSection() {
   return (
-    <section className="section-padding relative overflow-hidden bg-transparent">
+    <section
+      id="free-assessment"
+      className="section-padding relative scroll-mt-24 overflow-hidden bg-transparent sm:scroll-mt-28"
+    >
       <div className="container-wide relative z-10">
         <SectionHeading
           badge="Free Assessment"
