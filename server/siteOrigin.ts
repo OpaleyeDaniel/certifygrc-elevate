@@ -28,23 +28,43 @@ function normalizeOrigin(raw: string): string | null {
   }
 }
 
+/** Map custom domain and Vercel aliases to the public marketing origin. */
+function canonicalizeMarketingOrigin(origin: string): string {
+  try {
+    const host = new URL(origin).hostname.toLowerCase();
+    if (PRODUCTION_HOSTS.has(host)) {
+      return PRODUCTION_SITE_ORIGIN;
+    }
+    // Vercel deployment URLs (e.g. certifygrc-elevate-xxx.vercel.app) → custom domain
+    if (host.endsWith(".vercel.app") && host.includes("certifygrc")) {
+      return PRODUCTION_SITE_ORIGIN;
+    }
+  } catch {
+    /* fall through */
+  }
+  return origin;
+}
+
 /**
  * Public site origin for absolute links in emails (waitlist, assessment, CTAs).
- * Prefers SITE_URL; maps production Vercel/custom domains to certifygrc.com.
+ * Production deploys always use certifygrc.com; preview/dev may use SITE_URL or VERCEL_URL.
  */
 export function getPublicSiteOrigin(env: MailEnv): string {
+  const vercelEnv = sanitizeEnvValue(env.VERCEL_ENV as string | undefined);
+  if (vercelEnv === "production") {
+    return PRODUCTION_SITE_ORIGIN;
+  }
+
   const configured = sanitizeEnvValue(env.SITE_URL as string | undefined);
   if (configured) {
-    return normalizeOrigin(configured) ?? PRODUCTION_SITE_ORIGIN;
+    const normalized = normalizeOrigin(configured) ?? PRODUCTION_SITE_ORIGIN;
+    return canonicalizeMarketingOrigin(normalized);
   }
 
   const vercel = sanitizeEnvValue(env.VERCEL_URL as string | undefined);
   if (vercel) {
     const host = vercel.replace(/^https?:\/\//, "").split("/")[0]?.toLowerCase() ?? "";
-    if (PRODUCTION_HOSTS.has(host)) {
-      return PRODUCTION_SITE_ORIGIN;
-    }
-    return `https://${host}`;
+    return canonicalizeMarketingOrigin(`https://${host}`);
   }
 
   return PRODUCTION_SITE_ORIGIN;

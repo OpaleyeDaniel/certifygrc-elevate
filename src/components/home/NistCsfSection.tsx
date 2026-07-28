@@ -20,6 +20,8 @@ const CSF_FUNCTIONS = [
     blurb: "Set cybersecurity strategy, policy, and oversight from the top down.",
     isNew: true,
     image: "/nist-csf/govern.png",
+    /** Wide dashboard — anchor left so sidebar + assessment stay visible when cropped. */
+    imageObjectPosition: "12% 8%",
   },
   {
     id: "identify",
@@ -262,7 +264,7 @@ export default function NistCsfSection() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="lg:sticky lg:top-28"
           >
-            <div className="relative w-full overflow-hidden rounded-[1.75rem] aspect-[4/3] lg:aspect-[908/1024]">
+            <div className="relative w-full overflow-hidden rounded-[1.75rem] border border-border/60 bg-card/40 shadow-[0_24px_64px_-24px_rgba(48,92,222,0.35)] aspect-[4/3] lg:aspect-[908/1024]">
               <AnimatePresence mode="wait">
                 <motion.img
                   key={activeFn.id}
@@ -273,6 +275,12 @@ export default function NistCsfSection() {
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.35, ease: [...scrollEase] }}
                   className="absolute inset-0 h-full w-full object-cover"
+                  style={{
+                    objectPosition:
+                      "imageObjectPosition" in activeFn && activeFn.imageObjectPosition
+                        ? activeFn.imageObjectPosition
+                        : "center center",
+                  }}
                   loading="lazy"
                   draggable={false}
                 />
