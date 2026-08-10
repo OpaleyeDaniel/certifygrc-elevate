@@ -85,14 +85,14 @@ function functionBreakdownBars(breakdown: Record<string, number>): string {
   const rows = Object.entries(breakdown)
     .map(([fn, score]) => {
       const rounded = roundScore(score);
-      const pct = Math.round((rounded / 3) * 100);
+      const pct = Math.round((rounded / 5) * 100);
       return `
 <tr>
   <td colspan="2" style="padding:0 0 14px;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
         <td style="padding:0 0 6px;font-size:13px;font-weight:600;color:#0f172a;font-family:${FONT};">${escapeHtml(fn)}</td>
-        <td align="right" style="padding:0 0 6px;font-size:13px;font-weight:600;color:${MUTED};font-family:${FONT};">${formatScore(score, 3)}</td>
+        <td align="right" style="padding:0 0 6px;font-size:13px;font-weight:600;color:${MUTED};font-family:${FONT};">${formatScore(score, 5)}</td>
       </tr>
       <tr>
         <td colspan="2" style="background:#e2e8f0;border-radius:999px;height:6px;padding:0;">

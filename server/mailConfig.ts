@@ -4,7 +4,7 @@ import { sanitizeEnvValue, type MailEnv } from "./mailTransport.js";
 export const DEFAULT_OUTBOUND_FROM = "info@certifygrc.ca";
 
 /** Default internal inbox when CONTACT_EMAIL_TO is unset. */
-export const DEFAULT_INTERNAL_TO = "info@certifygrc.ca";
+export const DEFAULT_INTERNAL_TO = "mercy@certifygrc.ca";
 
 /** Public reply / display address for CertifyGRC transactional mail. */
 export const PUBLIC_REPLY_EMAIL = "info@certifygrc.ca";
@@ -36,9 +36,10 @@ export function resolveMailFrom(env: MailEnv): string {
   return resolveOutboundFrom(env);
 }
 
-/** Inbox for internal form/quiz notifications. */
-export function resolveInternalTo(env: MailEnv): string {
-  return sanitizeEnvValue(env.CONTACT_EMAIL_TO as string | undefined) ?? DEFAULT_INTERNAL_TO;
+/** Inbox for all landing-page form / quiz notifications (contact, waitlist, partner, consultation, free-assessment). */
+export function resolveInternalTo(_env: MailEnv): string {
+  // Always route internal form submissions to Mercy — ignore stale CONTACT_EMAIL_TO overrides.
+  return DEFAULT_INTERNAL_TO;
 }
 
 /** When set, outbound mail uses Resend's HTTPS API (works reliably on Vercel; no SMTP egress). */
@@ -60,7 +61,7 @@ export function shouldSkipMailSend(env: MailEnv): boolean {
 
 /**
  * Required env for sending:
- * - CONTACT_EMAIL_TO optional — defaults to info@certifygrc.ca
+ * - CONTACT_EMAIL_TO optional — defaults to mercy@certifygrc.ca
  * - CONTACT_EMAIL_FROM optional — defaults to info@certifygrc.ca
  * - Either: RESEND_API_KEY (Resend) or SMTP_HOST + SMTP_USER + SMTP_PASS (SMTP)
  */

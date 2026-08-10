@@ -20,9 +20,9 @@ const allNo: AssessmentAnswer[] = QUIZ_QUESTIONS.map((q) => ({ nistId: q.nistId,
 const allPartial: AssessmentAnswer[] = QUIZ_QUESTIONS.map((q) => ({ nistId: q.nistId, answer: "Partial" }));
 
 describe("ANSWER_SCORES / isGap", () => {
-  it("maps answers to the documented maturity points", () => {
-    expect(ANSWER_SCORES.Yes).toBe(3);
-    expect(ANSWER_SCORES.Partial).toBe(2);
+  it("maps answers to the 1–5 maturity scale", () => {
+    expect(ANSWER_SCORES.Yes).toBe(5);
+    expect(ANSWER_SCORES.Partial).toBe(3);
     expect(ANSWER_SCORES.No).toBe(1);
   });
 
@@ -38,23 +38,27 @@ describe("overallMaturity", () => {
     expect(overallMaturity([])).toBe(0);
   });
 
-  it("returns 3 when every answer is Yes", () => {
-    expect(overallMaturity(allYes)).toBe(3);
+  it("returns 5 when every answer is Yes", () => {
+    expect(overallMaturity(allYes)).toBe(5);
   });
 
   it("returns 1 when every answer is No", () => {
     expect(overallMaturity(allNo)).toBe(1);
   });
 
+  it("returns 3 when every answer is Partial", () => {
+    expect(overallMaturity(allPartial)).toBe(3);
+  });
+
   it("averages a mix of answers correctly, rounded to 1 decimal for display", () => {
     const mix: AssessmentAnswer[] = [
-      { nistId: "a", answer: "Yes" }, // 3
-      { nistId: "b", answer: "Partial" }, // 2
+      { nistId: "a", answer: "Yes" }, // 5
+      { nistId: "b", answer: "Partial" }, // 3
       { nistId: "c", answer: "No" }, // 1
       { nistId: "d", answer: "No" }, // 1
     ];
-    // (3+2+1+1)/4 = 1.75, rounded to 1 decimal place (half rounds up) = 1.8
-    expect(overallMaturity(mix)).toBe(1.8);
+    // (5+3+1+1)/4 = 2.5
+    expect(overallMaturity(mix)).toBe(2.5);
   });
 });
 
@@ -77,7 +81,6 @@ describe("totalGaps / gapRate", () => {
       { nistId: "c", answer: "Yes" },
       { nistId: "d", answer: "Partial" },
     ];
-    // 2 gaps / 4 = 50%
     expect(totalGaps(answers)).toBe(2);
     expect(gapRate(answers)).toBe(50);
   });
@@ -120,7 +123,7 @@ describe("functionScores", () => {
   it("buckets questions by their function and averages correctly", () => {
     const scores = functionScores(allYes);
     for (const s of scores) {
-      expect(s.avgScore).toBe(3);
+      expect(s.avgScore).toBe(5);
       expect(s.gapCount).toBe(0);
       expect(s.totalCount).toBeGreaterThan(0);
     }
@@ -146,14 +149,13 @@ describe("weakestFunctions", () => {
 
   it("sorts ascending by average score (worst first)", () => {
     const scores = functionScores(allYes);
-    // Manually depress GOVERN's score by overriding one entry's avgScore via a mixed answer set instead.
     const mixed = [
       ...QUIZ_QUESTIONS.filter((q) => q.function === "GOVERN").map((q) => ({ nistId: q.nistId, answer: "No" as const })),
       ...QUIZ_QUESTIONS.filter((q) => q.function !== "GOVERN").map((q) => ({ nistId: q.nistId, answer: "Yes" as const })),
     ];
     const weakest = weakestFunctions(functionScores(mixed), 1);
     expect(weakest[0].function).toBe("GOVERN");
-    expect(scores.length).toBeGreaterThan(0); // sanity, keeps `scores` referenced
+    expect(scores.length).toBeGreaterThan(0);
   });
 });
 
@@ -185,7 +187,6 @@ describe("topGaps", () => {
     const gaps = topGaps(answers, QUIZ_QUESTIONS, 5);
     expect(gaps.length).toBe(5);
     expect(gaps[0].answer).toBe("No");
-    // Every "No" should sort before every "Partial" in the result.
     const firstPartialIndex = gaps.findIndex((g) => g.answer === "Partial");
     const lastNoIndex = gaps.map((g) => g.answer).lastIndexOf("No");
     if (firstPartialIndex !== -1 && lastNoIndex !== -1) {
@@ -200,13 +201,21 @@ describe("topGaps", () => {
 });
 
 describe("summarizeAssessment", () => {
-  it("produces an internally consistent summary", () => {
+  it("gives overall maturity 5 for all Yes", () => {
+    const summary = summarizeAssessment(allYes);
+    expect(summary.overallMaturity).toBe(5);
+    expect(summary.totalGaps).toBe(0);
+    expect(summary.estimatedReadiness).toBe(100);
+    expect(summary.postureProfile.label).toBe("Optimizing");
+  });
+
+  it("produces an internally consistent summary for all Partial", () => {
     const summary = summarizeAssessment(allPartial);
-    expect(summary.overallMaturity).toBe(2);
+    expect(summary.overallMaturity).toBe(3);
     expect(summary.totalGaps).toBe(QUIZ_QUESTIONS.length);
     expect(summary.gapRate).toBe(100);
     expect(summary.estimatedReadiness).toBe(0);
-    expect(summary.postureProfile.label).toBe("Developing");
+    expect(summary.postureProfile.label).toBe("Defined");
     expect(summary.functionBreakdown).toHaveLength(6);
     expect(summary.topGaps.length).toBeLessThanOrEqual(5);
   });

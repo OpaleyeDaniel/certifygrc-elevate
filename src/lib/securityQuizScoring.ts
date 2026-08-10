@@ -22,16 +22,15 @@ export interface AssessmentAnswer {
   answer: QuizAnswerValue;
 }
 
-/** Answer → maturity points (1–3 scale for this sample quiz; the full
- *  platform additionally supports 4 Managed / 5 Optimizing for mature Yes
- *  answers backed by evidence, which this short quiz doesn't collect). */
+/** Answer → maturity points on a 1–5 NIST-style scale.
+ *  All "Yes" → overall maturity 5; "Partial" → 3; "No" → 1. */
 export const ANSWER_SCORES: Record<QuizAnswerValue, number> = {
-  Yes: 3,
-  Partial: 2,
+  Yes: 5,
+  Partial: 3,
   No: 1,
 };
 
-/** Gap = Partial or No (maturity < 3), same definition used platform-wide. */
+/** Gap = Partial or No (not a full Yes). */
 export function isGap(answer: QuizAnswerValue): boolean {
   return answer === "Partial" || answer === "No";
 }
@@ -40,8 +39,7 @@ function round1(n: number): number {
   return Math.round(n * 10) / 10;
 }
 
-/** Overall maturity on a 1.0–5.0 display scale (this quiz's answers only
- *  ever produce 1–3, same as the platform's Yes/Partial/No mapping). */
+/** Overall maturity on a 1.0–5.0 scale (all Yes → 5.0). */
 export function overallMaturity(answers: AssessmentAnswer[]): number {
   if (answers.length === 0) return 0;
   const sum = answers.reduce((acc, a) => acc + ANSWER_SCORES[a.answer], 0);

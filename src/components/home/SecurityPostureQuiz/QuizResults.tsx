@@ -120,11 +120,11 @@ export default function QuizResults({ summary, onRestart }: QuizResultsProps) {
             <BarChart data={chartData} margin={{ top: 4, right: 4, bottom: 0, left: -18 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
               <XAxis dataKey="code" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} />
-              <YAxis domain={[0, 3]} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={24} />
+              <YAxis domain={[0, 5]} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={24} />
               <Tooltip
                 cursor={{ fill: "hsl(var(--foreground) / 0.04)" }}
                 contentStyle={{ borderRadius: 10, border: "1px solid hsl(var(--border))", fontSize: 12 }}
-                formatter={(value: number) => [`${value.toFixed(1)} / 3.0`, "Maturity"]}
+                formatter={(value: number) => [`${value.toFixed(1)} / 5.0`, "Maturity"]}
                 labelFormatter={(_, payload) => payload?.[0]?.payload?.label ?? ""}
               />
               <Bar dataKey="score" radius={[6, 6, 0, 0]} maxBarSize={36}>
@@ -148,7 +148,7 @@ export default function QuizResults({ summary, onRestart }: QuizResultsProps) {
                 className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card px-3 py-1.5 text-xs font-semibold text-foreground"
               >
                 <span className="h-1.5 w-1.5 rounded-full" style={{ background: color }} aria-hidden />
-                {f.label} — {f.avgScore.toFixed(1)}/3.0
+                {f.label} — {f.avgScore.toFixed(1)}/5.0
               </span>
             ))}
           </div>

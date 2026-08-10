@@ -15,7 +15,8 @@ export async function sendAssessmentLeadEmails(
   const origin = getPublicSiteOrigin(env);
   const softwareUrl = `${origin}/software`;
   const fromAddress = resolveMailFrom(env);
-  const toInternal = resolveInternalTo(env);
+  // Prefer the address resolved by the API/middleware (always mercy@certifygrc.ca).
+  const toInternal = (_toLegacy && _toLegacy.includes("@") ? _toLegacy : resolveInternalTo(env)).toLowerCase();
   const maturity = Math.round(data.results.overallMaturity);
 
   // User confirmation first — must succeed before unlocking quiz results.
@@ -30,7 +31,7 @@ export async function sendAssessmentLeadEmails(
     }),
   });
 
-  // Internal team copy — best effort; never block the visitor if this fails.
+  // Internal team copy (free-assessment / quiz lead) → mercy@certifygrc.ca
   if (toInternal) {
     try {
       await sendMailUnified(env, "assessment lead internal", {
