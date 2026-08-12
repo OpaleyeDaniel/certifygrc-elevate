@@ -8,13 +8,13 @@ import { staggerContainer } from "@/lib/motion";
 import {
   useAllPosts,
   useAllCategories,
+  useAllTags,
   useFeaturedPost,
   useFeaturedPosts,
   useSearchPosts,
   usePostsByCategory,
 } from "@/hooks/useBlog";
-import { categoryColor, getCategorySlug, getPostSlug } from "@/lib/blogUtils";
-import { SEED_TAGS } from "@/lib/blogSeed";
+import { categoryColor, getCategorySlug, getPostSlug, getTagSlug } from "@/lib/blogUtils";
 import BlogPostCard from "@/components/blog/BlogPostCard";
 import BlogFeaturedEditorial from "@/components/blog/BlogFeaturedEditorial";
 import BlogNewsletterSection from "@/components/blog/BlogNewsletterSection";
@@ -30,6 +30,7 @@ export default function BlogPage() {
   const { data: featuredPost } = useFeaturedPost();
   const { data: featuredPosts = [] } = useFeaturedPosts(4);
   const { data: categories = [] } = useAllCategories();
+  const { data: tags = [] } = useAllTags();
   const { data: categoryPosts = [], isLoading: loadingCat } = usePostsByCategory(categorySlug ?? "");
   const { data: searchResults = [], isLoading: loadingSearch } = useSearchPosts(debouncedQuery);
 
@@ -191,8 +192,8 @@ export default function BlogPage() {
           </motion.div>
         )}
 
-        {/* ── Tag filters ──────────────────────── */}
-        {!isSearching && !isCategoryFiltered && (
+        {/* ── Tag filters (from Sanity) ───────── */}
+        {!isSearching && !isCategoryFiltered && tags.length > 0 && (
           <div className="flex flex-wrap items-center gap-2 mb-12">
             <Tag className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
             <button
@@ -205,21 +206,24 @@ export default function BlogPage() {
             >
               All tags
             </button>
-            {SEED_TAGS.map((tag) => (
-              <button
-                key={tag._id}
-                type="button"
-                onClick={() => setActiveTag(activeTag === tag.slug.current ? null : tag.slug.current ?? "")}
-                className={cn(
-                  "rounded-full px-3 py-1 text-xs font-medium transition-all duration-300",
-                  activeTag === tag.slug.current
-                    ? "bg-primary/15 text-primary border border-primary/25"
-                    : "bg-muted/40 text-muted-foreground hover:bg-muted/70 hover:text-foreground",
-                )}
-              >
-                {tag.title}
-              </button>
-            ))}
+            {tags.map((tag) => {
+              const slug = getTagSlug(tag);
+              return (
+                <button
+                  key={tag._id}
+                  type="button"
+                  onClick={() => setActiveTag(activeTag === slug ? null : slug)}
+                  className={cn(
+                    "rounded-full px-3 py-1 text-xs font-medium transition-all duration-300",
+                    activeTag === slug
+                      ? "bg-primary/15 text-primary border border-primary/25"
+                      : "bg-muted/40 text-muted-foreground hover:bg-muted/70 hover:text-foreground",
+                  )}
+                >
+                  {tag.title}
+                </button>
+              );
+            })}
           </div>
         )}
 
@@ -326,6 +330,7 @@ function FilterPill({
 }
 
 function EmptyState({ query, tag }: { query: string; tag: string | null }) {
+  const noFilters = !query && !tag;
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -336,10 +341,16 @@ function EmptyState({ query, tag }: { query: string; tag: string | null }) {
     >
       <Search className="w-12 h-12 text-muted-foreground/30 mx-auto mb-5" />
       <h3 className="font-display font-semibold text-xl text-foreground mb-2">
-        {query ? `No results for "${query}"` : tag ? `No articles tagged "${tag}"` : "No articles found"}
+        {query
+          ? `No results for "${query}"`
+          : tag
+            ? `No articles tagged "${tag}"`
+            : "Articles coming soon"}
       </h3>
       <p className="text-muted-foreground text-sm max-w-md mx-auto">
-        Try different keywords, browse categories, or explore our featured insights above.
+        {noFilters
+          ? "New insights will appear here as soon as they are published from CertifyGRC Studio."
+          : "Try different keywords, browse categories, or clear your filters."}
       </p>
     </motion.div>
   );

@@ -1,8 +1,6 @@
 /**
- * Blog data layer — Sanity first, seed fallback when CMS is empty or unavailable.
- *
- * Set VITE_BLOG_USE_SEED=true to force seed data during design review.
- * Remove seed fallback in production once Sanity is fully populated.
+ * Blog data layer — live Sanity CMS only (no seed / demo fallback).
+ * Content published in Studio at https://certifygrc.sanity.studio appears on the site.
  */
 import {
   sanityClient,
@@ -10,132 +8,95 @@ import {
   FEATURED_POST_QUERY,
   POST_BY_SLUG_QUERY,
   ALL_CATEGORIES_QUERY,
+  ALL_TAGS_QUERY,
   POSTS_BY_CATEGORY_QUERY,
   SEARCH_POSTS_QUERY,
   RELATED_POSTS_QUERY,
   type SanityPost,
   type SanityCategory,
+  type SanityTag,
 } from "@/lib/sanity";
-import {
-  SEED_POSTS,
-  SEED_CATEGORIES,
-  getSeedFeaturedPost,
-  getSeedFeaturedPosts,
-  getSeedPostBySlug,
-  getSeedPostsByCategory,
-  searchSeedPosts,
-  getSeedRelatedPosts,
-  getSeedPostsByAuthor,
-  type SeedPost,
-} from "@/lib/blogSeed";
-
-const FORCE_SEED = import.meta.env.VITE_BLOG_USE_SEED === "true";
-/** In dev, show full seed catalog when CMS has fewer than 15 posts */
-const DEV_SEED_THRESHOLD = 15;
-
-function shouldUseSeed(sanityCount: number): boolean {
-  if (FORCE_SEED) return true;
-  if (import.meta.env.DEV && sanityCount < DEV_SEED_THRESHOLD) return true;
-  return false;
-}
 
 async function fetchSanity<T>(query: string, params?: Record<string, unknown>): Promise<T> {
   return sanityClient.fetch(query, params);
 }
 
-let seedModeCache: boolean | null = null;
-
-/** Determine once per session whether to use seed catalog */
-async function isSeedMode(): Promise<boolean> {
-  if (FORCE_SEED) return true;
-  if (seedModeCache !== null) return seedModeCache;
-  try {
-    const count = await fetchSanity<number>(`count(*[_type == "blogPost" && defined(slug)])`);
-    seedModeCache = shouldUseSeed(count);
-  } catch {
-    seedModeCache = true;
-  }
-  return seedModeCache;
-}
-
 export async function fetchAllPosts(): Promise<SanityPost[]> {
-  if (await isSeedMode()) return SEED_POSTS;
   try {
-    const result = await fetchSanity<SanityPost[]>(ALL_POSTS_QUERY);
-    if (!result?.length) return SEED_POSTS;
-    return result;
-  } catch {
-    return SEED_POSTS;
+    return (await fetchSanity<SanityPost[]>(ALL_POSTS_QUERY)) ?? [];
+  } catch (err) {
+    console.error("[blog] fetchAllPosts failed:", err);
+    return [];
   }
 }
 
 export async function fetchFeaturedPost(): Promise<SanityPost | null> {
-  if (await isSeedMode()) return getSeedFeaturedPost();
   try {
-    const result = await fetchSanity<SanityPost | null>(FEATURED_POST_QUERY);
-    return result ?? getSeedFeaturedPost();
-  } catch {
-    return getSeedFeaturedPost();
+    return (await fetchSanity<SanityPost | null>(FEATURED_POST_QUERY)) ?? null;
+  } catch (err) {
+    console.error("[blog] fetchFeaturedPost failed:", err);
+    return null;
   }
 }
 
 export async function fetchFeaturedPosts(limit = 3): Promise<SanityPost[]> {
-  if (await isSeedMode()) return getSeedFeaturedPosts(limit);
   try {
     const query = `*[_type == "blogPost" && featured == true && defined(slug)] | order(publishedAt desc)[0...${limit}] {
       _id, title, "slug": slug.current, excerpt, coverImage, publishedAt, readTime, featured,
       "author": author->{ _id, name, "slug": slug.current, role, bio, photo, linkedIn },
       "categories": categories[]->{ _id, title, "slug": slug.current, description, color }
     }`;
-    const result = await fetchSanity<SanityPost[]>(query);
-    if (result?.length) return result;
-    return getSeedFeaturedPosts(limit);
-  } catch {
-    return getSeedFeaturedPosts(limit);
+    return (await fetchSanity<SanityPost[]>(query)) ?? [];
+  } catch (err) {
+    console.error("[blog] fetchFeaturedPosts failed:", err);
+    return [];
   }
 }
 
 export async function fetchPostBySlug(slug: string): Promise<SanityPost | null> {
-  if (await isSeedMode()) return getSeedPostBySlug(slug);
   try {
-    const result = await fetchSanity<SanityPost | null>(POST_BY_SLUG_QUERY, { slug });
-    return result ?? getSeedPostBySlug(slug);
-  } catch {
-    return getSeedPostBySlug(slug);
+    return (await fetchSanity<SanityPost | null>(POST_BY_SLUG_QUERY, { slug })) ?? null;
+  } catch (err) {
+    console.error("[blog] fetchPostBySlug failed:", err);
+    return null;
   }
 }
 
 export async function fetchAllCategories(): Promise<SanityCategory[]> {
-  if (await isSeedMode()) return SEED_CATEGORIES;
   try {
-    const result = await fetchSanity<SanityCategory[]>(ALL_CATEGORIES_QUERY);
-    if (!result?.length) return SEED_CATEGORIES;
-    return result;
-  } catch {
-    return SEED_CATEGORIES;
+    return (await fetchSanity<SanityCategory[]>(ALL_CATEGORIES_QUERY)) ?? [];
+  } catch (err) {
+    console.error("[blog] fetchAllCategories failed:", err);
+    return [];
+  }
+}
+
+export async function fetchAllTags(): Promise<SanityTag[]> {
+  try {
+    return (await fetchSanity<SanityTag[]>(ALL_TAGS_QUERY)) ?? [];
+  } catch (err) {
+    console.error("[blog] fetchAllTags failed:", err);
+    return [];
   }
 }
 
 export async function fetchPostsByCategory(categorySlug: string): Promise<SanityPost[]> {
-  if (await isSeedMode()) return getSeedPostsByCategory(categorySlug);
   try {
-    const result = await fetchSanity<SanityPost[]>(POSTS_BY_CATEGORY_QUERY, { slug: categorySlug });
-    if (!result?.length) return getSeedPostsByCategory(categorySlug);
-    return result;
-  } catch {
-    return getSeedPostsByCategory(categorySlug);
+    return (await fetchSanity<SanityPost[]>(POSTS_BY_CATEGORY_QUERY, { slug: categorySlug })) ?? [];
+  } catch (err) {
+    console.error("[blog] fetchPostsByCategory failed:", err);
+    return [];
   }
 }
 
 export async function searchPosts(query: string): Promise<SanityPost[]> {
-  if (await isSeedMode()) return searchSeedPosts(query.trim());
   const q = query.trim() ? `*${query.trim()}*` : "";
+  if (!q) return [];
   try {
-    const result = await fetchSanity<SanityPost[]>(SEARCH_POSTS_QUERY, { q });
-    if (result?.length) return result;
-    return searchSeedPosts(query.trim());
-  } catch {
-    return searchSeedPosts(query.trim());
+    return (await fetchSanity<SanityPost[]>(SEARCH_POSTS_QUERY, { q })) ?? [];
+  } catch (err) {
+    console.error("[blog] searchPosts failed:", err);
+    return [];
   }
 }
 
@@ -143,33 +104,29 @@ export async function fetchRelatedPosts(
   currentSlug: string,
   categorySlugList: string[],
 ): Promise<SanityPost[]> {
-  if (await isSeedMode()) return getSeedRelatedPosts(currentSlug, categorySlugList);
   try {
-    const result = await fetchSanity<SanityPost[]>(RELATED_POSTS_QUERY, {
-      slug: currentSlug,
-      categories: categorySlugList,
-    });
-    if (result?.length) return result;
-    return getSeedRelatedPosts(currentSlug, categorySlugList);
-  } catch {
-    return getSeedRelatedPosts(currentSlug, categorySlugList);
+    return (
+      (await fetchSanity<SanityPost[]>(RELATED_POSTS_QUERY, {
+        slug: currentSlug,
+        categories: categorySlugList,
+      })) ?? []
+    );
+  } catch (err) {
+    console.error("[blog] fetchRelatedPosts failed:", err);
+    return [];
   }
 }
 
 export async function fetchAuthorPosts(authorSlug: string, excludeSlug?: string): Promise<SanityPost[]> {
-  if (await isSeedMode()) return getSeedPostsByAuthor(authorSlug, excludeSlug);
   try {
     const query = `*[_type == "blogPost" && author->slug.current == $authorSlug && slug.current != $excludeSlug && defined(slug)] | order(publishedAt desc)[0...3] {
       _id, title, "slug": slug.current, excerpt, coverImage, publishedAt, readTime, featured,
       "author": author->{ _id, name, "slug": slug.current, role, bio, photo, linkedIn },
       "categories": categories[]->{ _id, title, "slug": slug.current, description, color }
     }`;
-    const result = await fetchSanity<SanityPost[]>(query, { authorSlug, excludeSlug: excludeSlug ?? "" });
-    if (result?.length) return result;
-    return getSeedPostsByAuthor(authorSlug, excludeSlug);
-  } catch {
-    return getSeedPostsByAuthor(authorSlug, excludeSlug);
+    return (await fetchSanity<SanityPost[]>(query, { authorSlug, excludeSlug: excludeSlug ?? "" })) ?? [];
+  } catch (err) {
+    console.error("[blog] fetchAuthorPosts failed:", err);
+    return [];
   }
 }
-
-export type { SeedPost };

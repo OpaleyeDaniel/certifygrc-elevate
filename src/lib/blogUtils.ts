@@ -1,6 +1,5 @@
 import { format, formatDistanceToNow } from "date-fns";
 import { urlFor, type SanityAuthor, type SanityPost } from "@/lib/sanity";
-import type { SeedPost } from "@/lib/blogSeed";
 
 /** Resolve slug whether projected as string or object */
 export function getPostSlug(post: SanityPost): string {
@@ -8,36 +7,30 @@ export function getPostSlug(post: SanityPost): string {
   return post.slug?.current ?? "";
 }
 
-/** Cover image from Sanity asset or seed URL */
-export function getPostCoverUrl(
-  post: SanityPost & Pick<SeedPost, "coverImageUrl">,
-  width = 800,
-  height = 450,
-): string | null {
+/** Cover image from Sanity asset */
+export function getPostCoverUrl(post: SanityPost, width = 800, height = 450): string | null {
   if (post.coverImage?.asset?._ref) {
     return urlFor(post.coverImage).width(width).height(height).auto("format").fit("crop").url();
-  }
-  if (post.coverImageUrl) {
-    return post.coverImageUrl.replace("w=1400", `w=${width}`);
   }
   return null;
 }
 
-/** Author photo from Sanity or seed avatar URL */
-export function getAuthorPhotoUrl(
-  post: SanityPost & Pick<SeedPost, "authorAvatarUrl">,
-  size = 80,
-): string | null {
+/** Author photo from Sanity */
+export function getAuthorPhotoUrl(post: SanityPost, size = 80): string | null {
   if (post.author?.photo?.asset?._ref) {
     return urlFor(post.author.photo).width(size).height(size).fit("crop").auto("format").url();
   }
-  if (post.authorAvatarUrl) return post.authorAvatarUrl;
   return null;
 }
 
 export function getCategorySlug(cat: { slug: SanityPost["slug"] | string }): string {
   if (typeof cat.slug === "string") return cat.slug;
   return cat.slug?.current ?? "";
+}
+
+export function getTagSlug(tag: { slug: SanityPost["slug"] | string }): string {
+  if (typeof tag.slug === "string") return tag.slug;
+  return tag.slug?.current ?? "";
 }
 
 export function getAuthorSlug(author?: SanityAuthor): string {
@@ -59,7 +52,11 @@ export function relativeDate(dateStr?: string): string {
 }
 
 /** Extract plain-text headings from a Portable Text body for TOC */
-export interface TocEntry { id: string; text: string; level: number }
+export interface TocEntry {
+  id: string;
+  text: string;
+  level: number;
+}
 
 export function extractToc(body: unknown[]): TocEntry[] {
   if (!body) return [];

@@ -7,7 +7,8 @@ export const sanityClient = createClient({
   projectId: import.meta.env.VITE_SANITY_PROJECT_ID ?? "729gr7n1",
   dataset: import.meta.env.VITE_SANITY_DATASET ?? "production",
   apiVersion: "2024-02-01",
-  useCdn: true,
+  // Fresh published content shortly after Studio publish (CDN can lag).
+  useCdn: false,
   perspective: "published",
 });
 
@@ -44,7 +45,7 @@ export interface SanityCategory {
 export interface SanityTag {
   _id: string;
   title: string;
-  slug: SanitySlug;
+  slug: SanitySlug | string;
 }
 
 export interface SanityPost {
@@ -146,6 +147,13 @@ export const POSTS_BY_CATEGORY_QUERY = `*[_type == "blogPost" && $slug in catego
 /** All categories */
 export const ALL_CATEGORIES_QUERY = `*[_type == "blogCategory"] | order(title asc) {
   ${CATEGORY_FIELDS}
+}`;
+
+/** All tags */
+export const ALL_TAGS_QUERY = `*[_type == "blogTag"] | order(title asc) {
+  _id,
+  title,
+  "slug": slug.current
 }`;
 
 /** Search posts by query string */

@@ -1,24 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
-import type { SanityPost, SanityCategory } from "@/lib/sanity";
+import type { SanityPost, SanityCategory, SanityTag } from "@/lib/sanity";
 import {
   fetchAllPosts,
   fetchFeaturedPost,
   fetchFeaturedPosts,
   fetchPostBySlug,
   fetchAllCategories,
+  fetchAllTags,
   fetchPostsByCategory,
   searchPosts,
   fetchRelatedPosts,
   fetchAuthorPosts,
 } from "@/lib/blogData";
 
-const STALE = 1000 * 60 * 5;
+/** Short stale window so Studio publishes show up quickly on refresh / focus. */
+const STALE = 1000 * 30;
 
 export function useFeaturedPost() {
   return useQuery<SanityPost | null>({
     queryKey: ["blog", "featured"],
     queryFn: fetchFeaturedPost,
     staleTime: STALE,
+    refetchOnWindowFocus: true,
   });
 }
 
@@ -27,6 +30,7 @@ export function useFeaturedPosts(limit = 3) {
     queryKey: ["blog", "featured-list", limit],
     queryFn: () => fetchFeaturedPosts(limit),
     staleTime: STALE,
+    refetchOnWindowFocus: true,
   });
 }
 
@@ -35,6 +39,7 @@ export function useAllPosts() {
     queryKey: ["blog", "all"],
     queryFn: fetchAllPosts,
     staleTime: STALE,
+    refetchOnWindowFocus: true,
   });
 }
 
@@ -44,6 +49,7 @@ export function usePostBySlug(slug: string) {
     queryFn: () => fetchPostBySlug(slug),
     staleTime: STALE,
     enabled: !!slug,
+    refetchOnWindowFocus: true,
   });
 }
 
@@ -52,6 +58,16 @@ export function useAllCategories() {
     queryKey: ["blog", "categories"],
     queryFn: fetchAllCategories,
     staleTime: STALE,
+    refetchOnWindowFocus: true,
+  });
+}
+
+export function useAllTags() {
+  return useQuery<SanityTag[]>({
+    queryKey: ["blog", "tags"],
+    queryFn: fetchAllTags,
+    staleTime: STALE,
+    refetchOnWindowFocus: true,
   });
 }
 
@@ -61,6 +77,7 @@ export function usePostsByCategory(categorySlug: string) {
     queryFn: () => fetchPostsByCategory(categorySlug),
     staleTime: STALE,
     enabled: !!categorySlug,
+    refetchOnWindowFocus: true,
   });
 }
 
