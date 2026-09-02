@@ -229,6 +229,11 @@ const PAGES = [
           <h2>ISO/IEC 42001 &amp; NIST AI RMF</h2>
           <p>Artificial Intelligence Management System (AIMS), algorithmic risk assessment, model governance, and ethical AI safety controls.</p>
         </div>
+        <div style="margin-top: 2rem; padding: 1rem; border: 1px solid #333;">
+          <h2>The Leading Vanta &amp; Drata Alternative for Multi-Framework Compliance</h2>
+          <p>While legacy tools like Vanta and Drata force teams into single-standard silos with high subscription fees, CertifyGRC deduplicates controls across NIST CSF 2.0, ISO 27001, SOC 2, and OSFI B-10/B-13, while providing dedicated vCISO advisory and built-in CyberDrill training.</p>
+          <p><a href="/compare">Compare CertifyGRC vs. Vanta &amp; Drata</a> | <a href="/compare/vanta-alternative">Vanta Alternative Guide</a> | <a href="/compare/drata-alternative">Drata Alternative Guide</a></p>
+        </div>
       </section>
     `,
   },
@@ -238,7 +243,7 @@ const PAGES = [
     description:
       "Automate compliance, control monitoring, risk registers, and audit readiness across NIST CSF 2.0, ISO 27001, and SOC 2. The smarter alternative to Vanta and Drata.",
     keywords:
-      "GRC software, compliance automation platform, continuous control monitoring, risk register software, audit readiness tool, Vanta alternative software",
+      "GRC software, compliance automation platform, continuous control monitoring, risk register software, audit readiness tool, Vanta alternative software, Drata alternative software",
     canonical: `${SITE_URL}/software`,
     heading: "Intelligent GRC Software Platform",
     subheading:
@@ -247,6 +252,11 @@ const PAGES = [
       <section>
         <h1>CertifyGRC Compliance &amp; Risk Platform</h1>
         <p>Continuous evidence synchronization across AWS, Azure, Google Cloud, GitHub, GitLab, Okta, and Microsoft 365. Automated gap analysis, risk registers, and real-time posture reporting.</p>
+        <div>
+          <h2>Why Choose CertifyGRC over Vanta and Drata?</h2>
+          <p>CertifyGRC combines SaaS automation with certified practitioner advisory, eliminating the burden of self-managing policy drafting and auditor defense. Natively built for NIST CSF 2.0 with all 6 core functions (Govern, Identify, Protect, Detect, Respond, Recover).</p>
+          <p><a href="/compare">View Full Vanta &amp; Drata Comparison Matrix</a></p>
+        </div>
       </section>
     `,
   },
