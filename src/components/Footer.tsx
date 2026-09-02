@@ -24,9 +24,9 @@ const footerLinks = {
     { label: "Privacy Policy", path: "/privacy" },
   ],
   Frameworks: [
-    { label: "NIST CSF 2.0", path: "/frameworks" },
-    { label: "ISO 27001", path: "/frameworks" },
-    { label: "SOC 2", path: "/frameworks" },
+    { label: "NIST CSF 2.0 Software", path: "/solutions/nist-csf-2-0" },
+    { label: "ISO 27001 Automation", path: "/solutions/iso-27001" },
+    { label: "SOC 2 Type II", path: "/frameworks" },
     { label: "PCI DSS 4.0", path: "/frameworks" },
     { label: "OSFI B-10 / B-13", path: "/frameworks" },
     { label: "ISO 42001 (AI)", path: "/frameworks" },

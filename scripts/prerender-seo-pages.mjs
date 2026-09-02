@@ -31,6 +31,64 @@ const SITE_URL = "https://certifygrc.com";
 /** @type {PageMeta[]} */
 const PAGES = [
   {
+    route: "solutions/nist-csf-2-0",
+    title: "NIST CSF 2.0 Compliance Software & Continuous Gap Analysis Platform | CertifyGRC",
+    description:
+      "The premier enterprise software platform for NIST CSF 2.0 implementation. Native mapping across Govern, Identify, Protect, Detect, Respond, and Recover with automated gap analysis and audit readiness.",
+    keywords:
+      "NIST CSF 2.0 software, NIST CSF platform, NIST CSF compliance tool, NIST CSF 2.0 gap analysis, NIST Cybersecurity Framework automation, NIST maturity assessment, Govern function NIST, OneTrust alternative, Hyperproof alternative",
+    canonical: `${SITE_URL}/solutions/nist-csf-2-0`,
+    heading: "Enterprise NIST CSF 2.0 Software & Maturity Automation",
+    subheading:
+      "Master cybersecurity governance, continuous gap analysis, and risk mitigation across all six core NIST CSF 2.0 functions.",
+    htmlBody: `
+      <section>
+        <h1>Enterprise NIST CSF 2.0 Software &amp; Maturity Automation</h1>
+        <p>CertifyGRC is the leading specialized software platform for implementing the NIST Cybersecurity Framework 2.0 (NIST CSF 2.0). Built natively for all six core functions with complete 106 subcategory mapping, automated cloud evidence synchronization, and hybrid vCISO advisory.</p>
+        <h2>The Six Core NIST CSF 2.0 Functions</h2>
+        <ul>
+          <li><strong>Govern (GV):</strong> Organizational context, risk management strategy, roles and authorities, policy oversight, and Cybersecurity Supply Chain Risk Management (C-SCRM).</li>
+          <li><strong>Identify (ID):</strong> Asset management, risk assessments, vulnerability prioritization, and improvement roadmaps.</li>
+          <li><strong>Protect (PR):</strong> Identity management, access control (PR.AA), awareness training (PR.AT), data security (PR.DS), and platform resilience.</li>
+          <li><strong>Detect (DE):</strong> Continuous security log monitoring (DE.CM) and adverse event anomaly analysis (DE.AE).</li>
+          <li><strong>Respond (RS):</strong> Incident management workflows (RS.MA), forensic triaging (RS.AN), customer communications (RS.CO), and incident mitigation.</li>
+          <li><strong>Recover (RC):</strong> Incident recovery execution (RC.RP) and business continuity restoration.</li>
+        </ul>
+        <h2>NIST CSF 2.0 Implementation Tiers &amp; Community Profiles</h2>
+        <p>Model your Current Profile against your Target Profile across Tier 1 (Partial), Tier 2 (Risk-Informed), Tier 3 (Repeatable), and Tier 4 (Adaptive). Generate instant board-ready posture reports and auditor export bundles.</p>
+        <p><a href="/free-assessment">Take the Free 2-Minute NIST CSF 2.0 Security Posture Quiz</a></p>
+      </section>
+    `,
+  },
+  {
+    route: "solutions/iso-27001",
+    title: "ISO 27001:2022 Compliance Automation & ISMS Platform | CertifyGRC",
+    description:
+      "Automate your ISO/IEC 27001:2022 Information Security Management System (ISMS). Real-time Statement of Applicability (SoA), Annex A 93-control mapping, and continuous audit readiness.",
+    keywords:
+      "ISO 27001 software, ISO 27001 automation platform, ISO 27001:2022 ISMS tool, Statement of Applicability automation, Annex A 93 controls, ISO 27001 certification software, GRC platform",
+    canonical: `${SITE_URL}/solutions/iso-27001`,
+    heading: "Streamlined ISO 27001:2022 Compliance & ISMS Automation",
+    subheading:
+      "Accelerate certification and maintain continuous compliance across all 93 Annex A controls with real-time Statement of Applicability generation.",
+    htmlBody: `
+      <section>
+        <h1>Streamlined ISO 27001:2022 Compliance &amp; ISMS Platform</h1>
+        <p>CertifyGRC automates the end-to-end lifecycle of your Information Security Management System (ISMS), aligning with Clauses 4 through 10 and all 93 controls of Annex A (2022 revision).</p>
+        <h2>Automated Annex A Controls Across All 4 Themes</h2>
+        <ul>
+          <li><strong>Organizational Controls (37 Controls):</strong> Information security policies, supplier relationships, asset management, and threat intelligence.</li>
+          <li><strong>People Controls (8 Controls):</strong> Screening, terms of employment, security awareness training, and remote working.</li>
+          <li><strong>Physical Controls (14 Controls):</strong> Security perimeters, physical monitoring, and equipment maintenance.</li>
+          <li><strong>Technological Controls (34 Controls):</strong> Access control, configuration management, data masking, secure coding, and vulnerability management.</li>
+        </ul>
+        <h2>Dynamic Statement of Applicability (SoA)</h2>
+        <p>Generate auditor-ready SoA reports in real time, linking inclusions, exclusions, and justifications directly to live cloud infrastructure evidence.</p>
+        <p><a href="/contact">Schedule an ISO 27001 Platform Walkthrough</a></p>
+      </section>
+    `,
+  },
+  {
     route: "compare",
     title: "CertifyGRC vs. Vanta vs. Drata: 2026 Compliance Platform Comparison",
     description:
@@ -399,6 +457,20 @@ for (const page of PAGES) {
   generatedCount++;
 
   // Also create aliases if applicable (e.g. /vanta-alternative and /drata-alternative)
+  if (page.route === "solutions/nist-csf-2-0") {
+    const aliasDir = path.join(DIST_DIR, "nist-csf-2-0");
+    fs.mkdirSync(aliasDir, { recursive: true });
+    fs.writeFileSync(path.join(aliasDir, "index.html"), renderedHtml, "utf-8");
+    console.log(`[prerender] Generated static HTML alias: nist-csf-2-0/index.html`);
+    generatedCount++;
+  }
+  if (page.route === "solutions/iso-27001") {
+    const aliasDir = path.join(DIST_DIR, "iso-27001");
+    fs.mkdirSync(aliasDir, { recursive: true });
+    fs.writeFileSync(path.join(aliasDir, "index.html"), renderedHtml, "utf-8");
+    console.log(`[prerender] Generated static HTML alias: iso-27001/index.html`);
+    generatedCount++;
+  }
   if (page.route === "compare/vanta-alternative") {
     const aliasDir = path.join(DIST_DIR, "vanta-alternative");
     fs.mkdirSync(aliasDir, { recursive: true });

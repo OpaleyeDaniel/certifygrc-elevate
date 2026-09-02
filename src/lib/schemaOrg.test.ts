@@ -36,7 +36,13 @@ describe("Schema.org JSON-LD generators", () => {
     expect(app.applicationCategory).toBe("SecurityApplication");
     expect(app.offers["@type"]).toBe("Offer");
     expect(app.offers.price).toBe("0");
+    expect(Array.isArray(app.featureList)).toBe(true);
+    expect(app.featureList.length).toBeGreaterThan(5);
+    expect(Array.isArray(app.knowsAbout)).toBe(true);
     expect(Array.isArray(app.isSimilarTo)).toBe(true);
+    expect(app.isSimilarTo.some((c: { name: string }) => c.name === "OneTrust")).toBe(true);
+    expect(app.isSimilarTo.some((c: { name: string }) => c.name === "Hyperproof")).toBe(true);
+    expect(app.isSimilarTo.some((c: { name: string }) => c.name === "Secureframe")).toBe(true);
     expect(app.isSimilarTo.some((c: { name: string }) => c.name === "Vanta")).toBe(true);
     expect(app.isSimilarTo.some((c: { name: string }) => c.name === "Drata")).toBe(true);
   });

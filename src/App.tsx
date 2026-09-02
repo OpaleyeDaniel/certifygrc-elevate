@@ -25,6 +25,8 @@ import CyberAwarePage from "./pages/CyberAware";
 import BlogPage from "./pages/Blog";
 import BlogPostPage from "./pages/BlogPost";
 import ComparePage from "./pages/Compare";
+import NistCsfSolutionPage from "./pages/solutions/NistCsfSolution";
+import Iso27001SolutionPage from "./pages/solutions/Iso27001Solution";
 
 const queryClient = new QueryClient();
 
@@ -89,6 +91,10 @@ function AnimatedRoutes() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/frameworks" element={<Frameworks />} />
+          <Route path="/solutions/nist-csf-2-0" element={<NistCsfSolutionPage />} />
+          <Route path="/nist-csf-2-0" element={<NistCsfSolutionPage />} />
+          <Route path="/solutions/iso-27001" element={<Iso27001SolutionPage />} />
+          <Route path="/iso-27001" element={<Iso27001SolutionPage />} />
           <Route path="/compare" element={<ComparePage />} />
           <Route path="/compare/vanta-alternative" element={<ComparePage defaultTab="vanta" />} />
           <Route path="/compare/drata-alternative" element={<ComparePage defaultTab="drata" />} />
