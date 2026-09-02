@@ -58,6 +58,28 @@ export default function FrameworksPage() {
 
       <ApplicationFrameworksSections showCtas />
 
+      <div className="container-wide py-8">
+        <div className="rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/10 via-card to-card p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+          <div className="space-y-1 text-left">
+            <span className="text-xs font-bold uppercase tracking-wider text-primary">Vanta &amp; Drata Alternative</span>
+            <h3 className="text-xl font-bold text-foreground">Evaluating Compliance Automation Platforms?</h3>
+            <p className="text-sm text-muted-foreground max-w-xl">
+              See how CertifyGRC's native NIST CSF 2.0 mapping, hybrid vCISO advisory, and employee CyberDrills outshine tool-only alternatives.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <Button asChild className="glow-primary text-sm font-semibold rounded-xl">
+              <Link to="/compare">
+                Compare Platforms <ArrowRight className="w-4 h-4 ml-1.5" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="text-sm font-semibold rounded-xl border-border">
+              <Link to="/compare/vanta-alternative">Vanta Alternative</Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+
       <ScrollReveal>
         <FrameworksSection />
       </ScrollReveal>

@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generate-sitemap-and-rss.mjs && vite build",
+    "build": "node scripts/generate-sitemap-and-rss.mjs && vite build && node scripts/prerender-seo-pages.mjs",
     "generate:seo": "node scripts/generate-sitemap-and-rss.mjs",
     "typecheck": "tsc -p tsconfig.node.json --noEmit",
     "generate:email-assets": "node scripts/generate-email-assets.mjs",
