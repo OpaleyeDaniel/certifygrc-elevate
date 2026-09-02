@@ -496,9 +496,9 @@ const homePrerender = `
         <p>Enterprise compliance automation, continuous control monitoring, and hands-on vCISO advisory natively aligned with NIST CSF 2.0, ISO 27001, and SOC 2.</p>
       </header>
       <section>
-        <h2>The Modern Alternative to Vanta &amp; Drata</h2>
-        <p>Why compliance leaders choose CertifyGRC over legacy software-only checklists: comprehensive NIST CSF 2.0 native depth (all 6 functions: Govern, Identify, Protect, Detect, Respond, Recover), integrated vCISO advisory, and native CyberDrill employee security training.</p>
-        <p><a href="/compare">Compare CertifyGRC vs. Vanta &amp; Drata</a> | <a href="/compare/vanta-alternative">Vanta Alternative Guide</a> | <a href="/compare/drata-alternative">Drata Alternative Guide</a></p>
+        <h2>Enterprise Continuous Compliance Automation</h2>
+        <p>CertifyGRC empowers modern security leaders with continuous control monitoring, automated cloud evidence collection, native NIST CSF 2.0 gap analysis, and certified vCISO advisory. Built for high-growth enterprises and regulated organizations.</p>
+        <p><a href="/solutions/nist-csf-2-0">Explore NIST CSF 2.0 Solution</a> | <a href="/solutions/iso-27001">Explore ISO 27001 ISMS</a> | <a href="/software">Explore Software Platform</a></p>
       </section>
       <section>
         <h2>Compliance Standards Supported</h2>
