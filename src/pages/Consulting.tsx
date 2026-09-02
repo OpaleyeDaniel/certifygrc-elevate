@@ -30,6 +30,8 @@ import { heroImagery } from "@/constants/heroImagery";
 import { siteCs } from "@/constants/siteImages";
 import { PremiumCard, PremiumCardGrid } from "@/components/ui/PremiumCard";
 import { brandAccentAt } from "@/lib/brandColors";
+import SEO from "@/components/seo/SEO";
+import { createServiceSchema, createBreadcrumbSchema } from "@/lib/schemaOrg";
 
 type Service = {
   key: string;
@@ -261,8 +263,28 @@ export default function ConsultingPage() {
 
   const sortedServices = useMemo(() => services, []);
 
+  const consultingSchemas = [
+    createServiceSchema({
+      name: "CertifyGRC Compliance Advisory & vCISO Consulting",
+      serviceType: "Governance, Risk and Compliance (GRC) Advisory",
+      description:
+        "Specialized cybersecurity, ISO 27001, SOC 2, NIST CSF, and regulatory compliance consulting tailored to enterprise and mid-market organizations.",
+      url: "/consulting",
+    }),
+    createBreadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Consulting & Advisory", url: "/consulting" },
+    ]),
+  ];
+
   return (
     <>
+      <SEO
+        title="GRC Consulting & Cyber Advisory Services"
+        description="Expert GRC advisory, vCISO services, audit preparation, and risk assessment consulting. Accelerate compliance frameworks with seasoned cybersecurity specialists."
+        canonical="https://certifygrc.com/consulting"
+        jsonLd={consultingSchemas}
+      />
       <ScrollReveal>
         <PageHero
           backgroundUrl={heroImagery.consulting.background}

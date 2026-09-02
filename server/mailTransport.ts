@@ -1,5 +1,19 @@
 import nodemailer from "nodemailer";
-import type SMTPTransport from "nodemailer/lib/smtp-transport";
+
+export interface SmtpTransportOptions {
+  host?: string;
+  port?: number;
+  secure?: boolean;
+  auth?: { user: string; pass: string };
+  tls?: { rejectUnauthorized?: boolean; servername?: string };
+  connectionTimeout?: number;
+  greetingTimeout?: number;
+  socketTimeout?: number;
+  debug?: boolean;
+  logger?: boolean;
+  requireTLS?: boolean;
+  ignoreTLS?: boolean;
+}
 
 /** Trim and strip optional surrounding quotes from .env values. */
 export function sanitizeEnvValue(v: string | undefined): string | undefined {
@@ -65,7 +79,7 @@ export function createMailTransportFromEnv(env: MailEnv) {
 
   const debug = sanitizeEnvValue(env.SMTP_DEBUG as string | undefined) === "true";
 
-  const options: SMTPTransport.Options = {
+  const options: SmtpTransportOptions = {
     host,
     port,
     secure,
@@ -81,6 +95,6 @@ export function createMailTransportFromEnv(env: MailEnv) {
     options.requireTLS = true;
   }
 
-  return nodemailer.createTransport(options);
+  return nodemailer.createTransport(options as any);
 }
 

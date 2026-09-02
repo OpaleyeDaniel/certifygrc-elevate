@@ -11,6 +11,8 @@ import ScrollReveal from "@/components/ScrollReveal";
 import PartnerApplicationForm from "@/components/PartnerApplicationForm";
 import { PremiumCard, PremiumCardGrid, PremiumCardStandalone } from "@/components/ui/PremiumCard";
 import { BRAND_PRIMARY } from "@/lib/brandColors";
+import SEO from "@/components/seo/SEO";
+import { createBreadcrumbSchema } from "@/lib/schemaOrg";
 
 const whyJoin = [
   { icon: Users, title: "Expand Your Services", description: "Offer your clients a powerful, easy-to-use GRC solution that simplifies compliance and cybersecurity management." },
@@ -23,8 +25,21 @@ const whyJoin = [
 export default function PartnerPage() {
   const [mainTab, setMainTab] = useState("overview");
 
+  const partnerSchemas = [
+    createBreadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Partner Program", url: "/partner" },
+    ]),
+  ];
+
   return (
     <>
+      <SEO
+        title="Partner Program & MSP/MSSP Opportunities"
+        description="Partner with CertifyGRC. Scale your consulting or MSP practice with industry-leading GRC software, co-marketing support, and competitive partner margins."
+        canonical="https://certifygrc.com/partner"
+        jsonLd={partnerSchemas}
+      />
       <PageHero
         backgroundUrl={heroImagery.partner.background}
         foregroundUrl={heroImagery.partner.foreground}

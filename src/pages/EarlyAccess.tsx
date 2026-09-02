@@ -1,24 +1,31 @@
-import { useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ClipboardCheck, Shield } from "lucide-react";
 import PartnerApplicationForm from "@/components/PartnerApplicationForm";
 import { revealUp, scrollEase, staggerContainer } from "@/lib/motion";
 import { cn } from "@/lib/utils";
+import SEO from "@/components/seo/SEO";
+import { createBreadcrumbSchema } from "@/lib/schemaOrg";
 
 const ease = [...scrollEase] as [number, number, number, number];
 
 export default function EarlyAccessPage() {
   const reduceMotion = useReducedMotion();
 
-  useEffect(() => {
-    document.title = "Early access assessment | CertifyGRC";
-    return () => {
-      document.title = "CertifyGRC | Smarter Governance, Safer Decisions";
-    };
-  }, []);
+  const earlyAccessSchemas = [
+    createBreadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Early Access Assessment", url: "/early-access" },
+    ]),
+  ];
 
   return (
     <div className="relative min-h-[calc(100vh-4rem)] overflow-hidden">
+      <SEO
+        title="Request Early Access & Compliance Readiness Assessment"
+        description="Request early access to the CertifyGRC platform. Get prioritized onboarding, tailored compliance gap analysis, and dedicated implementation guidance."
+        canonical="https://certifygrc.com/early-access"
+        jsonLd={earlyAccessSchemas}
+      />
       {/* Ambient background */}
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_50%_-20%,hsl(var(--primary)/0.12),transparent_50%)]"

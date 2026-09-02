@@ -38,7 +38,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       const result = await sendPartnerSubmissionEmails(process.env, from, to, data);
       if (!result.internalOk) {
-        return respondMailTransportFailure(res, "send-partner", result.error);
+        const err = "error" in result ? result.error : new Error("Mail dispatch failed");
+        return respondMailTransportFailure(res, "send-partner", err);
       }
 
       return res.status(200).json({

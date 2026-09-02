@@ -58,7 +58,8 @@ export function enforcePublicFormApiGuards(req: VercelRequest, res: VercelRespon
   const cfg = RATE[route];
   const rl = rateLimitFixedWindow(`${route}:${ip}`, cfg.limit, cfg.windowMs);
   if (!rl.ok) {
-    res.setHeader("Retry-After", String(rl.retryAfterSec));
+    const retrySec = "retryAfterSec" in rl ? rl.retryAfterSec : 60;
+    res.setHeader("Retry-After", String(retrySec));
     res.status(429).json(jsonTooManyRequests());
     return true;
   }

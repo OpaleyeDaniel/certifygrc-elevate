@@ -52,15 +52,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const from = resolveMailFrom(process.env);
       const to = resolveInternalTo(process.env);
 
-      await sendAssessmentLeadEmails(process.env, from, to, data);
+      const result = await sendAssessmentLeadEmails(process.env, from, to, data);
+      if (!result.internalOk) {
+        const err = "error" in result ? result.error : new Error("Mail dispatch failed");
+        return respondMailTransportFailure(res, "send-assessment-lead", err);
+      }
       markDedupe(`assessment-lead:${data.email}`);
 
       console.info("[send-assessment-lead] delivered", {
         channel: useResendApi(process.env) ? "resend" : "smtp",
         postureProfile: data.results.postureProfile,
+        confirmationSent: result.confirmationSent,
       });
 
-      return res.status(200).json({ success: true, message: UNLOCK_MESSAGE });
+      return res.status(200).json({
+        success: true,
+        message: UNLOCK_MESSAGE,
+        confirmationSent: result.confirmationSent,
+      });
     } catch (err) {
       return respondMailTransportFailure(res, "send-assessment-lead", err);
     }

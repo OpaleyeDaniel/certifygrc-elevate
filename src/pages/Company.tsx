@@ -23,6 +23,8 @@ import { revealUp, scrollEase, scrollViewport, staggerContainer } from "@/lib/mo
 import { cn } from "@/lib/utils";
 import { PremiumCard, PremiumCardGrid, PremiumCardStandalone } from "@/components/ui/PremiumCard";
 import { BRAND_PRIMARY } from "@/lib/brandColors";
+import SEO from "@/components/seo/SEO";
+import { createOrganizationSchema, createBreadcrumbSchema } from "@/lib/schemaOrg";
 
 const heroEase = [0.16, 1, 0.3, 1] as const;
 
@@ -187,8 +189,22 @@ function SectionShell({
 export default function CompanyPage() {
   const reduceMotion = useReducedMotion();
 
+  const companySchemas = [
+    createOrganizationSchema(),
+    createBreadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "About CertifyGRC", url: "/company" },
+    ]),
+  ];
+
   return (
     <>
+      <SEO
+        title="About CertifyGRC | Our Mission, Leadership & Vision"
+        description="Discover how CertifyGRC is modernizing governance, risk management, and compliance for forward-thinking organizations worldwide. Meet our team and vision."
+        canonical="https://certifygrc.com/company"
+        jsonLd={companySchemas}
+      />
       <PageHero
         backgroundUrl={heroImagery.company.background}
         foregroundUrl={heroImagery.company.foreground}

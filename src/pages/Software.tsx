@@ -12,6 +12,8 @@ import WaitlistSection from "@/components/marketing/WaitlistSection";
 import ApplicationClosingCTA from "@/components/marketing/ApplicationClosingCTA";
 import { PremiumCard, PremiumCardGrid } from "@/components/ui/PremiumCard";
 import { BRAND_PRIMARY } from "@/lib/brandColors";
+import SEO from "@/components/seo/SEO";
+import { createSoftwareApplicationSchema, createBreadcrumbSchema } from "@/lib/schemaOrg";
 
 const features = [
   { icon: Monitor, title: "Unified Dashboard", description: "Single pane of glass for all your GRC metrics, compliance status, and risk indicators." },
@@ -33,8 +35,22 @@ const integrations = [
 export default function SoftwarePage() {
   const [demoOpen, setDemoOpen] = useState(false);
 
+  const softwareSchemas = [
+    createSoftwareApplicationSchema(),
+    createBreadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Software & Platform", url: "/software" },
+    ]),
+  ];
+
   return (
     <>
+      <SEO
+        title="GRC Software & Compliance Automation Platform"
+        description="Streamline NIST CSF 2.0, ISO 27001, and SOC 2 compliance with CertifyGRC software. Automated evidence collection, real-time risk scoring, and continuous monitoring."
+        canonical="https://certifygrc.com/software"
+        jsonLd={softwareSchemas}
+      />
       <ApplicationPageHero>
         <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-1.5 text-xs font-semibold tracking-wide text-muted-foreground dark:border-white/10 dark:bg-white/[0.04] dark:text-white/75">
           <span className="h-2 w-2 shrink-0 rounded-full bg-primary" aria-hidden />

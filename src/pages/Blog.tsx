@@ -19,6 +19,8 @@ import BlogPostCard from "@/components/blog/BlogPostCard";
 import BlogFeaturedEditorial from "@/components/blog/BlogFeaturedEditorial";
 import BlogNewsletterSection from "@/components/blog/BlogNewsletterSection";
 import { Skeleton } from "@/components/ui/skeleton";
+import SEO from "@/components/seo/SEO";
+import { createBreadcrumbSchema } from "@/lib/schemaOrg";
 
 export default function BlogPage() {
   const { categorySlug } = useParams<{ categorySlug?: string }>();
@@ -70,15 +72,35 @@ export default function BlogPage() {
     return posts;
   }, [basePosts, activeTag, isSearching, isCategoryFiltered, featuredPost]);
 
-  useEffect(() => {
-    const title = activeCategoryObj
-      ? `${activeCategoryObj.title} | CertifyGRC Blog`
-      : "Blog | CertifyGRC – GRC, Cybersecurity & Compliance Insights";
-    document.title = title;
-  }, [activeCategoryObj]);
+  const seoTitle = activeCategoryObj
+    ? `${activeCategoryObj.title} Articles & Guides | CertifyGRC Blog`
+    : "GRC, Cybersecurity & Compliance Insights | CertifyGRC Blog";
+  const seoDescription = activeCategoryObj
+    ? `Explore in-depth articles, actionable compliance guides, and best practices in ${activeCategoryObj.title} from CertifyGRC.`
+    : "Read expert insights on NIST CSF 2.0, ISO 27001 compliance, cyber risk management, audit readiness strategies, and GRC best practices from the CertifyGRC team.";
+  const canonicalUrl = activeCategoryObj
+    ? `https://certifygrc.com/blog/category/${categorySlug}`
+    : "https://certifygrc.com/blog";
+
+  const breadcrumbs = activeCategoryObj
+    ? [
+        { name: "Home", url: "/" },
+        { name: "Blog", url: "/blog" },
+        { name: activeCategoryObj.title, url: `/blog/category/${categorySlug}` },
+      ]
+    : [
+        { name: "Home", url: "/" },
+        { name: "Blog", url: "/blog" },
+      ];
 
   return (
     <>
+      <SEO
+        title={seoTitle}
+        description={seoDescription}
+        canonical={canonicalUrl}
+        jsonLd={[createBreadcrumbSchema(breadcrumbs)]}
+      />
       {/* ── Hero ─────────────────────────────── */}
       <section
         className="relative overflow-hidden pt-24 pb-20"

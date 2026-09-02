@@ -8,6 +8,8 @@ import ScrollReveal from "@/components/ScrollReveal";
 import { PremiumCard, PremiumCardGrid } from "@/components/ui/PremiumCard";
 import { BRAND_PRIMARY } from "@/lib/brandColors";
 import { useBooking } from "@/contexts/BookingContext";
+import SEO from "@/components/seo/SEO";
+import { createServiceSchema, createBreadcrumbSchema } from "@/lib/schemaOrg";
 
 const platformFeatures = [
   {
@@ -45,8 +47,28 @@ const platformFeatures = [
 export default function CyberAwarePage() {
   const { openDemo } = useBooking();
 
+  const cyberAwareSchemas = [
+    createServiceSchema({
+      name: "CertifyGRC CyberDrill & Security Awareness Training",
+      serviceType: "Cybersecurity Awareness & Workforce Simulation",
+      description:
+        "Role-based cyber awareness training, realistic phishing simulations, and tabletop incident response exercises.",
+      url: "/cyber-aware",
+    }),
+    createBreadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Cyber Awareness Training", url: "/cyber-aware" },
+    ]),
+  ];
+
   return (
     <>
+      <SEO
+        title="Cyber Awareness & Compliance Simulation Training"
+        description="Empower your workforce with role-based cyber awareness training, simulated phishing, and compliance education designed to build a proactive security culture."
+        canonical="https://certifygrc.com/cyber-aware"
+        jsonLd={cyberAwareSchemas}
+      />
       <PageHero
         backgroundUrl={heroImagery.eLearning.background}
         foregroundUrl={heroImagery.eLearning.foreground}

@@ -23,6 +23,8 @@ import BlogPostCard from "@/components/blog/BlogPostCard";
 import BlogCategoryBadge from "@/components/blog/BlogCategoryBadge";
 import BlogReadingProgress from "@/components/blog/BlogReadingProgress";
 import BlogNewsletterSection from "@/components/blog/BlogNewsletterSection";
+import SEO from "@/components/seo/SEO";
+import { createBlogPostingSchema, createBreadcrumbSchema } from "@/lib/schemaOrg";
 
 export default function BlogPostPage() {
   const { slug = "" } = useParams<{ slug: string }>();
@@ -33,32 +35,50 @@ export default function BlogPostPage() {
   const authorSlug = getAuthorSlug(post?.author);
   const { data: authorPosts = [] } = useAuthorPosts(authorSlug, slug);
 
-  useEffect(() => {
-    if (!post) return;
-    const seoTitle = post.seo?.metaTitle ?? `${post.title} | CertifyGRC Blog`;
-    const seoDesc = post.seo?.metaDescription ?? post.excerpt;
-    document.title = seoTitle;
-    setMeta("description", seoDesc);
-    setMeta("og:title", seoTitle);
-    setMeta("og:description", seoDesc);
-    setMeta("og:type", "article");
-    const cover = getPostCoverUrl(post, 1200, 630);
-    if (cover) setMeta("og:image", cover);
-    return () => {
-      document.title = "CertifyGRC";
-    };
-  }, [post]);
-
   if (isLoading) return <BlogPostSkeleton />;
   if (isError || (!isLoading && !post)) return <Navigate to="/blog" replace />;
   if (!post) return null;
 
   const coverUrl = getPostCoverUrl(post, 1600, 800);
+  const ogCoverUrl = getPostCoverUrl(post, 1200, 630);
   const authorAvatarUrl = getAuthorPhotoUrl(post, 96);
   const toc = post.body ? extractToc(post.body as Parameters<typeof extractToc>[0]) : [];
 
+  const seoTitle = post.seo?.metaTitle ?? `${post.title} | CertifyGRC Blog`;
+  const seoDesc = post.seo?.metaDescription ?? post.excerpt ?? "Read the latest GRC and cybersecurity insights from CertifyGRC.";
+
+  const postSchemas = [
+    createBlogPostingSchema({
+      headline: post.title,
+      description: seoDesc,
+      url: `/blog/${slug}`,
+      image: ogCoverUrl || coverUrl || undefined,
+      datePublished: post.publishedAt,
+      dateModified: post.publishedAt,
+      authorName: post.author?.name,
+      authorRole: post.author?.role,
+      authorUrl: post.author?.linkedIn || undefined,
+    }),
+    createBreadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Blog", url: "/blog" },
+      { name: post.title, url: `/blog/${slug}` },
+    ]),
+  ];
+
   return (
     <>
+      <SEO
+        title={seoTitle}
+        description={seoDesc}
+        canonical={`https://certifygrc.com/blog/${slug}`}
+        ogType="article"
+        ogImage={ogCoverUrl || coverUrl || undefined}
+        publishedTime={post.publishedAt}
+        modifiedTime={post.publishedAt}
+        author={post.author?.name}
+        jsonLd={postSchemas}
+      />
       <BlogReadingProgress />
 
       <header className="relative overflow-hidden pt-20" style={{ minHeight: 520 }}>
@@ -297,28 +317,6 @@ function AuthorSection({
   );
 }
 
-function ArticleSchema({ post, coverUrl }: { post: SanityPost; coverUrl: string | null }) {
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: post.title,
-    description: post.excerpt,
-    datePublished: post.publishedAt,
-    author: post.author ? { "@type": "Person", name: post.author.name } : undefined,
-    publisher: {
-      "@type": "Organization",
-      name: "CertifyGRC",
-      logo: { "@type": "ImageObject", url: "https://certifygrc.com/favicon.ico" },
-    },
-    image: coverUrl ?? undefined,
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": typeof window !== "undefined" ? window.location.href : "",
-    },
-  };
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
-}
-
 function BlogPostSkeleton() {
   return (
     <div>
@@ -331,15 +329,4 @@ function BlogPostSkeleton() {
       </div>
     </div>
   );
-}
-
-function setMeta(name: string, content: string) {
-  if (typeof document === "undefined") return;
-  let el = document.querySelector<HTMLMetaElement>(`meta[property="${name}"], meta[name="${name}"]`);
-  if (!el) {
-    el = document.createElement("meta");
-    el.setAttribute(name.startsWith("og:") ? "property" : "name", name);
-    document.head.appendChild(el);
-  }
-  el.content = content;
 }

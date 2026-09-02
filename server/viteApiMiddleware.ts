@@ -301,9 +301,17 @@ export function createViteFormApiMiddleware(env: Record<string, string>): Connec
         if (peekDedupe(`assessment-lead:${d.email}`, ASSESSMENT_DEDUPE_MS)) {
           return jsonResponseWithHeaders(res, 200, { success: true, message: ASSESSMENT_UNLOCK_MESSAGE });
         }
-        await sendAssessmentLeadEmails(env, FROM, TO, d);
+        const result = await sendAssessmentLeadEmails(env, FROM, TO, d);
+        if (!result.internalOk) {
+          console.error("[vite-api] Assessment lead internal email failed:", result.error);
+          return jsonResponseWithHeaders(res, 502, mailTransportFailurePayload());
+        }
         markDedupe(`assessment-lead:${d.email}`);
-        return jsonResponseWithHeaders(res, 200, { success: true, message: ASSESSMENT_UNLOCK_MESSAGE });
+        return jsonResponseWithHeaders(res, 200, {
+          success: true,
+          message: ASSESSMENT_UNLOCK_MESSAGE,
+          confirmationSent: result.confirmationSent,
+        });
       }
 
       return jsonResponseWithHeaders(res, 404, jsonBadRequest("API endpoint not found"));

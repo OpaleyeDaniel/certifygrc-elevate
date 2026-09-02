@@ -144,6 +144,7 @@ export default function SecurityPostureQuiz() {
       dispatch({ type: "SUBMIT_START" });
 
       const payload = {
+        fullName: values.fullName,
         email: values.email,
         companyName: values.companyName || undefined,
         jobTitle: values.jobTitle,

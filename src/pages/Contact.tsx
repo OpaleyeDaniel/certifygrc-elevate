@@ -25,6 +25,8 @@ import { heroImagery } from "@/constants/heroImagery";
 import { formSubmitUserMessage } from "@/lib/formSubmitApi";
 import { revealUp, scrollEase, scrollViewport, staggerContainer } from "@/lib/motion";
 import { PremiumCard, PremiumCardGrid, PremiumCardStandalone } from "@/components/ui/PremiumCard";
+import SEO from "@/components/seo/SEO";
+import { createBreadcrumbSchema, createFAQSchema } from "@/lib/schemaOrg";
 
 const supportCategories = [
   { icon: MessageSquare, title: "Sales", description: "Learn about our platform and services", email: "sales@certifygrc.com" },
@@ -60,6 +62,14 @@ export default function ContactPage() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [formData, setFormData] = useState(defaultForm);
+
+  const contactSchemas = [
+    createBreadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Contact & Support", url: "/contact" },
+    ]),
+    createFAQSchema(faqs.map((f) => ({ question: f.q, answer: f.a }))),
+  ];
 
   const setField = (field: keyof typeof defaultForm) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -107,6 +117,12 @@ export default function ContactPage() {
 
   return (
     <>
+      <SEO
+        title="Contact CertifyGRC | Sales, Advisory & Support Inquiries"
+        description="Get in touch with the CertifyGRC team for product demos, consulting inquiries, partnership questions, or support. We respond within 24 business hours."
+        canonical="https://certifygrc.com/contact"
+        jsonLd={contactSchemas}
+      />
       <PageHero
         backgroundUrl={heroImagery.contact.background}
         foregroundUrl={heroImagery.contact.foreground}

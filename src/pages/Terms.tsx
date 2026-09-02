@@ -1,10 +1,16 @@
 import SectionHeading from "@/components/SectionHeading";
 import ScrollReveal from "@/components/ScrollReveal";
 import { PremiumCardStandalone } from "@/components/ui/PremiumCard";
+import SEO from "@/components/seo/SEO";
 
 export default function TermsPage() {
   return (
     <>
+      <SEO
+        title="Terms & Conditions | CertifyGRC"
+        description="Review the terms, conditions, and acceptable use policies for CertifyGRC software, consulting, and training services."
+        canonical="https://certifygrc.com/terms"
+      />
       <ScrollReveal>
         <section className="section-padding relative overflow-hidden">
           <div className="absolute inset-0 gradient-bg" />

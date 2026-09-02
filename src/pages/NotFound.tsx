@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AnimatedGridBackground from "@/components/visual/AnimatedGridBackground";
+import SEO from "@/components/seo/SEO";
 
 const NotFound = () => {
   const location = useLocation();
@@ -13,6 +14,11 @@ const NotFound = () => {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background">
+      <SEO
+        title="404 — Page Not Found | CertifyGRC"
+        description="The page you requested could not be found."
+        noIndex={true}
+      />
       <AnimatedGridBackground variant="section" fadeEdges />
 
       {/* Soft primary glow */}

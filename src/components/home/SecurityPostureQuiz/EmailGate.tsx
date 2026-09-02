@@ -13,9 +13,10 @@ import type { AssessmentSummary } from "@/lib/securityQuizScoring";
 import { BRAND_PRIMARY } from "@/lib/brandColors";
 
 export interface EmailGateSubmitValues {
+  fullName: string;
   email: string;
   companyName: string;
-  jobTitle: JobTitleOption | undefined;
+  jobTitle: JobTitleOption;
   consentMarketing: boolean;
   _gotcha: string;
 }
@@ -28,6 +29,7 @@ interface EmailGateProps {
 }
 
 export default function EmailGate({ summary, status, error, onSubmit }: EmailGateProps) {
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [jobTitle, setJobTitle] = useState<JobTitleOption | undefined>(undefined);
@@ -36,14 +38,24 @@ export default function EmailGate({ summary, status, error, onSubmit }: EmailGat
   const [touched, setTouched] = useState(false);
   const [privacyOpen, setPrivacyOpen] = useState(false);
 
+  const fullNameValid = fullName.trim().length >= 2;
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  const jobTitleValid = Boolean(jobTitle);
+  const companyNameValid = companyName.trim().length >= 2;
   const disabled = status === "loading";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setTouched(true);
-    if (!emailValid || !consent || disabled) return;
-    onSubmit({ email: email.trim(), companyName: companyName.trim(), jobTitle, consentMarketing: consent, _gotcha: readHoneypotValue(honeypotRef) });
+    if (!fullNameValid || !emailValid || !jobTitleValid || !jobTitle || !companyNameValid || !consent || disabled) return;
+    onSubmit({
+      fullName: fullName.trim(),
+      email: email.trim(),
+      companyName: companyName.trim(),
+      jobTitle,
+      consentMarketing: consent,
+      _gotcha: readHoneypotValue(honeypotRef),
+    });
   };
 
   return (
@@ -68,31 +80,48 @@ export default function EmailGate({ summary, status, error, onSubmit }: EmailGat
       </div>
 
       {/* Gate modal, centered on top */}
-      <div className="absolute inset-0 flex items-center justify-center bg-background/70 px-4 py-6 backdrop-blur-sm sm:px-6">
+      <div className="absolute inset-0 flex items-center justify-center bg-background/70 px-3 py-4 backdrop-blur-sm sm:px-6 sm:py-6">
         <div
-          className="w-full max-w-sm rounded-2xl border border-border/60 bg-card p-6 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.35)] sm:p-7"
+          className="max-h-[95%] w-full max-w-sm overflow-y-auto rounded-2xl border border-border/60 bg-card p-5 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.35)] sm:p-6"
         >
           <div className="flex items-center gap-2.5">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl" style={{ background: `${BRAND_PRIMARY}14` }}>
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl sm:h-9 sm:w-9" style={{ background: `${BRAND_PRIMARY}14` }}>
               <Lock className="h-4 w-4" style={{ color: BRAND_PRIMARY }} aria-hidden />
             </span>
             <div>
-              <h3 className="font-display text-base font-bold leading-snug text-foreground">
+              <h3 className="font-display text-sm font-bold leading-snug text-foreground sm:text-base">
                 Get your full NIST CSF maturity report
               </h3>
             </div>
           </div>
-          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-            Enter your work email to unlock your maturity score, gap analysis by function, and priority remediation
-            areas.
+          <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+            Enter your details to unlock your maturity score, gap analysis by function, and priority remediation areas.
           </p>
 
-          <form className="mt-5 space-y-3.5" onSubmit={handleSubmit} noValidate aria-busy={disabled}>
+          <form className="mt-4 space-y-3" onSubmit={handleSubmit} noValidate aria-busy={disabled}>
             <HoneypotField ref={honeypotRef} />
 
-            <div className="space-y-1.5">
+            <div className="space-y-1">
+              <Label htmlFor="quiz-gate-name" className="text-xs text-foreground">
+                Full name <span className="text-destructive">*</span>
+              </Label>
+              <Input
+                id="quiz-gate-name"
+                type="text"
+                autoComplete="name"
+                required
+                disabled={disabled}
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                placeholder="Jane Doe"
+                className="h-10 rounded-xl text-sm"
+              />
+              {touched && !fullNameValid && <p className="text-[11px] text-destructive">Enter your full name.</p>}
+            </div>
+
+            <div className="space-y-1">
               <Label htmlFor="quiz-gate-email" className="text-xs text-foreground">
-                Work email
+                Work email <span className="text-destructive">*</span>
               </Label>
               <Input
                 id="quiz-gate-email"
@@ -104,38 +133,22 @@ export default function EmailGate({ summary, status, error, onSubmit }: EmailGat
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@company.com"
-                className="h-11 rounded-xl text-sm"
+                className="h-10 rounded-xl text-sm"
               />
               {touched && !emailValid && <p className="text-[11px] text-destructive">Enter a valid work email address.</p>}
             </div>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="quiz-gate-company" className="text-xs text-foreground">
-                Company name <span className="text-muted-foreground">(optional)</span>
-              </Label>
-              <Input
-                id="quiz-gate-company"
-                type="text"
-                autoComplete="organization"
-                disabled={disabled}
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
-                placeholder="Acme Corp"
-                className="h-11 rounded-xl text-sm"
-              />
-            </div>
-
-            <div className="space-y-1.5">
+            <div className="space-y-1">
               <Label htmlFor="quiz-gate-title" className="text-xs text-foreground">
-                Job title <span className="text-muted-foreground">(optional)</span>
+                Job title <span className="text-destructive">*</span>
               </Label>
               <Select
                 value={jobTitle}
                 onValueChange={(v) => setJobTitle(v as JobTitleOption)}
                 disabled={disabled}
               >
-                <SelectTrigger id="quiz-gate-title" className="h-11 rounded-xl text-sm">
-                  <SelectValue placeholder="Select one" />
+                <SelectTrigger id="quiz-gate-title" className="h-10 rounded-xl text-sm">
+                  <SelectValue placeholder="Select your job title" />
                 </SelectTrigger>
                 <SelectContent>
                   {JOB_TITLE_OPTIONS.map((opt) => (
@@ -145,9 +158,28 @@ export default function EmailGate({ summary, status, error, onSubmit }: EmailGat
                   ))}
                 </SelectContent>
               </Select>
+              {touched && !jobTitleValid && <p className="text-[11px] text-destructive">Select your job title.</p>}
             </div>
 
-            <div className="flex items-start gap-2.5 pt-1">
+            <div className="space-y-1">
+              <Label htmlFor="quiz-gate-company" className="text-xs text-foreground">
+                Company name <span className="text-destructive">*</span>
+              </Label>
+              <Input
+                id="quiz-gate-company"
+                type="text"
+                autoComplete="organization"
+                required
+                disabled={disabled}
+                value={companyName}
+                onChange={(e) => setCompanyName(e.target.value)}
+                placeholder="Acme Corp"
+                className="h-10 rounded-xl text-sm"
+              />
+              {touched && !companyNameValid && <p className="text-[11px] text-destructive">Enter your company name.</p>}
+            </div>
+
+            <div className="flex items-start gap-2.5 pt-0.5">
               <Checkbox
                 id="quiz-gate-consent"
                 checked={consent}
@@ -160,7 +192,7 @@ export default function EmailGate({ summary, status, error, onSubmit }: EmailGat
                 anytime.
               </Label>
             </div>
-            {touched && !consent && <p className="-mt-2 text-[11px] text-destructive">Please agree to continue.</p>}
+            {touched && !consent && <p className="-mt-1.5 text-[11px] text-destructive">Please agree to continue.</p>}
 
             {status === "error" && error && (
               <div className="flex items-start gap-2 rounded-lg border border-destructive/25 bg-destructive/10 px-3 py-2 text-[11px] text-foreground" role="alert">
@@ -169,7 +201,7 @@ export default function EmailGate({ summary, status, error, onSubmit }: EmailGat
               </div>
             )}
 
-            <Button type="submit" size="lg" disabled={disabled} className="glow-primary h-11 w-full min-h-[44px] rounded-xl text-sm font-semibold">
+            <Button type="submit" size="lg" disabled={disabled} className="glow-primary h-10 w-full min-h-[40px] rounded-xl text-sm font-semibold">
               {status === "loading" ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden />

@@ -6,10 +6,26 @@ import PageHero from "@/components/PageHero";
 import { heroImagery } from "@/constants/heroImagery";
 import ApplicationFrameworksSections from "@/components/marketing/ApplicationFrameworksSections";
 import ScrollReveal from "@/components/ScrollReveal";
+import SEO from "@/components/seo/SEO";
+import { createBreadcrumbSchema, createSoftwareApplicationSchema } from "@/lib/schemaOrg";
 
 export default function FrameworksPage() {
+  const frameworkSchemas = [
+    createSoftwareApplicationSchema(),
+    createBreadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Supported Frameworks", url: "/frameworks" },
+    ]),
+  ];
+
   return (
     <>
+      <SEO
+        title="Supported Compliance Frameworks & Standards"
+        description="Explore supported GRC frameworks: NIST CSF 2.0, ISO 27001, SOC 2, HIPAA, GDPR, PCI DSS, and CIS Controls. Unified control mapping for faster multi-framework audits."
+        canonical="https://certifygrc.com/frameworks"
+        jsonLd={frameworkSchemas}
+      />
       <PageHero
         backgroundUrl={heroImagery.frameworks.background}
         foregroundUrl={heroImagery.frameworks.foreground}

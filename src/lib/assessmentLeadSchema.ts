@@ -29,6 +29,11 @@ const assessmentResultsSchema = z.object({
 
 /** Shared lead fields (honeypot validated separately on the server). */
 export const assessmentLeadCoreSchema = z.object({
+  fullName: z
+    .string()
+    .trim()
+    .min(2, "Enter your full name")
+    .max(120, "Name is too long"),
   email: z
     .string()
     .trim()
@@ -39,10 +44,11 @@ export const assessmentLeadCoreSchema = z.object({
   companyName: z
     .string()
     .trim()
-    .max(160, "Company name is too long")
-    .optional()
-    .transform((s) => (s && s.length > 0 ? s : undefined)),
-  jobTitle: z.enum(JOB_TITLE_OPTIONS).optional(),
+    .min(2, "Enter your company name")
+    .max(160, "Company name is too long"),
+  jobTitle: z.enum(JOB_TITLE_OPTIONS, {
+    errorMap: () => ({ message: "Select your job title" }),
+  }),
   source: z.literal("landing-security-quiz"),
   completedAt: z.string().min(1),
   results: assessmentResultsSchema,
@@ -68,7 +74,7 @@ export const assessmentLeadSchema = assessmentLeadCoreSchema
   .transform(({ _gotcha: _discard, ...rest }) => rest);
 
 /** Validated + normalized shape (email lowercased, honeypot stripped). */
-export type AssessmentLeadInput = z.infer<typeof assessmentLeadSchema>;
+export type AssessmentLeadInput = z.infer<typeof assessmentLeadCoreSchema>;
 
 /** Wire payload accepted from the browser (includes optional honeypot). */
 export type AssessmentLeadRequestBody = z.input<typeof assessmentLeadSchema>;
