@@ -58,6 +58,18 @@ export function createSoftwareApplicationSchema() {
       "All-in-one Governance, Risk, and Compliance platform with NIST CSF 2.0, ISO 27001, and SOC 2 mapping, continuous control monitoring, and gap remediation.",
     url: `${SITE_URL}/software`,
     screenshot: DEFAULT_OG_IMAGE,
+    isSimilarTo: [
+      {
+        "@type": "SoftwareApplication",
+        name: "Vanta",
+        applicationCategory: "SecurityApplication",
+      },
+      {
+        "@type": "SoftwareApplication",
+        name: "Drata",
+        applicationCategory: "SecurityApplication",
+      },
+    ],
     offers: {
       "@type": "Offer",
       price: "0",
@@ -69,6 +81,33 @@ export function createSoftwareApplicationSchema() {
       "@type": "Organization",
       name: SITE_NAME,
       url: SITE_URL,
+    },
+  };
+}
+
+export function createCompetitorComparisonSchema(opts: {
+  name: string;
+  description: string;
+  url: string;
+  comparedTo: string[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: opts.name,
+    description: opts.description,
+    url: opts.url.startsWith("http") ? opts.url : `${SITE_URL}${opts.url}`,
+    mainEntity: {
+      "@type": "SoftwareApplication",
+      name: "CertifyGRC Compliance & Risk Platform",
+      applicationCategory: "SecurityApplication",
+      operatingSystem: "Web-based, Cloud SaaS",
+      url: `${SITE_URL}/software`,
+      isSimilarTo: opts.comparedTo.map((c) => ({
+        "@type": "SoftwareApplication",
+        name: c,
+        applicationCategory: "SecurityApplication",
+      })),
     },
   };
 }

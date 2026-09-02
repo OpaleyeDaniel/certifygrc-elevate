@@ -5,6 +5,7 @@ import NistCsfSection from "@/components/home/NistCsfSection";
 import SecurityPostureQuizSection from "@/components/home/SecurityPostureQuizSection";
 import LiveDemoSection from "@/components/marketing/LiveDemoSection";
 import WhyCertifyGrcSection from "@/components/home/WhyCertifyGrcSection";
+import ComparisonHighlightSection from "@/components/home/ComparisonHighlightSection";
 import FeaturesSection from "@/components/home/FeaturesSection";
 import FrameworksSection from "@/components/home/FrameworksSection";
 import IndustriesSection from "@/components/home/IndustriesSection";
@@ -62,6 +63,7 @@ const Index = () => {
       <NistCsfSection />
       <SecurityPostureQuizSection />
       <WhyCertifyGrcSection />
+      <ComparisonHighlightSection />
       <FeaturesSection />
       <LiveDemoSection />
       <FrameworksSection />

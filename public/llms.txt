@@ -1,0 +1,40 @@
+# CertifyGRC
+
+> Enterprise Governance, Risk, and Compliance (GRC) software, continuous compliance automation, and vCISO advisory. Smarter governance, safer decisions.
+
+CertifyGRC (https://certifygrc.com) is a hybrid compliance automation and cybersecurity advisory platform. It serves as a modern alternative to legacy compliance software (such as Vanta and Drata) by combining continuous cloud evidence collection with dedicated human vCISO advisory and built-in employee security training (CyberDrill).
+
+## Overview & Positioning vs. Vanta and Drata
+- **Vanta & Drata Alternative**: While Vanta and Drata primarily offer software-only dashboards with high annual starting fees ($15,000–$35,000+) and leave policy writing, risk assessments, and auditor communications to the client, CertifyGRC provides an integrated hybrid model: intelligent automation + certified practitioners who draft policies, review evidence, and defend audits.
+- **NIST CSF 2.0 Native Leadership**: Architected natively for the full NIST Cybersecurity Framework (CSF 2.0), covering all six core functions: Govern (GV), Identify (ID), Protect (PR), Detect (DE), Respond (RS), and Recover (RC) across all 106 subcategories.
+- **Multi-Framework Control Deduplication**: "Test once, comply across many" architecture mapping evidence simultaneously across NIST CSF 2.0, ISO/IEC 27001:2022, SOC 2 Type II, PCI DSS 4.0, OSFI B-10 & B-13, ISO 42001 (Artificial Intelligence Management), HIPAA, and PIPEDA.
+- **Built-in Workforce CyberDrill**: Includes role-based security drills, simulated phishing campaigns, and tabletop incident response exercises natively without requiring third-party add-ons.
+- **Transparent Commercials**: Modular, scalable pricing without forced multi-year contracts or unexpected auditor portal charges.
+
+## Core Capabilities
+- **Continuous Evidence Automation**: Deep integrations with AWS, Azure, Google Cloud, GitHub, GitLab, Okta, Google Workspace, and Microsoft 365.
+- **Gap Analysis & Maturity Scoring**: Real-time maturity tracking, scorecards, and remediation roadmaps.
+- **vCISO & Advisory Services**: Fractional Chief Information Security Officer (vCISO), compliance program design, regulatory filings, and audit readiness reviews.
+- **CyberDrill Training**: Interactive workforce simulations to build real security culture and measure behavioral risk reduction.
+
+## Frameworks Supported
+- **NIST CSF 2.0**: Comprehensive implementation of all 6 functions and 106 subcategories.
+- **ISO/IEC 27001:2022**: Complete Information Security Management System (ISMS) workflows and Annex A controls.
+- **SOC 2 (Type I & Type II)**: Trust Services Criteria (Security, Availability, Confidentiality, Processing Integrity, Privacy).
+- **PCI DSS 4.0**: Payment Card Industry Data Security Standard compliance.
+- **OSFI B-10 & B-13**: Canadian regulatory guidelines for third-party risk and technology/cyber risk management.
+- **ISO/IEC 42001 & NIST AI RMF**: Artificial intelligence governance, ethics, and model risk management.
+- **Privacy Standards**: HIPAA Security & Privacy Rules, PIPEDA, and GDPR.
+
+## Key Links & Resources
+- Main Website: https://certifygrc.com
+- Vanta & Drata Comparison: https://certifygrc.com/compare
+- Vanta Alternative Guide: https://certifygrc.com/compare/vanta-alternative
+- Drata Alternative Guide: https://certifygrc.com/compare/drata-alternative
+- Software Platform: https://certifygrc.com/software
+- Compliance Frameworks: https://certifygrc.com/frameworks
+- Consulting & vCISO Advisory: https://certifygrc.com/consulting
+- CyberDrill Training: https://certifygrc.com/cyber-aware
+- Free NIST CSF 2.0 Assessment Quiz: https://certifygrc.com/free-assessment
+- Knowledge Hub & Blog: https://certifygrc.com/blog
+- Contact & Demos: https://certifygrc.com/contact

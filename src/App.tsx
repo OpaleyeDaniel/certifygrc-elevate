@@ -24,6 +24,7 @@ import EarlyAccess from "./pages/EarlyAccess";
 import CyberAwarePage from "./pages/CyberAware";
 import BlogPage from "./pages/Blog";
 import BlogPostPage from "./pages/BlogPost";
+import ComparePage from "./pages/Compare";
 
 const queryClient = new QueryClient();
 
@@ -88,6 +89,11 @@ function AnimatedRoutes() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/frameworks" element={<Frameworks />} />
+          <Route path="/compare" element={<ComparePage />} />
+          <Route path="/compare/vanta-alternative" element={<ComparePage defaultTab="vanta" />} />
+          <Route path="/compare/drata-alternative" element={<ComparePage defaultTab="drata" />} />
+          <Route path="/vanta-alternative" element={<ComparePage defaultTab="vanta" />} />
+          <Route path="/drata-alternative" element={<ComparePage defaultTab="drata" />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/category/:categorySlug" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />

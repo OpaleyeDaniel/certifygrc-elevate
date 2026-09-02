@@ -7,6 +7,7 @@ import {
   createBreadcrumbSchema,
   createServiceSchema,
   createBlogPostingSchema,
+  createCompetitorComparisonSchema,
 } from "./schemaOrg";
 import { HOMEPAGE_FAQS } from "@/components/home/FAQSection";
 
@@ -28,13 +29,16 @@ describe("Schema.org JSON-LD generators", () => {
     expect(site.potentialAction.target.urlTemplate).toContain("search_term_string");
   });
 
-  it("generates valid SoftwareApplication schema", () => {
+  it("generates valid SoftwareApplication schema with competitor similarity", () => {
     const app = createSoftwareApplicationSchema();
     expect(app["@type"]).toBe("SoftwareApplication");
     expect(app.name).toContain("CertifyGRC");
     expect(app.applicationCategory).toBe("SecurityApplication");
     expect(app.offers["@type"]).toBe("Offer");
     expect(app.offers.price).toBe("0");
+    expect(Array.isArray(app.isSimilarTo)).toBe(true);
+    expect(app.isSimilarTo.some((c: { name: string }) => c.name === "Vanta")).toBe(true);
+    expect(app.isSimilarTo.some((c: { name: string }) => c.name === "Drata")).toBe(true);
   });
 
   it("generates valid FAQPage schema from FAQs", () => {
@@ -85,5 +89,19 @@ describe("Schema.org JSON-LD generators", () => {
     expect(post.author["@type"]).toBe("Person");
     expect(post.author.name).toBe("Security Specialist");
     expect(post.publisher.name).toBe("CertifyGRC");
+  });
+
+  it("generates valid CompetitorComparison schema", () => {
+    const comp = createCompetitorComparisonSchema({
+      name: "CertifyGRC vs Vanta",
+      description: "Comparison guide",
+      url: "/compare/vanta-alternative",
+      comparedTo: ["Vanta", "Drata"],
+    });
+    expect(comp["@type"]).toBe("WebPage");
+    expect(comp.name).toBe("CertifyGRC vs Vanta");
+    expect(comp.mainEntity["@type"]).toBe("SoftwareApplication");
+    expect(comp.mainEntity.isSimilarTo.length).toBe(2);
+    expect(comp.mainEntity.isSimilarTo[0].name).toBe("Vanta");
   });
 });
