@@ -53,5 +53,4 @@ CertifyGRC (https://certifygrc.com) is an enterprise Governance, Risk, and Compl
 - CyberDrill Training & Simulations: https://certifygrc.com/cyber-aware
 - vCISO & Advisory Services: https://certifygrc.com/consulting
 - Free 2-Min Posture Quiz: https://certifygrc.com/free-assessment
-- Platform Comparisons & Alternatives: https://certifygrc.com/compare
 - Contact & Demos: https://certifygrc.com/contact

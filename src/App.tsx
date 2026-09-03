@@ -24,7 +24,6 @@ import EarlyAccess from "./pages/EarlyAccess";
 import CyberAwarePage from "./pages/CyberAware";
 import BlogPage from "./pages/Blog";
 import BlogPostPage from "./pages/BlogPost";
-import ComparePage from "./pages/Compare";
 import NistCsfSolutionPage from "./pages/solutions/NistCsfSolution";
 import Iso27001SolutionPage from "./pages/solutions/Iso27001Solution";
 
@@ -95,11 +94,6 @@ function AnimatedRoutes() {
           <Route path="/nist-csf-2-0" element={<NistCsfSolutionPage />} />
           <Route path="/solutions/iso-27001" element={<Iso27001SolutionPage />} />
           <Route path="/iso-27001" element={<Iso27001SolutionPage />} />
-          <Route path="/compare" element={<ComparePage />} />
-          <Route path="/compare/vanta-alternative" element={<ComparePage defaultTab="vanta" />} />
-          <Route path="/compare/drata-alternative" element={<ComparePage defaultTab="drata" />} />
-          <Route path="/vanta-alternative" element={<ComparePage defaultTab="vanta" />} />
-          <Route path="/drata-alternative" element={<ComparePage defaultTab="drata" />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/category/:categorySlug" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />

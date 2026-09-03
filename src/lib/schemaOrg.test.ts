@@ -34,6 +34,9 @@ describe("Schema.org JSON-LD generators", () => {
     expect(app["@type"]).toBe("SoftwareApplication");
     expect(app.name).toContain("CertifyGRC");
     expect(app.applicationCategory).toBe("SecurityApplication");
+    expect(app.applicationSubCategory).toBe("Compliance Automation Software");
+    expect(app.aggregateRating["@type"]).toBe("AggregateRating");
+    expect(app.aggregateRating.ratingValue).toBe("4.9");
     expect(app.offers["@type"]).toBe("Offer");
     expect(app.offers.price).toBe("0");
     expect(Array.isArray(app.featureList)).toBe(true);

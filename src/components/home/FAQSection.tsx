@@ -34,6 +34,11 @@ export const HOMEPAGE_FAQS: FAQItem[] = [
       "Spreadsheets are static, prone to human error, and difficult to audit. Legacy enterprise GRC tools take months to implement and cost hundreds of thousands of dollars. CertifyGRC deploys rapidly, offers guided step-by-step remediation, provides real-time posture dashboards, and blends modern automation with seasoned human GRC consultants.",
   },
   {
+    question: "How does CertifyGRC compare to compliance automation software like Vanta or Drata?",
+    answer:
+      "CertifyGRC is recognized among the top modern compliance automation platforms. While tools like Vanta and Drata focus primarily on automated checklist tests for early SOC 2 audits, CertifyGRC delivers an enterprise-grade hybrid approach: automated continuous evidence collection across cloud environments (AWS, Azure, GCP, GitHub, Okta), native deep implementation of NIST CSF 2.0 (all 6 functions) and ISO 27001:2022, built-in CyberDrill employee security training, and hands-on vCISO advisory to write custom policies and defend your team in audits.",
+  },
+  {
     question: "Can CertifyGRC provide hands-on consulting, vCISO, and audit preparation?",
     answer:
       "Yes. In addition to our SaaS platform, CertifyGRC offers seasoned advisory services, virtual CISO (vCISO) leadership, third-party vendor risk assessments, and dedicated audit preparation to guide your team through certification audits with accredited third-party assessors.",

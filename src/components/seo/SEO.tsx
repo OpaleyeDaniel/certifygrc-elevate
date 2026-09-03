@@ -11,6 +11,7 @@ import {
 export interface SEOProps {
   title?: string;
   description?: string;
+  keywords?: string;
   canonical?: string;
   ogType?: "website" | "article";
   ogImage?: string;
@@ -81,6 +82,7 @@ function updateJsonLd(jsonLd: Record<string, unknown> | Array<Record<string, unk
 export default function SEO({
   title,
   description = "CertifyGRC delivers practical GRC solutions — software, consulting, and training — to simplify compliance, manage risk, and drive governance excellence.",
+  keywords,
   canonical,
   ogType = "website",
   ogImage = DEFAULT_OG_IMAGE,
@@ -108,6 +110,9 @@ export default function SEO({
 
     // Primary meta tags
     updateOrCreateMeta("name", "description", description);
+    if (keywords) {
+      updateOrCreateMeta("name", "keywords", keywords);
+    }
     updateOrCreateMeta(
       "name",
       "robots",
@@ -146,6 +151,7 @@ export default function SEO({
   }, [
     title,
     description,
+    keywords,
     canonical,
     location.pathname,
     ogType,

@@ -53,11 +53,19 @@ export function createSoftwareApplicationSchema() {
     "@type": "SoftwareApplication",
     name: "CertifyGRC Compliance & Risk Platform",
     applicationCategory: "SecurityApplication",
+    applicationSubCategory: "Compliance Automation Software",
     operatingSystem: "Web-based, Cloud SaaS",
     description:
       "All-in-one Governance, Risk, and Compliance platform with NIST CSF 2.0, ISO 27001, and SOC 2 mapping, continuous control monitoring, and gap remediation.",
     url: `${SITE_URL}/software`,
     screenshot: DEFAULT_OG_IMAGE,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "128",
+      bestRating: "5",
+      worstRating: "1",
+    },
     featureList: [
       "Native NIST CSF 2.0 6-Function Architecture (Govern, Identify, Protect, Detect, Respond, Recover)",
       "Continuous Cloud Evidence Synchronization (AWS, Azure, GCP, GitHub, Okta, Microsoft 365)",

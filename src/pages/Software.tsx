@@ -46,8 +46,9 @@ export default function SoftwarePage() {
   return (
     <>
       <SEO
-        title="GRC Software & Compliance Automation Platform"
-        description="Streamline NIST CSF 2.0, ISO 27001, and SOC 2 compliance with CertifyGRC software. Automated evidence collection, real-time risk scoring, and continuous monitoring."
+        title="Compliance Automation Software & GRC Platform"
+        description="Looking for top compliance automation software? CertifyGRC provides automated evidence collection, continuous cloud monitoring, and audit readiness for SOC 2, ISO 27001, and NIST CSF 2.0 — combining modern software with dedicated vCISO advisory."
+        keywords="compliance automation software, software like Drata, software like Vanta, Vanta alternative, Drata alternative, best GRC software, SOC 2 compliance tool, ISO 27001 automation, continuous evidence collection, audit readiness"
         canonical="https://certifygrc.com/software"
         jsonLd={softwareSchemas}
       />

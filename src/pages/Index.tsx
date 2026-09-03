@@ -42,8 +42,11 @@ const Index = () => {
     ? "Free NIST CSF 2.0 Security Posture Assessment | CertifyGRC"
     : "CertifyGRC | Smarter Governance, Risk & Compliance Platform";
   const seoDescription = isFreeAssessment
-    ? "Take our free 2-minute NIST CSF 2.0 cybersecurity posture quiz. Assess maturity across Govern, Identify, Protect, Detect, Respond, and Recover with instant scoring."
-    : "Simplify compliance, automate risk management, and accelerate audit readiness with CertifyGRC. Aligned with NIST CSF 2.0, ISO 27001, SOC 2, and more.";
+    ? "Take our free 2-minute NIST CSF 2.0 cybersecurity posture quiz. Assess maturity across Govern, Identify, Protect, Detect, Respond, Recover with instant scoring."
+    : "Simplify compliance, automate risk management, and accelerate audit readiness with CertifyGRC. Aligned with NIST CSF 2.0, ISO 27001, SOC 2, and more. A top choice for teams seeking compliance automation software like Drata and Vanta.";
+  const seoKeywords = isFreeAssessment
+    ? "NIST CSF 2.0 assessment, cybersecurity posture quiz, free security assessment, NIST maturity score, cyber risk evaluation"
+    : "software like Drata, software like Vanta, Vanta alternative, Drata alternative, compliance automation software, best GRC platforms, NIST CSF 2.0 software, ISO 27001 automation, SOC 2 compliance tool, continuous compliance software, automated evidence collection, vCISO advisory";
   const canonicalUrl = isFreeAssessment
     ? "https://certifygrc.com/free-assessment"
     : "https://certifygrc.com";
@@ -53,6 +56,7 @@ const Index = () => {
       <SEO
         title={seoTitle}
         description={seoDescription}
+        keywords={seoKeywords}
         canonical={canonicalUrl}
         jsonLd={homeSchemas}
       />
