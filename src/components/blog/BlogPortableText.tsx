@@ -68,7 +68,7 @@ const components: PortableTextComponents = {
       </div>
     ),
     callout: ({ value }: { value: { type?: string; title?: string; body?: string } }) => {
-      const style = CALLOUT_STYLES[value.type ?? "info"];
+      const style = CALLOUT_STYLES[value?.type ?? "info"] ?? CALLOUT_STYLES.info;
       const Icon = style.icon;
       return (
         <div className={`my-6 flex gap-3 rounded-xl border p-4 shadow-[0_1px_0_rgba(255,255,255,0.04)_inset] ${style.bg} ${style.border}`}>

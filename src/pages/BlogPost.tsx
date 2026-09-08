@@ -243,8 +243,6 @@ export default function BlogPostPage() {
           </aside>
         </div>
       </div>
-
-      <ArticleSchema post={post} coverUrl={coverUrl} />
     </>
   );
 }

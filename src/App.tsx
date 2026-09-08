@@ -26,6 +26,7 @@ import BlogPage from "./pages/Blog";
 import BlogPostPage from "./pages/BlogPost";
 import NistCsfSolutionPage from "./pages/solutions/NistCsfSolution";
 import Iso27001SolutionPage from "./pages/solutions/Iso27001Solution";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 const queryClient = new QueryClient();
 
@@ -114,7 +115,9 @@ function AppInner() {
         <BrowserRouter>
           <ScrollToTop />
           <Layout>
-            <AnimatedRoutes />
+            <ErrorBoundary>
+              <AnimatedRoutes />
+            </ErrorBoundary>
           </Layout>
         </BrowserRouter>
       </TooltipProvider>

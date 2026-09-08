@@ -42,13 +42,25 @@ export function getAuthorSlug(author?: SanityAuthor): string {
 /** Format a Sanity publishedAt date string */
 export function formatPostDate(dateStr?: string): string {
   if (!dateStr) return "";
-  return format(new Date(dateStr), "MMMM d, yyyy");
+  try {
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return "";
+    return format(d, "MMMM d, yyyy");
+  } catch {
+    return "";
+  }
 }
 
 /** Relative date like "3 days ago" */
 export function relativeDate(dateStr?: string): string {
   if (!dateStr) return "";
-  return formatDistanceToNow(new Date(dateStr), { addSuffix: true });
+  try {
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return "";
+    return formatDistanceToNow(d, { addSuffix: true });
+  } catch {
+    return "";
+  }
 }
 
 /** Extract plain-text headings from a Portable Text body for TOC */
@@ -59,12 +71,12 @@ export interface TocEntry {
 }
 
 export function extractToc(body: unknown[]): TocEntry[] {
-  if (!body) return [];
+  if (!body || !Array.isArray(body)) return [];
   return (body as { _type: string; style?: string; _key: string; children?: { text: string }[] }[])
-    .filter((b) => b._type === "block" && ["h2", "h3", "h4"].includes(b.style ?? ""))
+    .filter((b) => b && b._type === "block" && ["h2", "h3", "h4"].includes(b.style ?? ""))
     .map((b) => ({
-      id: b._key,
-      text: (b.children ?? []).map((c) => c.text).join(""),
+      id: b._key || Math.random().toString(36).slice(2),
+      text: (b.children ?? []).map((c) => c?.text ?? "").join(""),
       level: parseInt(b.style?.replace("h", "") ?? "2", 10),
     }));
 }
