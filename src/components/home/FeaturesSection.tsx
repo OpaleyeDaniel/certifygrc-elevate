@@ -9,21 +9,21 @@ const FEATURES = [
     description:
       "Evidence validation, automated control checks, and structured assessments — assign by framework, collect proof automatically, and stop chasing spreadsheets.",
     image: "/home-features/workflow-mockup.png",
-    imageAlt: "Structured compliance workflow — controls, eLearning, and certification steps",
+    imageAlt: "Automated compliance workflow interface with evidence validation and continuous control checks",
   },
   {
     title: "Real-time command center",
     description:
       "Monitor posture, control status, and program progress from desktop or mobile. Your GRC metrics stay visible wherever your team works.",
     image: "/home-features/mobile-mockup.png",
-    imageAlt: "Mobile and desktop GRC dashboard with training progress and course tracking",
+    imageAlt: "Real-time GRC command center dashboard showing 94% security posture, NIST CSF 2.0 controls, and telemetry",
   },
   {
     title: "Continuous audit readiness",
     description:
       "Expiry alerts, evidence trails, and export-ready audit packs keep you ahead of every review — with a clear record of who did what, and when.",
     image: "/home-features/compliance-mockup.png",
-    imageAlt: "Compliance dashboard with training completion, activity timeline, and audit status",
+    imageAlt: "Continuous audit readiness dashboard with export-ready audit bundles and immutable evidence trails",
   },
 ] as const;
 

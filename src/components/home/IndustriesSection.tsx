@@ -20,7 +20,7 @@ const INDUSTRIES = [
       "Keep audit evidence organized and defensible",
     ],
     image: "/home-industries/government.png",
-    imageAlt: "Government sector — public sector compliance and governance",
+    imageAlt: "Government compliance solutions — federal multi-department risk hub and audit trails",
   },
   {
     id: "healthcare",
