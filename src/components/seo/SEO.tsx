@@ -18,6 +18,8 @@ export interface SEOProps {
   publishedTime?: string;
   modifiedTime?: string;
   author?: string;
+  articleSection?: string;
+  articleTags?: string[];
   noIndex?: boolean;
   jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
@@ -89,6 +91,8 @@ export default function SEO({
   publishedTime,
   modifiedTime,
   author,
+  articleSection,
+  articleTags,
   noIndex = false,
   jsonLd,
 }: SEOProps) {
@@ -132,6 +136,18 @@ export default function SEO({
       if (publishedTime) updateOrCreateMeta("property", "article:published_time", publishedTime);
       if (modifiedTime) updateOrCreateMeta("property", "article:modified_time", modifiedTime);
       if (author) updateOrCreateMeta("property", "article:author", author);
+      if (articleSection) updateOrCreateMeta("property", "article:section", articleSection);
+      if (articleTags && articleTags.length > 0) {
+        if (typeof document !== "undefined") {
+          document.querySelectorAll('meta[property="article:tag"]').forEach((el) => el.remove());
+          articleTags.forEach((tag) => {
+            const tagEl = document.createElement("meta");
+            tagEl.setAttribute("property", "article:tag");
+            tagEl.setAttribute("content", tag);
+            document.head.appendChild(tagEl);
+          });
+        }
+      }
     }
 
     // Twitter Card
@@ -159,6 +175,8 @@ export default function SEO({
     publishedTime,
     modifiedTime,
     author,
+    articleSection,
+    articleTags,
     noIndex,
     jsonLd,
   ]);

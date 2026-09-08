@@ -15,21 +15,29 @@ if (!fs.existsSync(TEMPLATE_PATH)) {
 const template = fs.readFileSync(TEMPLATE_PATH, "utf-8");
 
 const SITE_URL = "https://certifygrc.com";
+const SITE_NAME = "CertifyGRC";
+const SANITY_PROJECT_ID = process.env.VITE_SANITY_PROJECT_ID || "729gr7n1";
+const SANITY_DATASET = process.env.VITE_SANITY_DATASET || "production";
+const DEFAULT_OG_IMAGE = "https://certifygrc.com/application-hero-dashboard.png";
 
 /**
  * @typedef {Object} PageMeta
  * @property {string} route
  * @property {string} title
  * @property {string} description
- * @property {string} keywords
+ * @property {string} [keywords]
  * @property {string} canonical
- * @property {string} heading
- * @property {string} subheading
- * @property {string} htmlBody
+ * @property {string} [ogImage]
+ * @property {string} [ogType]
+ * @property {string} [publishedTime]
+ * @property {string} [modifiedTime]
+ * @property {string} [author]
+ * @property {string} [htmlBody]
+ * @property {Record<string, unknown> | Array<Record<string, unknown>>} [jsonLd]
  */
 
 /** @type {PageMeta[]} */
-const PAGES = [
+const STATIC_PAGES = [
   {
     route: "solutions/nist-csf-2-0",
     title: "NIST CSF 2.0 Compliance Software & Continuous Gap Analysis Platform | CertifyGRC",
@@ -38,9 +46,6 @@ const PAGES = [
     keywords:
       "NIST CSF 2.0 software, NIST CSF platform, NIST CSF compliance tool, NIST CSF 2.0 gap analysis, NIST Cybersecurity Framework automation, NIST maturity assessment, Govern function NIST, OneTrust alternative, Hyperproof alternative",
     canonical: `${SITE_URL}/solutions/nist-csf-2-0`,
-    heading: "Enterprise NIST CSF 2.0 Software & Maturity Automation",
-    subheading:
-      "Master cybersecurity governance, continuous gap analysis, and risk mitigation across all six core NIST CSF 2.0 functions.",
     htmlBody: `
       <section>
         <h1>Enterprise NIST CSF 2.0 Software &amp; Maturity Automation</h1>
@@ -68,9 +73,6 @@ const PAGES = [
     keywords:
       "ISO 27001 software, ISO 27001 automation platform, ISO 27001:2022 ISMS tool, Statement of Applicability automation, Annex A 93 controls, ISO 27001 certification software, GRC platform",
     canonical: `${SITE_URL}/solutions/iso-27001`,
-    heading: "Streamlined ISO 27001:2022 Compliance & ISMS Automation",
-    subheading:
-      "Accelerate certification and maintain continuous compliance across all 93 Annex A controls with real-time Statement of Applicability generation.",
     htmlBody: `
       <section>
         <h1>Streamlined ISO 27001:2022 Compliance &amp; ISMS Platform</h1>
@@ -96,9 +98,6 @@ const PAGES = [
     keywords:
       "NIST CSF 2.0 framework, ISO 27001 compliance, SOC 2 Type II, PCI DSS 4.0, OSFI B-10, OSFI B-13, ISO 42001 AI governance, PIPEDA, HIPAA compliance software, compliance automation software, software like Drata, software like Vanta",
     canonical: `${SITE_URL}/frameworks`,
-    heading: "Supported Compliance Frameworks & Standards",
-    subheading:
-      "CertifyGRC maps evidence across the world's most demanding cybersecurity and regulatory standards from a single unified control framework.",
     htmlBody: `
       <section>
         <h1>Supported Compliance Standards &amp; Frameworks</h1>
@@ -139,9 +138,6 @@ const PAGES = [
     keywords:
       "compliance automation software, software like Drata, software like Vanta, Vanta alternative, Drata alternative, best GRC software, SOC 2 compliance tool, ISO 27001 automation, continuous evidence collection, vCISO advisory",
     canonical: `${SITE_URL}/software`,
-    heading: "Intelligent GRC & Compliance Automation Software",
-    subheading:
-      "Connect your cloud environment, automate evidence polling, track maturity, and collaborate with auditors inside one unified workspace.",
     htmlBody: `
       <section>
         <h1>CertifyGRC Compliance Automation &amp; Risk Platform</h1>
@@ -162,9 +158,6 @@ const PAGES = [
     keywords:
       "vCISO advisory, virtual CISO, fractional CISO, compliance consulting, SOC 2 consultant, ISO 27001 advisory, NIST CSF 2.0 consultant",
     canonical: `${SITE_URL}/consulting`,
-    heading: "vCISO & Strategic Compliance Advisory",
-    subheading:
-      "Expert cybersecurity leadership without full-time executive overhead. Program design, policy authoring, and auditor representation.",
     htmlBody: `
       <section>
         <h1>vCISO &amp; Advisory Services</h1>
@@ -180,9 +173,6 @@ const PAGES = [
     keywords:
       "CyberDrill, security awareness training, phishing simulation, tabletop exercises, incident response drills, employee cybersecurity training",
     canonical: `${SITE_URL}/cyber-aware`,
-    heading: "CyberDrill: Training & Incident Simulations",
-    subheading:
-      "Transform human risk into an active line of defense with realistic phishing campaigns and tabletop drills.",
     htmlBody: `
       <section>
         <h1>CyberDrill Security Awareness &amp; Simulations</h1>
@@ -198,9 +188,6 @@ const PAGES = [
     keywords:
       "NIST CSF 2.0 assessment, cybersecurity posture quiz, free security assessment, NIST maturity score, cyber risk evaluation",
     canonical: `${SITE_URL}/free-assessment`,
-    heading: "Free NIST CSF 2.0 Posture Assessment",
-    subheading:
-      "Evaluate your security maturity across all six NIST CSF 2.0 functions in 2 minutes and receive an instant gap breakdown.",
     htmlBody: `
       <section>
         <h1>Free NIST CSF 2.0 Security Posture Assessment</h1>
@@ -208,9 +195,53 @@ const PAGES = [
       </section>
     `,
   },
+  {
+    route: "blog",
+    title: "GRC Intelligence Hub | Cybersecurity, Risk & Compliance Insights | CertifyGRC",
+    description:
+      "Read expert insights on NIST CSF 2.0, ISO 27001 compliance, cyber risk management, audit readiness strategies, and GRC best practices from the CertifyGRC team.",
+    keywords:
+      "GRC blog, cybersecurity insights, NIST CSF 2.0 guide, ISO 27001 tips, SOC 2 compliance, audit readiness, vCISO advisory",
+    canonical: `${SITE_URL}/blog`,
+    htmlBody: `
+      <section>
+        <h1>CertifyGRC Intelligence Hub</h1>
+        <p>Expert insights on governance, risk, compliance, cybersecurity, and regulatory intelligence — written by practitioners, for practitioners.</p>
+      </section>
+    `,
+  },
 ];
 
-// Helper to replace or inject tags in template
+async function fetchSanityPosts() {
+  const query = encodeURIComponent(`*[_type == "blogPost" && defined(slug.current)] | order(publishedAt desc) {
+    title,
+    "slug": slug.current,
+    excerpt,
+    publishedAt,
+    _updatedAt,
+    "coverImageUrl": coverImage.asset->url,
+    "author": author->{ name, role, linkedIn },
+    "categories": categories[]->{ title, "slug": slug.current },
+    "tags": tags[]->title,
+    body
+  }`);
+  const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v2023-05-03/data/query/${SANITY_DATASET}?query=${query}`;
+
+  try {
+    const res = await fetch(url);
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.result || [];
+  } catch (err) {
+    console.warn("[prerender] Could not fetch live Sanity posts:", err.message);
+    return [];
+  }
+}
+
+/**
+ * Render a complete static HTML page with metadata in <head> and fallback in <noscript>.
+ * The #root container is NEVER overwritten with visible text so users NEVER experience FOUC!
+ */
 function renderPage(meta) {
   let html = template;
 
@@ -221,16 +252,23 @@ function renderPage(meta) {
   if (html.includes('name="description"')) {
     html = html.replace(
       /<meta\s+name="description"\s+content="[^"]*"\s*\/?>/i,
-      `<meta name="description" content="${meta.description}" />`,
+      `<meta name="description" content="${meta.description.replace(/"/g, "&quot;")}" />`,
     );
   }
 
   // Replace or add <meta name="keywords">
-  if (html.includes('name="keywords"')) {
-    html = html.replace(
-      /<meta\s+name="keywords"\s+content="[^"]*"\s*\/?>/i,
-      `<meta name="keywords" content="${meta.keywords}" />`,
-    );
+  if (meta.keywords) {
+    if (html.includes('name="keywords"')) {
+      html = html.replace(
+        /<meta\s+name="keywords"\s+content="[^"]*"\s*\/?>/i,
+        `<meta name="keywords" content="${meta.keywords.replace(/"/g, "&quot;")}" />`,
+      );
+    } else {
+      html = html.replace(
+        /<\/head>/i,
+        `  <meta name="keywords" content="${meta.keywords.replace(/"/g, "&quot;")}" />\n</head>`,
+      );
+    }
   }
 
   // Replace canonical
@@ -240,121 +278,241 @@ function renderPage(meta) {
   );
 
   // Replace OpenGraph
+  const ogImage = meta.ogImage || DEFAULT_OG_IMAGE;
+  const ogType = meta.ogType || "website";
+
   html = html.replace(
     /<meta\s+property="og:title"\s+content="[^"]*"\s*\/?>/i,
-    `<meta property="og:title" content="${meta.title}" />`,
+    `<meta property="og:title" content="${meta.title.replace(/"/g, "&quot;")}" />`,
   );
   html = html.replace(
     /<meta\s+property="og:description"\s+content="[^"]*"\s*\/?>/i,
-    `<meta property="og:description" content="${meta.description}" />`,
+    `<meta property="og:description" content="${meta.description.replace(/"/g, "&quot;")}" />`,
   );
   html = html.replace(
     /<meta\s+property="og:url"\s+content="[^"]*"\s*\/?>/i,
     `<meta property="og:url" content="${meta.canonical}" />`,
   );
+  html = html.replace(
+    /<meta\s+property="og:image"\s+content="[^"]*"\s*\/?>/i,
+    `<meta property="og:image" content="${ogImage}" />`,
+  );
+  html = html.replace(
+    /<meta\s+property="og:type"\s+content="[^"]*"\s*\/?>/i,
+    `<meta property="og:type" content="${ogType}" />`,
+  );
 
-  // Replace Twitter
+  // Article-specific OpenGraph meta tags
+  if (ogType === "article") {
+    let articleMeta = "";
+    if (meta.publishedTime) {
+      articleMeta += `\n  <meta property="article:published_time" content="${meta.publishedTime}" />`;
+    }
+    if (meta.modifiedTime) {
+      articleMeta += `\n  <meta property="article:modified_time" content="${meta.modifiedTime}" />`;
+    }
+    if (meta.author) {
+      articleMeta += `\n  <meta property="article:author" content="${meta.author.replace(/"/g, "&quot;")}" />`;
+    }
+    if (articleMeta) {
+      html = html.replace(/<\/head>/i, `${articleMeta}\n</head>`);
+    }
+  }
+
+  // Replace Twitter Card
   html = html.replace(
     /<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/?>/i,
-    `<meta name="twitter:title" content="${meta.title}" />`,
+    `<meta name="twitter:title" content="${meta.title.replace(/"/g, "&quot;")}" />`,
   );
   html = html.replace(
     /<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/?>/i,
-    `<meta name="twitter:description" content="${meta.description}" />`,
+    `<meta name="twitter:description" content="${meta.description.replace(/"/g, "&quot;")}" />`,
+  );
+  html = html.replace(
+    /<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/?>/i,
+    `<meta name="twitter:image" content="${ogImage}" />`,
   );
 
-  // Inject crawlable semantic body into <div id="root">
-  const renderedRoot = `
-    <div id="root">
-      <main class="static-seo-prerender" style="display: block;">
-        ${meta.htmlBody}
-      </main>
-    </div>
-  `.trim();
+  // Inject JSON-LD Schema if provided
+  if (meta.jsonLd) {
+    const jsonLdString = JSON.stringify(meta.jsonLd);
+    const scriptTag = `\n  <script type="application/ld+json">${jsonLdString}</script>\n`;
+    html = html.replace(/<\/head>/i, `${scriptTag}</head>`);
+  }
 
-  html = html.replace(/<div\s+id="root">\s*<\/div>/i, renderedRoot);
+  // IMPORTANT: Inject semantic crawl fallback strictly inside <noscript> outside #root!
+  // This ensures search bots see full text, while human users with JS enabled NEVER see raw unstyled text flashing!
+  if (meta.htmlBody) {
+    const noscriptContent = `
+    <noscript>
+      <div class="static-seo-prerender">
+        ${meta.htmlBody}
+      </div>
+    </noscript>
+    `.trim();
+
+    html = html.replace(/<\/body>/i, `  ${noscriptContent}\n  </body>`);
+  }
 
   return html;
 }
 
-// Generate static files
-let generatedCount = 0;
+async function run() {
+  let generatedCount = 0;
 
-for (const page of PAGES) {
-  const targetDir = path.join(DIST_DIR, page.route);
-  if (!fs.existsSync(targetDir)) {
-    fs.mkdirSync(targetDir, { recursive: true });
+  // 1. Pre-render static service & solutions pages
+  for (const page of STATIC_PAGES) {
+    const targetDir = path.join(DIST_DIR, page.route);
+    if (!fs.existsSync(targetDir)) {
+      fs.mkdirSync(targetDir, { recursive: true });
+    }
+
+    const targetFile = path.join(targetDir, "index.html");
+    const renderedHtml = renderPage(page);
+    fs.writeFileSync(targetFile, renderedHtml, "utf-8");
+    console.log(`[prerender] Generated static HTML: ${page.route}/index.html`);
+    generatedCount++;
+
+    // Aliases
+    if (page.route === "solutions/nist-csf-2-0") {
+      const aliasDir = path.join(DIST_DIR, "nist-csf-2-0");
+      fs.mkdirSync(aliasDir, { recursive: true });
+      fs.writeFileSync(path.join(aliasDir, "index.html"), renderedHtml, "utf-8");
+      generatedCount++;
+    }
+    if (page.route === "solutions/iso-27001") {
+      const aliasDir = path.join(DIST_DIR, "iso-27001");
+      fs.mkdirSync(aliasDir, { recursive: true });
+      fs.writeFileSync(path.join(aliasDir, "index.html"), renderedHtml, "utf-8");
+      generatedCount++;
+    }
   }
 
-  const targetFile = path.join(targetDir, "index.html");
-  const renderedHtml = renderPage(page);
-  fs.writeFileSync(targetFile, renderedHtml, "utf-8");
-  console.log(`[prerender] Generated static HTML: ${page.route}/index.html`);
-  generatedCount++;
+  // 2. Fetch and pre-render all live Sanity blog posts
+  const posts = await fetchSanityPosts();
+  console.log(`[prerender] Fetched ${posts.length} blog posts from Sanity for SEO pre-rendering.`);
 
-  // Also create aliases if applicable (e.g. /vanta-alternative and /drata-alternative)
-  if (page.route === "solutions/nist-csf-2-0") {
-    const aliasDir = path.join(DIST_DIR, "nist-csf-2-0");
-    fs.mkdirSync(aliasDir, { recursive: true });
-    fs.writeFileSync(path.join(aliasDir, "index.html"), renderedHtml, "utf-8");
-    console.log(`[prerender] Generated static HTML alias: nist-csf-2-0/index.html`);
+  for (const post of posts) {
+    const postSlug = post.slug;
+    if (!postSlug) continue;
+
+    const postUrl = `${SITE_URL}/blog/${postSlug}`;
+    const postTitle = `${post.title} | CertifyGRC Blog`;
+    const postDesc = post.excerpt || `Read ${post.title} on CertifyGRC.`;
+    const postCover = post.coverImageUrl || DEFAULT_OG_IMAGE;
+    const authorName = post.author?.name || "CertifyGRC";
+    const categories = (post.categories || []).map((c) => c.title).join(", ");
+    const tags = (post.tags || []).join(", ");
+    const keywords = [post.title, categories, tags, "NIST CSF 2.0", "ISO 27001", "GRC Compliance"]
+      .filter(Boolean)
+      .join(", ");
+
+    // Schema.org BlogPosting
+    const blogPostingSchema = {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": postUrl,
+      },
+      headline: post.title,
+      description: postDesc,
+      image: postCover,
+      datePublished: post.publishedAt,
+      dateModified: post._updatedAt || post.publishedAt,
+      author: {
+        "@type": "Person",
+        name: authorName,
+        jobTitle: post.author?.role || "Compliance Specialist",
+        url: post.author?.linkedIn || undefined,
+      },
+      publisher: {
+        "@type": "Organization",
+        name: SITE_NAME,
+        logo: {
+          "@type": "ImageObject",
+          url: `${SITE_URL}/certifygrc-logo.png`,
+        },
+      },
+    };
+
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/blog` },
+        { "@type": "ListItem", position: 3, name: post.title, item: postUrl },
+      ],
+    };
+
+    /** @type {PageMeta} */
+    const postMeta = {
+      route: `blog/${postSlug}`,
+      title: postTitle,
+      description: postDesc,
+      keywords,
+      canonical: postUrl,
+      ogImage: postCover,
+      ogType: "article",
+      publishedTime: post.publishedAt,
+      modifiedTime: post._updatedAt || post.publishedAt,
+      author: authorName,
+      htmlBody: `
+        <article>
+          <header>
+            <h1>${post.title}</h1>
+            ${post.publishedAt ? `<p>Published on ${post.publishedAt.split("T")[0]} by ${authorName}</p>` : `<p>By ${authorName}</p>`}
+            ${categories ? `<p>Category: ${categories}</p>` : ""}
+          </header>
+          <p class="lead">${post.excerpt || ""}</p>
+          <p><a href="/blog">Return to CertifyGRC Blog</a> | <a href="/software">Explore CertifyGRC Platform</a></p>
+        </article>
+      `,
+      jsonLd: [blogPostingSchema, breadcrumbSchema],
+    };
+
+    const postDir = path.join(DIST_DIR, "blog", postSlug);
+    if (!fs.existsSync(postDir)) {
+      fs.mkdirSync(postDir, { recursive: true });
+    }
+
+    const postFile = path.join(postDir, "index.html");
+    const renderedPostHtml = renderPage(postMeta);
+    fs.writeFileSync(postFile, renderedPostHtml, "utf-8");
+    console.log(`[prerender] Pre-rendered blog post: blog/${postSlug}/index.html`);
     generatedCount++;
   }
-  if (page.route === "solutions/iso-27001") {
-    const aliasDir = path.join(DIST_DIR, "iso-27001");
-    fs.mkdirSync(aliasDir, { recursive: true });
-    fs.writeFileSync(path.join(aliasDir, "index.html"), renderedHtml, "utf-8");
-    console.log(`[prerender] Generated static HTML alias: iso-27001/index.html`);
-    generatedCount++;
+
+  // 3. Ensure dist/index.html (homepage & dynamic SPA fallback) has clean noscript fallback
+  // with ZERO text inside #root so that visiting or reloading NEVER flashes unstyled text!
+  const homeNoscript = `
+    <noscript>
+      <div class="static-seo-prerender">
+        <header>
+          <h1>CertifyGRC — Smarter Governance, Risk &amp; Compliance Platform</h1>
+          <p>Enterprise compliance automation, continuous control monitoring, and hands-on vCISO advisory natively aligned with NIST CSF 2.0, ISO 27001, and SOC 2.</p>
+        </header>
+        <section>
+          <h2>Enterprise Continuous Compliance Automation</h2>
+          <p>CertifyGRC empowers modern security leaders with continuous control monitoring, automated cloud evidence collection, native NIST CSF 2.0 gap analysis, and certified vCISO advisory. Built for high-growth enterprises and regulated organizations.</p>
+          <p><a href="/solutions/nist-csf-2-0">Explore NIST CSF 2.0 Solution</a> | <a href="/solutions/iso-27001">Explore ISO 27001 ISMS</a> | <a href="/software">Explore Software Platform</a></p>
+        </section>
+      </div>
+    </noscript>
+  `.trim();
+
+  // Inject home fallback before </body> only if not already present
+  let cleanHomeHtml = template;
+  if (!cleanHomeHtml.includes("<noscript>")) {
+    cleanHomeHtml = cleanHomeHtml.replace(/<\/body>/i, `  ${homeNoscript}\n</body>`);
   }
-  if (page.route === "compare/vanta-alternative") {
-    const aliasDir = path.join(DIST_DIR, "vanta-alternative");
-    fs.mkdirSync(aliasDir, { recursive: true });
-    fs.writeFileSync(path.join(aliasDir, "index.html"), renderedHtml, "utf-8");
-    console.log(`[prerender] Generated static HTML alias: vanta-alternative/index.html`);
-    generatedCount++;
-  }
-  if (page.route === "compare/drata-alternative") {
-    const aliasDir = path.join(DIST_DIR, "drata-alternative");
-    fs.mkdirSync(aliasDir, { recursive: true });
-    fs.writeFileSync(path.join(aliasDir, "index.html"), renderedHtml, "utf-8");
-    console.log(`[prerender] Generated static HTML alias: drata-alternative/index.html`);
-    generatedCount++;
-  }
+  fs.writeFileSync(TEMPLATE_PATH, cleanHomeHtml, "utf-8");
+  console.log(`[prerender] Injected clean <noscript> SEO fallback into dist/index.html (Zero-FOUC).`);
+
+  console.log(`[prerender] Successfully generated ${generatedCount + 1} static pre-rendered pages with zero FOUC.`);
 }
 
-// Also enhance dist/index.html (homepage) with rich crawlable semantic fallback!
-const homePrerender = `
-  <div id="root">
-    <main class="static-seo-prerender">
-      <header>
-        <h1>CertifyGRC — Smarter Governance, Risk &amp; Compliance Platform</h1>
-        <p>Enterprise compliance automation, continuous control monitoring, and hands-on vCISO advisory natively aligned with NIST CSF 2.0, ISO 27001, and SOC 2.</p>
-      </header>
-      <section>
-        <h2>Enterprise Continuous Compliance Automation</h2>
-        <p>CertifyGRC empowers modern security leaders with continuous control monitoring, automated cloud evidence collection, native NIST CSF 2.0 gap analysis, and certified vCISO advisory. Built for high-growth enterprises and regulated organizations.</p>
-        <p><a href="/solutions/nist-csf-2-0">Explore NIST CSF 2.0 Solution</a> | <a href="/solutions/iso-27001">Explore ISO 27001 ISMS</a> | <a href="/software">Explore Software Platform</a></p>
-      </section>
-      <section>
-        <h2>Compliance Standards Supported</h2>
-        <ul>
-          <li>NIST CSF 2.0 (Govern, Identify, Protect, Detect, Respond, Recover)</li>
-          <li>ISO/IEC 27001:2022 ISMS</li>
-          <li>SOC 2 (Type I &amp; Type II) Trust Services Criteria</li>
-          <li>PCI DSS 4.0</li>
-          <li>OSFI Guidelines B-10 &amp; B-13</li>
-          <li>ISO 42001 (Artificial Intelligence Management) &amp; NIST AI RMF</li>
-          <li>PIPEDA, HIPAA, and GDPR</li>
-        </ul>
-        <p><a href="/free-assessment">Take the Free 2-Minute NIST CSF 2.0 Posture Quiz</a></p>
-      </section>
-    </main>
-  </div>
-`.trim();
-
-const updatedHomeHtml = template.replace(/<div\s+id="root">\s*<\/div>/i, homePrerender);
-fs.writeFileSync(TEMPLATE_PATH, updatedHomeHtml, "utf-8");
-console.log(`[prerender] Injected rich semantic SEO crawl fallback into dist/index.html`);
-
-console.log(`[prerender] Successfully generated ${generatedCount + 1} static pre-rendered pages.`);
+run().catch((err) => {
+  console.error("[prerender] Error during pre-rendering:", err);
+});

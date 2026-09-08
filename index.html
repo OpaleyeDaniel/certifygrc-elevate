@@ -57,11 +57,30 @@
       html.dark body {
         background-color: #05070d;
       }
+      /* Prevent any crawl fallback text from ever flashing to human users */
+      .static-seo-prerender {
+        display: none !important;
+      }
+      @keyframes appLoaderPulse {
+        0%, 100% { transform: scale(1); opacity: 0.8; }
+        50% { transform: scale(1.06); opacity: 1; filter: drop-shadow(0 0 10px rgba(48,92,222,0.6)); }
+      }
+      @keyframes appLoaderBar {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(200%); }
+      }
     </style>
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="app-loading-state" style="position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#05070d;z-index:9999;">
+        <img src="/certifygrc-mark.svg" alt="CertifyGRC" style="width:44px;height:44px;animation:appLoaderPulse 1.8s ease-in-out infinite;pointer-events:none;" />
+        <div style="width:36px;height:2px;background:rgba(255,255,255,0.08);border-radius:2px;margin-top:16px;overflow:hidden;position:relative;">
+          <div style="position:absolute;inset:0;width:50%;background:linear-gradient(90deg,transparent,#305CDE,#5B7FE8,transparent);animation:appLoaderBar 1.2s cubic-bezier(0.4,0,0.2,1) infinite;"></div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

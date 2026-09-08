@@ -66,17 +66,36 @@ export default function BlogPostPage() {
     ]),
   ];
 
+  const postCategory = post.categories?.[0]?.title;
+  const tagNames = (post.tags ?? []).map((t) => (typeof t === "string" ? t : t.title)).filter(Boolean);
+  const keywords = Array.from(
+    new Set([
+      post.title,
+      ...(postCategory ? [postCategory] : []),
+      ...tagNames,
+      "NIST CSF 2.0",
+      "ISO 27001",
+      "SOC 2",
+      "Cybersecurity Compliance",
+      "GRC Platform",
+      "CertifyGRC",
+    ]),
+  ).join(", ");
+
   return (
     <>
       <SEO
         title={seoTitle}
         description={seoDesc}
+        keywords={keywords}
         canonical={`https://certifygrc.com/blog/${slug}`}
         ogType="article"
         ogImage={ogCoverUrl || coverUrl || undefined}
         publishedTime={post.publishedAt}
         modifiedTime={post.publishedAt}
         author={post.author?.name}
+        articleSection={postCategory}
+        articleTags={tagNames.length > 0 ? tagNames : undefined}
         jsonLd={postSchemas}
       />
       <BlogReadingProgress />
